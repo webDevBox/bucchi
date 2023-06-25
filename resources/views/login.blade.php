@@ -911,9 +911,9 @@
                                              </div>
                                              <a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/forgot-password" class="text-primary ms-2 mb-1"> Forgot Password? </a>
                                           </div>
-                                          <button type="submit" class="v-btn v-btn--block v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated">
+                                          <a href="{{ route('adminDashboard') }}" type="submit" class="v-btn v-btn--block v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated">
                                              <span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!----><span class="v-btn__content" data-no-activator=""> Login </span><!----><!---->
-                                          </button>
+                                          </a>
                                        </div>
                                        {{-- <div class="v-col v-col-12 text-center"><span>New on our platform?</span><a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/register" class="text-primary ms-2"> Create an account </a></div> --}}
                                        {{-- <div class="v-col v-col-12 d-flex align-center">
