@@ -135,7 +135,7 @@
                     </section>
                     <!-- Step 2 Content, default hidden on page load. -->
                     <section id="step-2" class="form-step d-none">
-                        <h2 class="font-normal">Social Profiles</h2>
+                        <h2 class="font-normal">Order Details</h2>
                         <!-- Step 2 input fields -->
                         <div class="mt-3">
                             Step 2 input fields goes here..
@@ -147,7 +147,7 @@
                     </section>
                     <!-- Step 3 Content, default hidden on page load. -->
                     <section id="step-3" class="form-step d-none">
-                        <h2 class="font-normal">Personal Details</h2>
+                        <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
                             Step 3 input fields goes here..
@@ -159,7 +159,7 @@
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
                     <section id="step-4" class="form-step d-none">
-                        <h2 class="font-normal">Personal Details</h2>
+                        <h2 class="font-normal">Overview</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
                             Step 3 input fields goes here..
