@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/',[AuthController::class, 'login'])->name('login');
 
-Route::prefix('admin')->group(function () {
+// Route::group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
-});
+    Route::prefix('order')->group(function () {
+        Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
+    });
+// });

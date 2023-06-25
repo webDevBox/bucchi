@@ -34,7 +34,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/charts/chart-apex.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/ext-component-toastr.css')}}">
 <!-- END: Page CSS-->
-
+@yield('style')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- BEGIN: Custom CSS-->
@@ -175,7 +175,7 @@
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('adminDashboard') }}"><i data-feather="home" style="color:  #6610F2;"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span></a></li>
 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
 </li>
-<li class=" nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fa-cart-plus" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Create Order</span></a>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('createOrder') }}"><i class="fa fa-cart-plus" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Create Order</span></a>
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fa-cart-arrow-down" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Update Order</span></a>
 </li>
@@ -207,7 +207,7 @@
 
 <!-- BEGIN: Footer-->
 <footer class="footer footer-static footer-light">
-<p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020 Bucchi's<span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
+<p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020 Bucchi's<span class="d-none d-sm-inline-block">, All rights Reserved</span></span></p>
 </footer>
 <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
 <!-- END: Footer-->
