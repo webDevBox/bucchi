@@ -1,6 +1,80 @@
 @extends('layouts.app')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
+<style>
+     .item {
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .item:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .item label {
+      display: inline-block;
+      width: 100px;
+      font-weight: bold;
+    }
+
+    .item input {
+      margin-bottom: 5px;
+      width: 200px;
+    }
+
+    .item .item-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .item:hover .item-actions {
+      opacity: 1;
+    }
+
+    .item .item-actions button {
+      padding: 5px 10px;
+      background-color: #ff4444;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #itemizedPart {
+      margin-bottom: 20px;
+    }
+
+    #itemizedPart::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .item-move-btn {
+      display: inline-block;
+      margin-right: 5px;
+      padding: 3px 8px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .item-move-btn:hover {
+      background-color: #555;
+    }
+  </style>
 @endsection
 @section('content')
 <div class="app-content content ">
@@ -61,6 +135,25 @@
                         <!-- Step 1 input fields -->
                         <div class="mt-3 offset-3">
                             <div class="form-group">
+                            
+                                <label class="col-md-12  h5  control-label" for="product_description">Select Client</label>
+                        
+                                <div class="col-md-9">
+                        
+                                    <select class="form-control" id="client_select" name="client_select" required>
+                        
+                                        <option selected disabled >Select Any Client</option>
+                                        <option value="John">John</option>
+                                        <option value="Morder">Morder</option>
+                                        <option value="Jack">Jack</option>
+                                        <option value="Nick">Nick</option>
+                                        <option value="..other..">Add New Client</option>
+                                    </select>
+                                @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif 
+                                </div>
+                                </div>
+                                <br>
+                            <div class="form-group d-none" id="client_new">
             
                                 <label class="col-md-12 h5 control-label" for="client_name">Client Name</label>
                             
@@ -73,31 +166,6 @@
                                 </div>
                             
                                 </div>
-                            
-                                <br>
-                    
-                                <div class="form-group">
-                            
-                                    <label class="col-md-12  h5  control-label" for="product_description">Select Previous Client</label>
-                            
-                                    <div class="col-md-9">
-                            
-                                        <select class="form-control" id="client_select" name="client_select" required>
-                            
-                                            <option selected disabled >Select Any Client</option>
-                                            <option value="John">John</option>
-                                            <option value="Morder">Morder</option>
-                                            <option value="Jack">Jack</option>
-                                            <option value="Nick">Nick</option>
-                                        </select>
-                            
-                                    @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif 
-                            
-                                    
-                            
-                                    </div>
-                            
-                                    </div>
                 
                                     <br>
                 
@@ -137,8 +205,71 @@
                     <section id="step-2" class="form-step d-none">
                         <h2 class="font-normal">Order Details</h2>
                         <!-- Step 2 input fields -->
-                        <div class="mt-3">
-                            Step 2 input fields goes here..
+                        <div class="mt-3 offset-3">
+                            <div class="form-group">
+                            
+                                <label class="col-md-12 h5 control-label" for="order_delivery">Delivery</label>
+
+                                <div class="col-md-9">
+                            
+                                    <input type="text" id="order_delivery"  value="{{ old('delivery') }}" name="delivery" class="form-control" placeholder="Enter Delivery" required>
+                                
+                                    @if ($errors->has('delivery')) <p style="color:red;">{{ $errors->first('delivery') }}</p> @endif 
+                            
+                                </div>
+                            
+                            </div>
+                            <br>
+                            <div class="form-group">
+                            
+                                <label class="col-md-12 h5 control-label" for="order_date">Delivery Date</label>
+
+                                <div class="col-md-9">
+                            
+                                    <input type="date" id="order_date"  value="{{ old('order_date') }}" name="delivery_date" class="form-control" placeholder="Enter Delivery Date" required>
+                                
+                                    @if ($errors->has('delivery_date')) <p style="color:red;">{{ $errors->first('delivery_date') }}</p> @endif 
+                            
+                                </div>
+                            
+                            </div>
+                            
+                            <br>
+
+                            <div class="form-group">
+                            
+                                <label class="col-md-12  h5  control-label" for="product_description">Select Currency</label>
+                        
+                                <div class="col-md-9">
+                        
+                                    <select class="form-control" id="currency_select" name="" required>
+                        
+                                        <option selected disabled >Select Currency</option>
+                                        <option value="PKR">PKR</option>
+                                        <option value="USD">USD</option>
+                                        <option value="GBP">GBP</option>
+                                        <option value="EUR">EUR</option>
+                                        <option value="CAD">CAD</option>
+                                        <option value="AUD">AUD</option>
+                                        <option value="..other..">Add Other Currency</option>
+                                    </select>
+                                {{-- @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif  --}}
+                                </div>
+                                </div>
+                                <br>
+                            <div class="form-group d-none" id="currency_div">
+                            
+                                <label class="col-md-12 h5 control-label" for="order_currency ">Enter Currency</label>
+
+                                <div class="col-md-9">
+                            
+                                    <input type="text" id="order_currency"  value="{{ old('order_currency') }}" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
+                                
+                                    @if ($errors->has('order_currency')) <p style="color:red;">{{ $errors->first('order_currency') }}</p> @endif 
+                            
+                                </div>
+                            
+                            </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
@@ -150,7 +281,31 @@
                         <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
-                            Step 3 input fields goes here..
+                            <div id="itemizedPart">
+                                <div class="item">
+                                  <label>Item #: </label>
+                                  <input type="number" name="itemNumber" class="form-control item-number">
+                                  <br>
+                                  <label>Outfit Name: </label>
+                                  <input type="text" name="outfitName" class="form-control outfit-name">
+                                  <br>
+                                  <label>Outfit Description: </label>
+                                  <input type="text" name="outfitDescription" class="form-control outfit-description">
+                                  <br>
+                                  <label>Price: </label>
+                                  <input type="number" name="price" class="form-control price">
+                                  <br>
+                                  <label>Hours: </label>
+                                  <input type="number" name="hours" class="form-control hours">
+                                  <br>
+                                  <div class="item-actions">
+                                    <button class="delete-item">Delete</button>
+                                    <button class="move-up item-move-btn">Move Up</button>
+                                    <button class="move-down item-move-btn">Move Down</button>
+                                  </div>
+                                </div>
+                              </div>
+                              <button onclick="addItem()" class="button">Add Item</button>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
@@ -183,10 +338,35 @@
     <script>
         $('#client_select').change(function(){
             var client = $('#client_select').val()
-            $('#client_name').val(client)
+            if(client === '..other..')
+            {
+                $('#client_name').val('');
+                $('#client_new').removeClass('d-none');
+                
+            }
+            else
+            {
+                $('#client_name').val(client)
+            }
         })
+        
+        $('#currency_select').change(function(){
+            var currency = $('#currency_select').val();
+            if(currency === '..other..')
+            {
+                $('#order_currency').val('');
+                $('#currency_div').removeClass('d-none');
+                
+            }
+            else
+            {
+                $('#order_currency').val(currency);
+            }
+        })
+
     </script>
 
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
+<script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script>
 
 @endsection
