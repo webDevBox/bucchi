@@ -343,8 +343,28 @@
                                   <input type="number" class="input-field" placeholder="Enter Item #">
                                   <input type="text" class="input-field" placeholder="Enter Outfit name..">
                                   <input type="text" class="input-field" placeholder="Enter Outfit Description..">
-                                  <input type="number" class="input-field" placeholder="Enter Price..">
-                                  <input type="number" class="input-field" placeholder="Enter Hours..">
+                                  {{-- <div class="d-flex">
+                                    
+                                        <label for="">Price</label>
+                                        <input type="number" class="input-field" placeholder="Enter Price..">
+                                    
+                                        <label for="">Hours</label>
+                                        <input type="number" class="input-field" placeholder="Enter Hours..">
+                                    
+                                  </div> --}}
+
+                                  <div class="row offset-2">
+                                    <div class="col-5">
+                                        <label for="price">Price</label>
+                                        <input type="number" id="price" class="input-field" placeholder="Enter Price..">
+                                    </div>
+                                    
+                                    <div class="col-5">
+                                        <label for="hours">Hours</label>
+                                        <input type="number" id="hours" class="input-field" placeholder="Enter Hours..">
+                                    </div>
+                                    </div>
+                                  
                                   <div class="button-block">
                                     <button class="move-up">Move Up</button>
                                     <button class="move-down">Move Down</button>
