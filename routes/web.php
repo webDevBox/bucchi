@@ -22,5 +22,6 @@ Route::get('/',[AuthController::class, 'login'])->name('login');
     Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
     Route::prefix('order')->group(function () {
         Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
+        Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
     });
 // });

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
-<style>
+{{-- <style>
      .item {
       margin-bottom: 20px;
       border: 1px solid #ccc;
@@ -74,7 +74,40 @@
     .item-move-btn:hover {
       background-color: #555;
     }
-  </style>
+</style> --}}
+<style>
+   .block {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.button-block {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.move-up,
+.move-down,
+.delete {
+  margin-left: 5px;
+}
+
+.input-field {
+  display: block;
+  margin-bottom: 5px;
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#add-block {
+  margin-top: 10px;
+}
+
+</style>
 @endsection
 @section('content')
 <div class="app-content content ">
@@ -281,7 +314,7 @@
                         <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
-                            <div id="itemizedPart">
+                            {{-- <div id="itemizedPart">
                                 <div class="item">
                                   <label>Item #: </label>
                                   <input type="number" name="itemNumber" class="form-control item-number">
@@ -304,8 +337,22 @@
                                     <button class="move-down item-move-btn">Move Down</button>
                                   </div>
                                 </div>
+                            </div> --}}
+                            <div id="block-container">
+                                <div class="block">
+                                  <input type="number" class="input-field" placeholder="Enter Item #">
+                                  <input type="text" class="input-field" placeholder="Enter Outfit name..">
+                                  <input type="text" class="input-field" placeholder="Enter Outfit Description..">
+                                  <input type="number" class="input-field" placeholder="Enter Price..">
+                                  <input type="number" class="input-field" placeholder="Enter Hours..">
+                                  <div class="button-block">
+                                    <button class="move-up">Move Up</button>
+                                    <button class="move-down">Move Down</button>
+                                    <button class="delete">Delete Outfit</button>
+                                  </div>
+                                </div>
                               </div>
-                              <button onclick="addItem()" class="button">Add Item</button>
+                              <button class="button" id="add-block">Add Outfit</button>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
@@ -367,6 +414,7 @@
     </script>
 
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
-<script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script>
+{{-- <script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script> --}}
+<script src="{{ asset('app-assets/js/form.js')}}"></script>
 
 @endsection
