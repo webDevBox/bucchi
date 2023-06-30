@@ -23,5 +23,6 @@ Route::get('/',[AuthController::class, 'login'])->name('login');
     Route::prefix('order')->group(function () {
         Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
         Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
+        Route::get('/outfit',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
     });
 // });

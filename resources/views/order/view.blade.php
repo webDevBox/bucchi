@@ -1,8 +1,4 @@
 @extends('layouts.app')
-@section('style')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-@endsection
-
 @section('content')
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -21,8 +17,7 @@
     <div class="card-body p-0">
     <div class="table-responsive">
         <div class="block full">
-            <!-- All Orders Content -->
-                <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
+            <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
                 <th class="text-center">Invoice#</th>
@@ -36,16 +31,33 @@
                         <tr>
                             <td class="text-center"> 123 </td>
                             <td class="text-center"> 
-                                <a href="#" data-toggle="tooltip" title="View" > john </a>
+                                <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
                             </td>
                             <td class="text-center">3 june 2023</td>
                             <td class="text-center"> Active </td>
                             <td class="text-center">5</td>
-                            </tr>
+                        </tr>
+                        <tr>
+                            <td class="text-center"> 123 </td>
+                            <td class="text-center"> 
+                                <a href="#" data-toggle="modal" data-target="#myModal8" > Dekro </a>
+                            </td>
+                            <td class="text-center">3 june 2023</td>
+                            <td class="text-center"> Active </td>
+                            <td class="text-center">5</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"> 123 </td>
+                            <td class="text-center"> 
+                                <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
+                            </td>
+                            <td class="text-center">3 june 2023</td>
+                            <td class="text-center"> Active </td>
+                            <td class="text-center">5</td>
+                        </tr>
                     
                 </tbody>
                 </table>
-            <!-- END All Orders Content -->
 
             </div>
     </div>
@@ -60,6 +72,10 @@
     </div>
     </div>
     </div>
+    @component('components.outfitModal', ['modalId' => 'myModal', 'modalTitle' => 'Outfits'])
+        
+    @endcomponent
+    
 @endsection
 
 @section('scripts')

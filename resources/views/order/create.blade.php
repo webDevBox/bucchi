@@ -342,7 +342,8 @@
                                 <div class="block">
                                   <input type="number" class="input-field" placeholder="Enter Item #">
                                   <input type="text" class="input-field" placeholder="Enter Outfit name..">
-                                  <input type="text" class="input-field" placeholder="Enter Outfit Description..">
+                                  <textarea name="" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
+                                  {{-- <input type="text" class="input-field" placeholder="Enter Outfit Description.."> --}}
                                   {{-- <div class="d-flex">
                                     
                                         <label for="">Price</label>
