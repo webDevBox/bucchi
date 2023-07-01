@@ -13,6 +13,10 @@ class AuthController extends Controller
 
     public function auth(Request $request)
     {
-        dd($request->role);
+        if($request->role == 'admin')
+        {
+            return redirect()->route('adminDashboard');
+        }
+        return redirect()->route('officeDashboard');
     }
 }

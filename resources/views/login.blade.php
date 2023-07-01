@@ -900,7 +900,7 @@
                                                 <br>
                                                 <div style="display: flex">
                                                    
-                                                   <input type="radio" id="admin" name="role" value="admin">
+                                                   <input type="radio" id="admin" name="role" checked value="admin">
                                                    <label style="margin-left: 4px;" for="admin">Admin</label>
 
                                                    
