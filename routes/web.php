@@ -19,10 +19,13 @@ use App\Http\Controllers\OrderController;
 Route::get('/',[AuthController::class, 'login'])->name('login');
 
 // Route::group(function () {
+    Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
     Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
     Route::prefix('order')->group(function () {
         Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
         Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
         Route::get('/outfit',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
+        Route::get('/changes',[OrderController::class, 'changes'])->name('outfitChanges');
+        Route::get('/update/{id}',[OrderController::class, 'update'])->name('orderUpdate');
     });
 // });

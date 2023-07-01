@@ -791,7 +791,8 @@
                                  <h5 class="text-h5 mb-1"> Welcome to <span class="text-capitalize" style="color: #7367F0">BUCCHI'S</span></h5>
                               </div>
                               <div class="v-card-text">
-                                 <form class="v-form" novalidate="">
+                                 <form method="post" action="{{ route('auth') }}" class="v-form" novalidate="">
+                                    @csrf
                                     <div class="v-row">
                                        <div class="v-col v-col-12">
                                           <div class="app-text-field flex-grow-1">
@@ -864,6 +865,14 @@
                                                          </label>
                                                          <!----><input size="1" type="password" id="app-text-field-Password-qh9c1" aria-describedby="app-text-field-Password-qh9c1-messages" class="v-field__input"><!---->
                                                       </div>
+
+                                                      <div class="v-field__field" data-no-activator="">
+                                                         <!---->
+                                                         <label class="v-label v-field-label" for="app-text-field-Password-qh9c1">
+                                                            <!----><!---->
+                                                         </label>
+                                                         <!----><input size="1" type="password" id="app-text-field-Password-qh9c1" aria-describedby="app-text-field-Password-qh9c1-messages" class="v-field__input"><!---->
+                                                      </div>
                                                       <!---->
                                                       <div class="v-field__append-inner">
                                                          <!---->
@@ -885,9 +894,25 @@
                                                 <!----><!---->
                                              </div>
                                           </div>
+                                          <div style="margin: 10px 0px;">
+
+                                          <label for="">Select role</label>
+                                                <br>
+                                                <div style="display: flex">
+                                                   
+                                                   <input type="radio" id="admin" name="role" value="admin">
+                                                   <label style="margin-left: 4px;" for="admin">Admin</label>
+
+                                                   
+                                                   <input style="margin-left: 15px;" type="radio" id="office" name="role" value="office">
+                                                   <label style="margin-left: 4px;" for="office">Office</label>
+
+                                                </div>
+                                             </div>
                                           <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
                                              <div class="v-input v-input--horizontal v-input--density-comfortable v-input--dirty v-checkbox">
                                                 <!---->
+                                                
                                                 <div class="v-input__control">
                                                    <div class="v-selection-control v-selection-control--inline v-selection-control--density-comfortable v-checkbox-btn">
                                                       <div class="v-selection-control__wrapper">
@@ -911,9 +936,9 @@
                                              </div>
                                              <a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/forgot-password" class="text-primary ms-2 mb-1"> Forgot Password? </a>
                                           </div>
-                                          <a href="{{ route('adminDashboard') }}" type="submit" class="v-btn v-btn--block v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated">
+                                          <button type="submit" class="v-btn v-btn--block v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated">
                                              <span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!----><span class="v-btn__content" data-no-activator=""> Login </span><!----><!---->
-                                          </a>
+                                          </button>
                                        </div>
                                        {{-- <div class="v-col v-col-12 text-center"><span>New on our platform?</span><a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/register" class="text-primary ms-2"> Create an account </a></div> --}}
                                        {{-- <div class="v-col v-col-12 d-flex align-center">

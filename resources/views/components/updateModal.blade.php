@@ -14,34 +14,47 @@
                     <th class="text-center">Article#</th>
                     <th class="text-center">Outfit Name</th>
                     <th class="text-center">Hours</th>
-                    <th class="text-center"> Status </th>
+                    <th class="text-center"> Action </th>
                     </tr>
                     </thead>
                     <tbody>
                             <tr>
                                 <td class="text-center"> 123 </td>
                                 <td class="text-center"> 
-                                    <a target="_blank" href="{{ route('OutFitDetails') }}" > Fit Me </a>
+                                    <a target="_blank" href="#" > Fit Me </a>
                                 </td>
                                 <td class="text-center">10 hours</td>
-                                <td class="text-center"> Active </td>
+                                <td class="text-center"> 
+                                    <div class="btn-group btn-group-xs">
+                                        <button onclick="sendProduction()" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
+                                    </div>     
+                                </td>
                             </tr>
                             <tr>
-                                <td class="text-center"> 456 </td>
+                                <td class="text-center"> 45 </td>
                                 <td class="text-center"> 
-                                    <a target="_blank" href="{{ route('OutFitDetails') }}" > Dekro </a>
+                                    <a target="_blank" href="#" > Rooper </a>
                                 </td>
-                                <td class="text-center">13 hours</td>
-                                <td class="text-center"> Active </td>
+                                <td class="text-center">14 hours</td>
+                                <td class="text-center"> 
+                                    <div class="btn-group btn-group-xs">
+                                        <button onclick="sendProduction()" disabled title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
+                                    </div>     
+                                </td>
                             </tr>
                             <tr>
                                 <td class="text-center"> 789 </td>
                                 <td class="text-center"> 
-                                    <a target="_blank" href="{{ route('OutFitDetails') }}" > Seep </a>
+                                    <a target="_blank" href="#" > Shamp </a>
                                 </td>
                                 <td class="text-center">23 hours</td>
-                                <td class="text-center"> Active </td>
+                                <td class="text-center"> 
+                                    <div class="btn-group btn-group-xs">
+                                        <button onclick="sendProduction()" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
+                                    </div>     
+                                </td>
                             </tr>
+                            
                         
                     </tbody>
                     </table>

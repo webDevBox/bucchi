@@ -10,4 +10,9 @@ class AuthController extends Controller
     {
         return view('login');
     }
+
+    public function auth(Request $request)
+    {
+        dd($request->role);
+    }
 }

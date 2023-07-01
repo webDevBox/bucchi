@@ -20,4 +20,14 @@ class OrderController extends Controller
     {
         return view('order.outfit');
     }
+    
+    public function changes()
+    {
+        return view('order.changes');
+    }
+    
+    public function update()
+    {
+        return view('order.update');
+    }
 }

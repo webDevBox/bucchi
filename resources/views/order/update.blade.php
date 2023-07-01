@@ -1,80 +1,6 @@
 @extends('layouts.app')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
-{{-- <style>
-     .item {
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .item:hover {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .item label {
-      display: inline-block;
-      width: 100px;
-      font-weight: bold;
-    }
-
-    .item input {
-      margin-bottom: 5px;
-      width: 200px;
-    }
-
-    .item .item-actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .item:hover .item-actions {
-      opacity: 1;
-    }
-
-    .item .item-actions button {
-      padding: 5px 10px;
-      background-color: #ff4444;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #itemizedPart {
-      margin-bottom: 20px;
-    }
-
-    #itemizedPart::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    .item-move-btn {
-      display: inline-block;
-      margin-right: 5px;
-      padding: 3px 8px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .item-move-btn:hover {
-      background-color: #555;
-    }
-</style> --}}
 <style>
    .block {
   border: 1px solid #ccc;
@@ -119,7 +45,7 @@
     <div class="content-body">
 
         <div style="background-color: white;">
-            <h1> <strong> Create New </strong> Order</h1>
+            <h1> <strong> Update </strong> Order</h1>
             <div id="multi-step-form-container">
                 <!-- Form Steps / Progress Bar -->
                 <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
@@ -178,7 +104,7 @@
                                         <option selected disabled >Select Any Client</option>
                                         <option value="John">John</option>
                                         <option value="Morder">Morder</option>
-                                        <option value="Jack">Jack</option>
+                                        <option value="Jack" selected>Jack</option>
                                         <option value="Nick">Nick</option>
                                         <option value="..other..">Add New Client</option>
                                     </select>
@@ -208,7 +134,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="number" id="client_contact"  value="{{ old('client_contact') }}" name="client_contact" class="form-control" placeholder="Enter Client Contact Number.." required>
+                                        <input type="number" id="client_contact"  value="03000000000" name="client_contact" class="form-control" placeholder="Enter Client Contact Number.." required>
                                     
                                         @if ($errors->has('client_contact')) <p style="color:red;">{{ $errors->first('client_contact') }}</p> @endif 
                                     
@@ -222,7 +148,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="email" id="client_email"  value="{{ old('client_email') }}" name="client_contact" class="form-control" placeholder="Enter Client Email Address.." required>
+                                        <input type="email" id="client_email"  value="jack@gmal.com" name="client_contact" class="form-control" placeholder="Enter Client Email Address.." required>
                                     
                                         @if ($errors->has('client_email')) <p style="color:red;">{{ $errors->first('client_email') }}</p> @endif 
                                     
@@ -230,7 +156,7 @@
                                     
                                         </div>
                         </div>
-                        <div class="mt-3">
+                        <div class="mt-3 row">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                         </div>
                     </section>
@@ -245,7 +171,7 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="text" id="order_delivery"  value="{{ old('delivery') }}" name="delivery" class="form-control" placeholder="Enter Delivery" required>
+                                    <input type="text" id="order_delivery"  value="Deliver it soon" name="delivery" class="form-control" placeholder="Enter Delivery" required>
                                 
                                     @if ($errors->has('delivery')) <p style="color:red;">{{ $errors->first('delivery') }}</p> @endif 
                             
@@ -259,7 +185,7 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="date" id="order_date"  value="{{ old('order_date') }}" name="delivery_date" class="form-control" placeholder="Enter Delivery Date" required>
+                                    <input type="date" id="order_date"  value="2023-06-07" name="delivery_date" class="form-control" placeholder="Enter Delivery Date" required>
                                 
                                     @if ($errors->has('delivery_date')) <p style="color:red;">{{ $errors->first('delivery_date') }}</p> @endif 
                             
@@ -278,7 +204,7 @@
                                     <select class="form-control" id="currency_select" name="" required>
                         
                                         <option selected disabled >Select Currency</option>
-                                        <option value="PKR">PKR</option>
+                                        <option value="PKR" selected>PKR</option>
                                         <option value="USD">USD</option>
                                         <option value="GBP">GBP</option>
                                         <option value="EUR">EUR</option>
@@ -388,18 +314,19 @@
                             <h3 class="text-center">Total Price: <strong>150$</strong></h3>
                             <hr>
                             <label for="notes">Additional Notes</label>
-                            <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes.."></textarea>
+                            <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes..">Make this as soon as possible with good quality</textarea>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button class="button submit-btn" type="#">Save</button>
                         </div>
                     </section>
+                    <div class="d-flex ml-auto p-2">
+                        <button class="ml-auto btn btn-success  mr-1">Update</button>
+                        <a href="{{ route('outfitChanges') }}" class="btn btn-danger">Cancle</a>
+                    </div>
                 </form>
             </div>
         </div>
-
-
     </div>
 </div>
 </div>
@@ -438,7 +365,7 @@
     </script>
 
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
-{{-- <script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script> --}}
+
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
 
 @endsection
