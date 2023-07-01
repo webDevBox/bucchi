@@ -8,6 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="table-responsive">
                 <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                     <thead>
                     <tr>
@@ -58,6 +59,7 @@
                         
                     </tbody>
                     </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
