@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
+                <table id="ecom-orders" class="table table-responsive table-bordered table-striped table-vcenter">
                     <thead>
                     <tr>
                     <th class="text-center">Article#</th>
