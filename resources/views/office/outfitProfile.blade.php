@@ -182,65 +182,34 @@
                             <a href="#" class="d-none btn btn-primary" id="stopButton" disabled>Stop</a>
                             <br /><br>
                             <audio id="audioPlayer" class="d-none" controls></audio>
-
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
                         </div>
                     </section>
-                    <!-- Step 3 Content, default hidden on page load. -->
-                    <section id="step-3" class="form-step d-none">
-                        <h2 class="font-normal">Outfit Details</h2>
-                        <!-- Step 3 input fields -->
-                        <div class="mt-3">
-                            
-                            <div id="block-container">
-                                <div class="block">
-                                  <input type="number" class="input-field" placeholder="Enter Item #">
-                                  <input type="text" class="input-field" placeholder="Enter Outfit name..">
-                                  <textarea name="" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
-                                 
-
-                                  <div class="row offset-2">
-                                    <div class="col-5">
-                                        <label for="price">Price</label>
-                                        <input type="number" id="price" class="input-field" placeholder="Enter Price..">
-                                    </div>
-                                    
-                                    <div class="col-5">
-                                        <label for="hours">Hours</label>
-                                        <input type="number" id="hours" class="input-field" placeholder="Enter Hours..">
-                                    </div>
-                                    </div>
-                                  
-                                  <div class="button-block">
-                                    <button class="move-up">Move Up</button>
-                                    <button class="move-down">Move Down</button>
-                                    <button class="delete">Delete Outfit</button>
-                                  </div>
-                                </div>
-                              </div>
-                              <button class="button" id="add-block">Add Outfit</button>
-                        </div>
-                        <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
-                        </div>
-                    </section>
                     <!-- Step 4 Content, default hidden on page load. -->
-                    <section id="step-4" class="form-step d-none">
-                        <h2 class="font-normal">Overview</h2>
+                    <section id="step-3" class="form-step d-none">
+                        <h2 class="font-normal">Status Details</h2>
                         <!-- Step 3 input fields -->
-                        <div class="mt-3">
-                            <h3 class="text-center">Total Price: <strong>150$</strong></h3>
-                            <hr>
-                            <label for="notes">Additional Notes</label>
-                            <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes.."></textarea>
+                        <div class="form-group col-md-8 col-sm-12 offset-md-2">
+                            <select name="" id="" class="form-control">
+                                <option selected disabled>Select Outfit Status</option>
+                                <option value="Fabric">Fabric</option>
+                                <option value="Dying">Dying</option>
+                                <option value="Embr In">Embr In</option>
+                                <option value="Embr Out">Embr Out</option>
+                                <option value="Tailor In">Tailor In</option>
+                                <option value="Tailor Out">Tailor Out</option>
+                                <option value="Checking">Checking</option>
+                                <option value="Photo">Photo</option>
+                                <option value="Packing">Packing</option>
+                                <option value="Completed">Completed</option>
+                            </select>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button class="button submit-btn" type="#">Save</button>
+                            <button class="button submit-btn" type="#">Update</button>
                         </div>
                     </section>
                 </form>
