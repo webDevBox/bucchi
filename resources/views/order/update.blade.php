@@ -313,6 +313,8 @@
                         <div class="mt-3">
                             <h3 class="text-center">Total Price: <strong>150$</strong></h3>
                             <hr>
+                            <label for="price">Add Deposit</label>
+                            <input type="number" name="" class="form-control" value="100" placeholder="Enter Deposit Amount..">
                             <label for="notes">Additional Notes</label>
                             <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes..">Make this as soon as possible with good quality</textarea>
                         </div>

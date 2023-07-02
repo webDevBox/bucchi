@@ -1,80 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.office')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
-{{-- <style>
-     .item {
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .item:hover {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .item label {
-      display: inline-block;
-      width: 100px;
-      font-weight: bold;
-    }
-
-    .item input {
-      margin-bottom: 5px;
-      width: 200px;
-    }
-
-    .item .item-actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .item:hover .item-actions {
-      opacity: 1;
-    }
-
-    .item .item-actions button {
-      padding: 5px 10px;
-      background-color: #ff4444;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #itemizedPart {
-      margin-bottom: 20px;
-    }
-
-    #itemizedPart::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    .item-move-btn {
-      display: inline-block;
-      margin-right: 5px;
-      padding: 3px 8px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .item-move-btn:hover {
-      background-color: #555;
-    }
-</style> --}}
 <style>
    .block {
   border: 1px solid #ccc;
@@ -132,20 +58,10 @@
                             <div class="label">Material</div>
                         </a>
                     </li>
-                    <!-- Step 2 -->
                     <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
                         <a class="mx-2">
                             <span class="form-stepper-circle text-muted">
                                 <span>2</span>
-                            </span>
-                            <div class="label text-muted">Notes</div>
-                        </a>
-                    </li>
-                    <!-- Step 3 -->
-                    <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
-                        <a class="mx-2">
-                            <span class="form-stepper-circle text-muted">
-                                <span>3</span>
                             </span>
                             <div class="label text-muted">Status</div>
                         </a>
@@ -157,58 +73,80 @@
                     <section id="step-1" class="form-step">
                         <h2 class="font-normal">Material Details</h2>
                         <!-- Step 1 input fields -->
-                        
-                            <div id="imager" class="bg-light d-flex mx-auto" style="cursor: pointer; min-height: 100px; width: 800px;">
+                        <div class="container border">
+                          <h3 for="">Voice Notes</h3>
+                          <div class="d-flex">
+                            <a href="#" class="btn btn-primary mx-auto" id="recordButton">Record</a>
+                            <a href="#" class="d-none btn btn-primary mx-auto" id="stopButton" disabled>Stop</a>
+                          </div>
+                          
+                          <ul id="audioList" style="list-style: none;"></ul>
+                          <h3>Images</h3>
+                          <div id="imager" class="bg-light d-flex mx-auto mt-2" style="cursor: pointer; min-height: 100px; width: 800px;">
                                 <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
                                 
                                 <div class="gallery"></div>
                             </div>
                             <input type="file" class="d-none" multiple id="gallery-photo-add">
+
+                          </div>
+                            <div class="mt-3">
+                              <label for="notes">Additional Notes</label>
+                              <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes.."></textarea>
+                          </div>
                         
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
                         </div>
                     </section>
-                    <!-- Step 2 Content, default hidden on page load. -->
                     <section id="step-2" class="form-step d-none">
-                        <h2 class="font-normal">Notes</h2>
-                        <!-- Step 2 input fields -->
-                        <div class="mt-3">
-                            <label for="notes">Additional Notes</label>
-                            <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes.."></textarea>
-                            <br>
-                            <label for="">Voice Note</label><br>
-                            <a href="#" class="btn btn-primary" id="recordButton">Record</a>
-                            <a href="#" class="d-none btn btn-primary" id="stopButton" disabled>Stop</a>
-                            <br /><br>
-                            <audio id="audioPlayer" class="d-none" controls></audio>
+                        <h2 class="font-normal">Status Details</h2>
+                        <!-- Step 3 input fields -->
+
+                        <div class="container">
+                          <div class="row">
+                            <input type="radio" id="fabric" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="fabric">Fabric</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="Dying" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Dying">Dying</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="EmbrIn" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="EmbrIn">Embr In</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="EmbrOut" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="EmbrOut">Embr Out</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="TailorIn" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="TailorIn">Tailor In</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="TailorOut" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="TailorOut">Tailor Out</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="Checking" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Checking">Checking</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="Photo" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Photo">Photo</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="Packing" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Packing">Packing</label>
+                          </div>
+                          <div class="row">
+                            <input type="radio" id="Completed" name="outfitStatus" class="">
+                            <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Completed">Completed</label>
+                          </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
-                        </div>
-                    </section>
-                    <!-- Step 4 Content, default hidden on page load. -->
-                    <section id="step-3" class="form-step d-none">
-                        <h2 class="font-normal">Status Details</h2>
-                        <!-- Step 3 input fields -->
-                        <div class="form-group col-md-8 col-sm-12 offset-md-2">
-                            <select name="" id="" class="form-control">
-                                <option selected disabled>Select Outfit Status</option>
-                                <option value="Fabric">Fabric</option>
-                                <option value="Dying">Dying</option>
-                                <option value="Embr In">Embr In</option>
-                                <option value="Embr Out">Embr Out</option>
-                                <option value="Tailor In">Tailor In</option>
-                                <option value="Tailor Out">Tailor Out</option>
-                                <option value="Checking">Checking</option>
-                                <option value="Photo">Photo</option>
-                                <option value="Packing">Packing</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </div>
-                        <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
                             <button class="button submit-btn" type="#">Update</button>
                         </div>
                     </section>
@@ -223,136 +161,9 @@
 @endsection
 
 @section('scripts')
-
-
-<script>
-    let stream;
-    let mediaRecorder;
-    const recordButton = document.getElementById('recordButton');
-    const stopButton = document.getElementById('stopButton');
-    const audioPlayer = document.getElementById('audioPlayer');
-
-    recordButton.addEventListener('click', startRecording);
-    stopButton.addEventListener('click', stopRecording);
-
-    function startRecording() {
-        $('#stopButton').removeClass('d-none')
-        $('#recordButton').addClass('d-none')
-        
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then((stream) => {
-          recordButton.disabled = true;
-          stopButton.disabled = false;
-
-          mediaRecorder = new MediaRecorder(stream);
-          mediaRecorder.start();
-
-          const chunks = [];
-          mediaRecorder.addEventListener('dataavailable', (event) => {
-            chunks.push(event.data);
-          });
-
-          mediaRecorder.addEventListener('stop', () => {
-            const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-            const audioURL = URL.createObjectURL(blob);
-            audioPlayer.src = audioURL;
-          });
-        })
-        .catch((error) => {
-          console.error('Error accessing the microphone:', error);
-        });
-    }
-
-    function stopRecording() {
-        $('#stopButton').addClass('d-none')
-        $('#recordButton').removeClass('d-none')
-        $('#audioPlayer').removeClass('d-none')
-      recordButton.disabled = false;
-      stopButton.disabled = true;
-
-      mediaRecorder.stop();
-      stream.getTracks().forEach((track) => track.stop());
-    }
-  </script>
-
-
-    <script>
-       $(function() {
-    // Multiple images preview in browser
-    var imagesPreview = function(input, placeToInsertImagePreview) {
-        if (input.files) {
-            var filesAmount = input.files.length;
-
-            for (i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
-
-                reader.onload = function(event) {
-                    var img = new Image();
-                    img.src = event.target.result;
-
-                    img.onload = function() {
-                        // Create a canvas element
-                        var canvas = document.createElement('canvas');
-                        var ctx = canvas.getContext('2d');
-
-                        // Set the desired width and height for the preview image
-                        var maxWidth = 100; // Set your desired maximum width
-                        var maxHeight = 100; // Set your desired maximum height
-                        var width = img.width;
-                        var height = img.height;
-
-                        // Calculate the aspect ratio to maintain the image's original proportions
-                        var aspectRatio = width / height;
-
-                        // Adjust width and height if necessary to fit within the maximum dimensions
-                        if (width > maxWidth) {
-                            width = maxWidth;
-                            height = width / aspectRatio;
-                        }
-
-                        if (height > maxHeight) {
-                            height = maxHeight;
-                            width = height * aspectRatio;
-                        }
-
-                        // Set the canvas size to the adjusted width and height
-                        canvas.width = width;
-                        canvas.height = height;
-
-                        // Draw the image on the canvas
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        // Create a new image element with the resized image data
-                        var resizedImage = new Image();
-                        resizedImage.src = canvas.toDataURL('image/jpeg');
-
-                        // Apply CSS styling to the resized image
-                        resizedImage.style.marginRight = '10px'; // Set the desired spacing between images 
-
-                        // Append the resized image to the preview container
-                        $(placeToInsertImagePreview).append(resizedImage);
-                    };
-                };
-
-                reader.readAsDataURL(input.files[i]);
-            }
-        }
-    };
-
-    $('#gallery-photo-add').on('change', function() {
-        imagesPreview(this, 'div.gallery');
-    });
-});
-
-
-    $("#imager").click(function(){
-        $("#gallery-photo-add").click();
-    })
-
-    </script>
-
+    
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
-{{-- <script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script> --}}
-{{-- <script src="{{ asset('app-assets/js/form.js')}}"></script> --}}
+<script src="{{ asset('app-assets/js/notes.js')}}"></script>
+<script src="{{ asset('app-assets/js/multi-image.js')}}"></script>
 
 @endsection

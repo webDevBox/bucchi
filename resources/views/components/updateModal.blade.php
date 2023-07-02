@@ -22,7 +22,7 @@
                             <tr>
                                 <td class="text-center"> 123 </td>
                                 <td class="text-center"> 
-                                    <a target="_blank" href="#" > Fit Me </a>
+                                    Fit Me 
                                 </td>
                                 <td class="text-center">10 hours</td>
                                 <td class="text-center"> 
@@ -34,7 +34,7 @@
                             <tr>
                                 <td class="text-center"> 45 </td>
                                 <td class="text-center"> 
-                                    <a target="_blank" href="#" > Rooper </a>
+                                    Rooper 
                                 </td>
                                 <td class="text-center">14 hours</td>
                                 <td class="text-center"> 
@@ -46,7 +46,7 @@
                             <tr>
                                 <td class="text-center"> 789 </td>
                                 <td class="text-center"> 
-                                    <a target="_blank" href="#" > Shamp </a>
+                                    Shamp 
                                 </td>
                                 <td class="text-center">23 hours</td>
                                 <td class="text-center"> 
