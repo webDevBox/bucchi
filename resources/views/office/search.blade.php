@@ -24,7 +24,6 @@
                 <th class="text-center">Invoice#</th>
                 <th class="text-center">Client Name</th>
                 <th class="text-center">Delivery Date</th>
-                <th class="text-center">Invoice</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,9 +33,6 @@
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > Mark </a>
                             </td>
                             <td class="text-center">8 Jan 2023</td>
-                            <td class="text-center">
-                                <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
-                            </td>
                         </tr>
                         <tr>
                             <td class="text-center"> 456 </td>
@@ -44,9 +40,6 @@
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
                             </td>
                             <td class="text-center">13 june 2023</td>
-                            <td class="text-center">
-                                <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
-                            </td>
                         </tr>
                         <tr>
                             <td class="text-center"> 789 </td>
@@ -54,9 +47,6 @@
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > Daarm </a>
                             </td>
                             <td class="text-center">23 april 2023</td>
-                            <td class="text-center">
-                                <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
-                            </td>
                         </tr>
                         
                         
