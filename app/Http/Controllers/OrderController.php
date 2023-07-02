@@ -26,6 +26,11 @@ class OrderController extends Controller
         return view('order.changes');
     }
     
+    public function search()
+    {
+        return view('order.search');
+    }
+    
     public function update($id)
     {
         return view('order.update');

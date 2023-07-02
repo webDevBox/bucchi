@@ -17,19 +17,19 @@
     <div class="card-body p-0">
         <h1 class="text-center">Outfit Details</h1>
         <div class="row p-4">
-            <div class="rounded box-shadow col-5">
+            <div class="rounded box-shadow col-md-5 col-sm-12">
                 <h2 class="text-center">Client Details</h2>
                 <p>Name: <strong> John </strong></p>
                 <p>Contact No: <strong> +92 300 00000000 </strong></p>
                 <p>Email: <strong> John@gmail.com </strong></p>
             </div>
-            <div class="rounded box-shadow offset-1 col-5">
+            <div class="rounded box-shadow offset-md-1 col-md-5 col-sm-12">
                 <h2 class="text-center">Order Details</h2>
                 <p>Delivery: <strong> Deliveru soon </strong></p>
                 <p>Delivery Date: <strong> 25 june 2023 </strong></p>
                 <p>Currency: <strong> PKR </strong></p>
             </div>
-            <div class="rounded box-shadow offset-2 col-8 mt-3">
+            <div class="rounded box-shadow offset-md-2 col-md-8 col-sm-12 mt-3">
                 <h2 class="text-center">Outfit Details</h2>
                 <p>Outfit Name: <strong> Fit Me </strong></p>
                 <p>Outfit Description: <strong> Lorem ipsum, dolor sit amet consectetur 

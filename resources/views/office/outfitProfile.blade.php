@@ -105,43 +105,53 @@
 
                         <div class="container">
                           <div class="row">
-                            <input type="radio" id="fabric" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Fabric')" id="fabric" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="fabric">Fabric</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="Dying" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Dying')" id="Dying" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Dying">Dying</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="EmbrIn" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Embr In')" id="EmbrIn" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="EmbrIn">Embr In</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="EmbrOut" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Embr Out')" id="EmbrOut" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="EmbrOut">Embr Out</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="TailorIn" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Tailor In')" id="TailorIn" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="TailorIn">Tailor In</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="TailorOut" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Tailor Out')" id="TailorOut" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="TailorOut">Tailor Out</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="Checking" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Checking')" id="Checking" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Checking">Checking</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="Photo" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Photo')" id="Photo" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Photo">Photo</label>
                           </div>
+                          <div id="photo-block" class="d-none">
+                            <h3>Select Photos</h3>
+                          <div id="photos-picker" class="bg-light d-flex mx-auto mt-2" style="cursor: pointer; min-height: 100px; width: 800px;">
+                                <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
+                                
+                                <div class="status-gallery"></div>
+                            </div>
+                            <input type="file" class="d-none" multiple id="status-photo-add">
+
+                          </div>
                           <div class="row">
-                            <input type="radio" id="Packing" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Packing')" id="Packing" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Packing">Packing</label>
                           </div>
                           <div class="row">
-                            <input type="radio" id="Completed" name="outfitStatus" class="">
+                            <input type="radio" onchange="confirmation('Completed')" id="Completed" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Completed">Completed</label>
                           </div>
                         </div>
@@ -161,9 +171,25 @@
 @endsection
 
 @section('scripts')
+
+<script>
+  function confirmation(status)
+  {
+    let text = `Are you sure you want change outfit status to ${status}`;
+        if (confirm(text) == true) {
+          if(status === 'Photo')
+          {
+            $('#photo-block').removeClass('d-none')
+          }
+        } else {
+            text = "You canceled!";
+        }
+  }
+</script>
     
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/notes.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-image.js')}}"></script>
+<script src="{{ asset('app-assets/js/multi-status-photos.js')}}"></script>
 
 @endsection

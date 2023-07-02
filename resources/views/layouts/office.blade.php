@@ -178,7 +178,7 @@
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfits') }}"><i class="fa fa-shopping-bag" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Outfits</span></a>
 </li>
-<li class=" nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fa-search" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Search Order</span></a>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('orderSearch') }}"><i class="fa fa-search" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Search Order</span></a>
 </li>
 
 {{-- <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="save" style="color:  #6610F2;"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Edit Main Page</span></a>

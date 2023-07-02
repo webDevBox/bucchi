@@ -313,8 +313,18 @@
                         <div class="mt-3">
                             <h3 class="text-center">Total Price: <strong>150$</strong></h3>
                             <hr>
-                            <label for="price">Add Deposit</label>
-                            <input type="number" name="" class="form-control" value="100" placeholder="Enter Deposit Amount..">
+                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Deposit</button>
+                            <br>
+                            <div id="paymentAdder" class="row d-none">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="price">Add Deposit</label>
+                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Deposit Amount..">
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="price">Deposit Date</label>
+                                    <input type="date" name="" class="form-control" value="2023-07-23">
+                                </div>
+                            </div>
                             <label for="notes">Additional Notes</label>
                             <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes..">Make this as soon as possible with good quality</textarea>
                         </div>
@@ -363,6 +373,12 @@
                 $('#order_currency').val(currency);
             }
         })
+
+        function paymentPanel()
+        {
+            $('#paymentAdder').removeClass('d-none')
+            $('#depositButton').addClass('d-none')
+        }
 
     </script>
 

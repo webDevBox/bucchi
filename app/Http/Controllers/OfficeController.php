@@ -20,4 +20,9 @@ class OfficeController extends Controller
     {
         return view('office.outfitProfile');
     }
+
+    public function orderSearch()
+    {
+        return view('office.search');
+    }
 }
