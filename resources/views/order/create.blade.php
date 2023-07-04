@@ -176,11 +176,11 @@
                                     <select class="form-control" id="client_select" name="client_select" required>
                         
                                         <option selected disabled >Select Any Client</option>
+                                        <option value="..other..">Add New Client</option>
                                         <option value="John">John</option>
                                         <option value="Morder">Morder</option>
                                         <option value="Jack">Jack</option>
                                         <option value="Nick">Nick</option>
-                                        <option value="..other..">Add New Client</option>
                                     </select>
                                 @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif 
                                 </div>
@@ -255,7 +255,7 @@
                             <br>
                             <div class="form-group">
                             
-                                <label class="col-md-12 h5 control-label" for="order_date">Delivery Date</label>
+                                <label class="col-md-12 h5 control-label" for="order_date">Completion Date (Internal)</label>
 
                                 <div class="col-md-9">
                             
@@ -354,16 +354,21 @@
                                     
                                   </div> --}}
 
-                                  <div class="row offset-2">
-                                    <div class="col-5">
-                                        <label for="price">Price</label>
-                                        <input type="number" id="price" class="input-field" placeholder="Enter Price..">
-                                    </div>
-                                    
-                                    <div class="col-5">
-                                        <label for="hours">Hours</label>
-                                        <input type="number" id="hours" class="input-field" placeholder="Enter Hours..">
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-12">
+                                            <label for="price">Price</label>
+                                            <input type="number" id="price" class="input-field" placeholder="Enter Price..">
+                                        </div>
+                                        
+                                        <div class="col-md-3 offset-md-1 col-sm-12">
+                                            <label for="hours">Hours</label>
+                                            <input type="number" id="hours" class="input-field" placeholder="Enter Hours..">
+                                        </div>
+                                        
+                                        <div class="col-md-3 offset-md-1 col-sm-12">
+                                            <label for="fabric">Fabric</label>
+                                            <input type="number" id="fabric" class="input-field" placeholder="Enter Fabric..">
+                                        </div>
                                     </div>
                                   
                                   <div class="button-block">
@@ -387,15 +392,15 @@
                         <div class="mt-3">
                             <h3 class="text-center">Total Price: <strong>150$</strong></h3>
                             <hr>
-                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Deposit</button>
+                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Payment</button>
                             <br>
                             <div id="paymentAdder" class="row d-none">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="price">Add Deposit</label>
-                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Deposit Amount..">
+                                    <label for="price">Add Payment</label>
+                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Amount..">
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="price">Deposit Date</label>
+                                    <label for="price">Payment Date</label>
                                     <input type="date" name="" class="form-control" value="2023-07-23">
                                 </div>
                             </div>
@@ -404,7 +409,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button class="button submit-btn" type="#">Save</button>
+                            <button class="button submit-btn" type="#">Add Order and Create Invoice Button</button>
                         </div>
                     </section>
                 </form>

@@ -100,10 +100,13 @@
                         </div>
                     </section>
                     <section id="step-2" class="form-step d-none">
-                        <h2 class="font-normal">Status Details</h2>
+                      <h2 class="font-normal text-center">Status Details</h2>
+                      <label class="h3" for="article">Article#</label>
+                      <input type="number" placeholder="Enter Article Number.." name="" class="col-4 form-control" id="article">
                         <!-- Step 3 input fields -->
 
-                        <div class="container">
+                        
+                          <h3 class="mt-3">Select Status</h3>
                           <div class="row">
                             <input type="radio" onchange="confirmation('Fabric')" id="fabric" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="fabric">Fabric</label>
@@ -154,7 +157,7 @@
                             <input type="radio" onchange="confirmation('Completed')" id="Completed" name="outfitStatus" class="">
                             <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Completed">Completed</label>
                           </div>
-                        </div>
+                        
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
                             <button class="button submit-btn" type="#">Update</button>

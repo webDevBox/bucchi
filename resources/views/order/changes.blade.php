@@ -20,7 +20,6 @@
             <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
-                <th class="text-center">Invoice#</th>
                 <th class="text-center">Client Name</th>
                 <th class="text-center">Delivery Date</th>
                 <th class="text-center"> PDF </th>
@@ -29,7 +28,6 @@
                 </thead>
                 <tbody>
                         <tr>
-                            <td class="text-center"> 123 </td>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
                             </td>
@@ -46,7 +44,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-center"> 456 </td>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > Mark </a>
                             </td>
@@ -63,7 +60,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-center"> 789 </td>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > De-Gro </a>
                             </td>
@@ -116,10 +112,10 @@
         }
     }
     
-    function sendProduction() {
+    function sendProduction(id) {
         let text = "Send Article#123, Outfit Name XYZ for production?”";
         if (confirm(text) == true) {
-            text = "You pressed OK!";
+            $(`#${id}`).attr('disabled',true)
         } else {
             text = "You canceled!";
         }

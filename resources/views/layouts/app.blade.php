@@ -178,9 +178,9 @@
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('createOrder') }}"><i class="fa fa-cart-plus" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Create Order</span></a>
 </li>
-<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfitChanges') }}"><i class="fa fa-cart-arrow-down" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Update Order</span></a>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfitChanges') }}"><i class="fa fa-cart-arrow-down" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Update Orders</span></a>
 </li>
-<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('viewOrder') }}"><i class="fa fa-shopping-cart" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">View Order</span></a>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('viewOrder') }}"><i class="fa fa-shopping-cart" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">View Orders</span></a>
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('searchOrder') }}"><i class="fa fa-search" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Search Order</span></a>
 </li>

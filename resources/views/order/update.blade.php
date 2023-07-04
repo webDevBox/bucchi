@@ -313,15 +313,15 @@
                         <div class="mt-3">
                             <h3 class="text-center">Total Price: <strong>150$</strong></h3>
                             <hr>
-                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Deposit</button>
+                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Payment</button>
                             <br>
                             <div id="paymentAdder" class="row d-none">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="price">Add Deposit</label>
-                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Deposit Amount..">
+                                    <label for="price">Add Payment</label>
+                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Amount..">
                                 </div>
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="price">Deposit Date</label>
+                                    <label for="price">Payment Date</label>
                                     <input type="date" name="" class="form-control" value="2023-07-23">
                                 </div>
                             </div>
@@ -334,7 +334,7 @@
                     </section>
                     <div class="d-flex ml-auto p-2">
                         <button class="ml-auto btn btn-success  mr-1">Update</button>
-                        <a href="{{ route('outfitChanges') }}" class="btn btn-danger">Cancle</a>
+                        <a href="{{ route('outfitChanges') }}" class="btn btn-danger">Cancel</a>
                     </div>
                 </form>
             </div>

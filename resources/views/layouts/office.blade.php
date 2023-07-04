@@ -176,7 +176,7 @@
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('officeDashboard') }}"><i data-feather="home" style="color:  #6610F2;"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span></a></li>
 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
 </li>
-<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfits') }}"><i class="fa fa-shopping-bag" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Outfits</span></a>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfits') }}"><i class="fa fa-shopping-bag" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Production Line</span></a>
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('orderSearch') }}"><i class="fa fa-search" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Search Order</span></a>
 </li>

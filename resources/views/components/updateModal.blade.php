@@ -27,7 +27,7 @@
                                 <td class="text-center">10 hours</td>
                                 <td class="text-center"> 
                                     <div class="btn-group btn-group-xs">
-                                        <button onclick="sendProduction()" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
+                                        <button onclick="sendProduction('button_1')" id="button_1" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
                                     </div>     
                                 </td>
                             </tr>
@@ -39,7 +39,7 @@
                                 <td class="text-center">14 hours</td>
                                 <td class="text-center"> 
                                     <div class="btn-group btn-group-xs">
-                                        <button onclick="sendProduction()" disabled title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
+                                        <button onclick="sendProduction('button_2')" id="button_2" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
                                     </div>     
                                 </td>
                             </tr>
@@ -51,7 +51,7 @@
                                 <td class="text-center">23 hours</td>
                                 <td class="text-center"> 
                                     <div class="btn-group btn-group-xs">
-                                        <button onclick="sendProduction()" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
+                                        <button onclick="sendProduction('button_3')" id="button_3" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
                                     </div>     
                                 </td>
                             </tr>

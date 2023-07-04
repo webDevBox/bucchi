@@ -30,11 +30,11 @@
                 </thead>
                 <tbody>
                         <tr>
-                            <td class="text-center"> 
-                                <a href="{{ route('outfitProfile') }}"> 7894 </a>    
-                            </td>
+                            <td class="text-center"> 7894 </td>
                             <td class="text-center"> John </td>
-                            <td class="text-center">Fit Me</td>
+                            <td class="text-center">
+                                <a href="{{ route('outfitProfile') }}"> Fit Me </a>
+                            </td>
                             <td class="text-center"> Active </td>
                             <td class="text-center">3 june 2023</td>
                             <td class="text-center">

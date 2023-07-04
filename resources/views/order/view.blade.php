@@ -20,40 +20,36 @@
             <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
-                <th class="text-center">Invoice#</th>
                 <th class="text-center">Client Name</th>
                 <th class="text-center">Delivery Date</th>
-                <th class="text-center"> Status </th>
+                <th class="text-center"> Payment </th>
                 <th class="text-center">remaining Hour</th>
                 </tr>
                 </thead>
                 <tbody>
                         <tr>
-                            <td class="text-center"> 123 </td>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
                             </td>
                             <td class="text-center">3 june 2023</td>
-                            <td class="text-center"> Active </td>
+                            <td class="text-center"> 15% </td>
                             <td class="text-center">5</td>
                         </tr>
                         <tr>
-                            <td class="text-center"> 123 </td>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > Dekro </a>
                             </td>
-                            <td class="text-center">3 june 2023</td>
-                            <td class="text-center"> Active </td>
-                            <td class="text-center">5</td>
+                            <td class="text-center">4 may 2023</td>
+                            <td class="text-center"> 24% </td>
+                            <td class="text-center">10</td>
                         </tr>
                         <tr>
-                            <td class="text-center"> 123 </td>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
                             </td>
-                            <td class="text-center">3 june 2023</td>
-                            <td class="text-center"> Active </td>
-                            <td class="text-center">5</td>
+                            <td class="text-center">13 july 2023</td>
+                            <td class="text-center"> 60% </td>
+                            <td class="text-center">8</td>
                         </tr>
                     
                 </tbody>
