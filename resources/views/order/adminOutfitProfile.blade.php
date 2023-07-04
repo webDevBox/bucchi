@@ -1,4 +1,4 @@
-@extends('layouts.office')
+@extends('layouts.app')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
 <style>

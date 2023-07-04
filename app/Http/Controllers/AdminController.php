@@ -10,4 +10,15 @@ class AdminController extends Controller
     {
         return view('dashboard');
     }
+
+    public function production()
+    {
+        return view('order.production');
+    }
+
+    public function outfitProfile()
+    {
+        return view('order.adminOutfitProfile');
+    }
+
 }

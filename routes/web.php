@@ -30,6 +30,8 @@ Route::get('/',[AuthController::class, 'login'])->name('login');
             Route::get('/changes',[OrderController::class, 'changes'])->name('outfitChanges');
             Route::get('/search',[OrderController::class, 'search'])->name('searchOrder');
             Route::get('/update/{id}',[OrderController::class, 'update'])->name('orderUpdate');
+            Route::get('production',[AdminController::class, 'production'])->name('productionLine');
+            Route::get('outfitProfile',[AdminController::class, 'outfitProfile'])->name('adminOutfitProfile');
         });
     });
     Route::prefix('office')->group(function() {

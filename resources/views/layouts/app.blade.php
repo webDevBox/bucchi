@@ -182,6 +182,8 @@
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('viewOrder') }}"><i class="fa fa-shopping-cart" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">View Orders</span></a>
 </li>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('productionLine') }}"><i class="fa fa-shopping-bag" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Production Line</span></a>
+</li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('searchOrder') }}"><i class="fa fa-search" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Search Order</span></a>
 </li>
 

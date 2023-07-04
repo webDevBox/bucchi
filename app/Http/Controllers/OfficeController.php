@@ -15,6 +15,8 @@ class OfficeController extends Controller
     {
         return view('office.outfit');
     }
+    
+   
 
     public function outfitProfile()
     {
