@@ -211,17 +211,6 @@
     </div>
     <!-- END: Content-->
     @section('scripts')
-        <script>
-            setTimeout(function () {
-                toastr['success'](
-                'In Admin dashboard',
-                '👋 Welcome John Doe!',
-                {
-                    closeButton: true,
-                    tapToDismiss: false
-                }
-                );
-            }, 2000);
-        </script>
+        
     @endsection
 @endsection

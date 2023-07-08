@@ -65,8 +65,11 @@
             <span class="avatar"><img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
             <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder">John Doe</span><span class="user-status">Office</span></div>
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="page-profile.html"><i class="mr-50" data-feather="user"></i> Profile</a><a class="dropdown-item" href="app-email.html"><i class="mr-50" data-feather="mail"></i> Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="mr-50" data-feather="check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="mr-50" data-feather="message-square"></i> Chats</a>
-            <div class="dropdown-divider"></div><a class="dropdown-item" href="page-account-settings.html"><i class="mr-50" data-feather="settings"></i> Settings</a><a class="dropdown-item" href="page-pricing.html"><i class="mr-50" data-feather="credit-card"></i> Pricing</a><a class="dropdown-item" href="page-faq.html"><i class="mr-50" data-feather="help-circle"></i> FAQ</a><a class="dropdown-item" href="page-auth-login-v2.html"><i class="mr-50" data-feather="power"></i> Logout</a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
+            <a class="dropdown-item" href="#"><i class="mr-50" data-feather="user"></i> Profile</a>
+            
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ route('logout') }}"><i class="mr-50" data-feather="power"></i> Logout</a>
         </div>
     </li>
     </ul>
@@ -238,6 +241,35 @@ height: 14
 }
 })
 </script>
+@if (Session::has('error'))
+<script>
+    var message = {{ Session::get('error') }}
+    setTimeout(function () {
+        toastr['error'](
+            message,
+        {
+            closeButton: true,
+            tapToDismiss: false
+        }
+        );
+    }, 5000);
+</script>
+@endif
+@if (Session::has('success'))
+<script>
+    var message = {{ Session::get('error') }}
+    setTimeout(function () {
+        toastr['success'](
+            message,
+        {
+            closeButton: true,
+            tapToDismiss: false
+        }
+        );
+    }, 5000);
+</script>
+@endif
+
 @yield('scripts')
 </body>
 <!-- END: Body-->

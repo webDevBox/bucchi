@@ -33,6 +33,7 @@
   margin-top: 10px;
 }
 
+
 </style>
 @endsection
 @section('content')
@@ -101,8 +102,8 @@
                         <div class="container border mt-2">
                           <h3 for="">Voice Notes</h3>
                           <div class="d-flex">
-                            <a href="#" class="btn btn-primary mx-auto" id="recordButton">Record</a>
-                            <a href="#" class="d-none btn btn-primary mx-auto" id="stopButton" disabled>Stop</a>
+                            <button href="javascript:void(0)" class="btn btn-primary mx-auto" id="recordButton">Record</button>
+                            <button href="javascript:void(0)" class="d-none btn btn-primary mx-auto" id="stopButton" disabled>Stop</button>
                           </div>
                           
                           <ul id="audioList" style="list-style: none;"></ul>

@@ -17,11 +17,13 @@ use App\Http\Controllers\OfficeController;
 |
 */
 
-Route::get('/',[AuthController::class, 'login'])->name('login');
+Route::middleware(['auth.login'])->group(function () {
+    Route::get('/',[AuthController::class, 'login'])->name('login');
+    Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('auth');
+});
 
 // Route::group(function () {
-    Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
-    Route::prefix('admin')->group(function () {
+    Route::middleware('auth.admin')->prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
         Route::prefix('order')->group(function () {
             Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
@@ -34,10 +36,12 @@ Route::get('/',[AuthController::class, 'login'])->name('login');
             Route::get('outfitProfile',[AdminController::class, 'outfitProfile'])->name('adminOutfitProfile');
         });
     });
-    Route::prefix('office')->group(function() {
+    Route::middleware('auth.office')->prefix('office')->group(function() {
         Route::get('dashboard',[OfficeController::class, 'index'])->name('officeDashboard');
         Route::get('outfits',[OfficeController::class, 'outfits'])->name('outfits');
         Route::get('outfits/profile',[OfficeController::class, 'outfitProfile'])->name('outfitProfile');
         Route::get('order/search',[OfficeController::class, 'orderSearch'])->name('orderSearch');
     });
 // });
+
+Route::get('/logout',[AuthController::class, 'logout'])->name('logout');

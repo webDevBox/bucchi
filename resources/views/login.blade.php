@@ -11,10 +11,12 @@
          })(window,document,'script','dataLayer','GTM-5J3LMKC');
       </script>
       <!-- End Google Tag Manager -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
       <link rel="icon" href="app-assets/images/ico/favicon.png">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>{{ config('app.name') }}</title>
       <link rel="stylesheet" type="text/css" href="app-assets/login/loader.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script type="module" crossorigin="" src="app-assets/login/index-3ee9010b.js.download"></script>
       <link rel="stylesheet" href="app-assets/login/index-18462218.css">
       <style type="text/css" id="vuetify-theme-stylesheet">:root {
@@ -759,7 +761,6 @@
    </head>
    <body class="skin--bordered" cz-shortcut-listen="true">
       <!-- Google Tag Manager (noscript) -->
-      
       <!-- End Google Tag Manager (noscript) -->
       <div id="app" data-v-app="">
          <div class="v-locale-provider v-locale--is-ltr">
@@ -783,12 +784,20 @@
                         </div>
                         <div class="v-col-lg-4 v-col-12 auth-card-v2 d-flex align-center justify-center">
                            <div class="v-card v-card--flat v-theme--light v-card--density-default v-card--variant-elevated mt-12 mt-sm-0 pa-4" style="max-width: 500px;">
-                              
                               <div class="v-card-text">
                                  <div class="mb-6" style="line-height: 0; color: rgb(var(--v-global-theme-primary));">
                                     <img height="100" width="100" src="app-assets/images/logo/logo.png" alt="">
                                  </div>
                                  <h5 class="text-h5 mb-1"> Welcome to <span class="text-capitalize" style="color: #7367F0">BUCCHI'S</span></h5>
+                                 @if (Session::has('error'))
+                                       <p class="alert alert-danger">{{ Session::get('error') }}
+                                       </p>
+                                 @endif
+                                 @if (Session::has('success'))
+                                       <p class="alert alert-success">
+                                          {{ Session::get('success') }}
+                                       </p>
+                                 @endif
                               </div>
                               <div class="v-card-text">
                                  <form method="post" action="{{ route('auth') }}" class="v-form" novalidate="">
@@ -821,7 +830,9 @@
                                                          <label class="v-label v-field-label" for="app-text-field-Email-y1i87">
                                                             <!----><!---->
                                                          </label>
-                                                         <!----><input autofocus="" size="1" type="email" id="app-text-field-Email-y1i87" aria-describedby="app-text-field-Email-y1i87-messages" class="v-field__input"><!---->
+                                                         <!----><input autofocus="" size="1" type="email"
+                                                            name="email"
+                                                            id="app-text-field-Email-y1i87" aria-describedby="app-text-field-Email-y1i87-messages" class="v-field__input"><!---->
                                                       </div>
                                                       <!----><!---->
                                                       <div class="v-field__outline">
@@ -863,20 +874,21 @@
                                                          <label class="v-label v-field-label" for="app-text-field-Password-qh9c1">
                                                             <!----><!---->
                                                          </label>
-                                                         <!----><input size="1" type="password" id="app-text-field-Password-qh9c1" aria-describedby="app-text-field-Password-qh9c1-messages" class="v-field__input"><!---->
+                                                         
                                                       </div>
-
                                                       <div class="v-field__field" data-no-activator="">
                                                          <!---->
                                                          <label class="v-label v-field-label" for="app-text-field-Password-qh9c1">
                                                             <!----><!---->
                                                          </label>
-                                                         <!----><input size="1" type="password" id="app-text-field-Password-qh9c1" aria-describedby="app-text-field-Password-qh9c1-messages" class="v-field__input"><!---->
+                                                         <!----><input size="1" type="password"
+                                                         name="password" id="password_field" aria-describedby="app-text-field-Password-qh9c1-messages" class="v-field__input"><!---->
                                                       </div>
                                                       <!---->
                                                       <div class="v-field__append-inner">
                                                          <!---->
-                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="button" tag="i" class="v-icon notranslate v-theme--light v-icon--size-default v-icon--clickable iconify iconify--tabler" aria-label=" appended action" width="1em" height="1em" viewBox="0 0 24 24">
+                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="button" tag="i" 
+                                                         onclick="passwordShow()" class="v-icon notranslate v-theme--light v-icon--size-default v-icon--clickable iconify iconify--tabler" aria-label=" appended action" width="1em" height="1em" viewBox="0 0 24 24">
                                                             <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
                                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0-4 0"></path>
                                                                <path d="M21 12c-2.4 4-5.4 6-9 6c-3.6 0-6.6-2-9-6c2.4-4 5.4-6 9-6c3.6 0 6.6 2 9 6"></path>
@@ -894,59 +906,49 @@
                                                 <!----><!---->
                                              </div>
                                           </div>
-                                          <div style="margin: 10px 0px;">
-
-                                          <label for="">Select role</label>
-                                                <br>
-                                                <div style="display: flex">
-                                                   
-                                                   <input type="radio" id="admin" name="role" checked value="admin">
-                                                   <label style="margin-left: 4px;" for="admin">Admin</label>
-
-                                                   
-                                                   <input style="margin-left: 15px;" type="radio" id="office" name="role" value="office">
-                                                   <label style="margin-left: 4px;" for="office">Office</label>
-
-                                                </div>
-                                             </div>
+                                          
                                           <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
                                              <div class="v-input v-input--horizontal v-input--density-comfortable v-input--dirty v-checkbox">
                                                 <!---->
-                                                
                                                 <div class="v-input__control">
                                                    <div class="v-selection-control v-selection-control--inline v-selection-control--density-comfortable v-checkbox-btn">
                                                       <div class="v-selection-control__wrapper">
                                                          <!---->
                                                          <div class="v-selection-control__input">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" tag="i" class="v-icon notranslate v-theme--light v-icon--size-default iconify iconify--custom" width="1em" height="1em" viewBox="0 0 18 18">
+                                                            <svg style="visibility: hidden" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" tag="i" class="v-icon notranslate v-theme--light v-icon--size-default iconify iconify--custom" width="1em" height="1em" viewBox="0 0 18 18">
                                                                <g fill="none">
                                                                   <rect width="17" height="17" x=".5" y=".5" stroke="currentColor" rx="3.5"></rect>
                                                                   <rect width="17" height="17" x=".5" y=".5" rx="3.5"></rect>
                                                                </g>
                                                             </svg>
-                                                            <input id="checkbox-6" aria-disabled="false" type="checkbox" indeterminateicon="$checkboxIndeterminate" aria-describedby="checkbox-6-messages" value="true"><!---->
+                                                            <input style="visibility: hidden" id="checkbox-6" aria-disabled="false" type="checkbox" indeterminateicon="$checkboxIndeterminate" aria-describedby="checkbox-6-messages" value="true"><!---->
                                                          </div>
                                                       </div>
-                                                      <label class="v-label v-label--clickable" for="checkbox-6">
+                                                      <label style="visibility: hidden" class="v-label v-label--clickable" for="checkbox-6">
                                                          <!---->Remember me
                                                       </label>
                                                    </div>
                                                 </div>
                                                 <!----><!---->
                                              </div>
-                                             <a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/forgot-password" class="text-primary ms-2 mb-1"> Forgot Password? </a>
+                                             <a style="visibility:hidden" href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/forgot-password" class="text-primary ms-2 mb-1"> Forgot Password? </a>
                                           </div>
                                           <button type="submit" class="v-btn v-btn--block v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated">
                                              <span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!----><span class="v-btn__content" data-no-activator=""> Login </span><!----><!---->
                                           </button>
                                        </div>
-                                       {{-- <div class="v-col v-col-12 text-center"><span>New on our platform?</span><a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/register" class="text-primary ms-2"> Create an account </a></div> --}}
-                                       {{-- <div class="v-col v-col-12 d-flex align-center">
+                                       {{-- 
+                                       <div class="v-col v-col-12 text-center"><span>New on our platform?</span><a href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/demo-2/register" class="text-primary ms-2"> Create an account </a></div>
+                                       --}}
+                                       {{-- 
+                                       <div class="v-col v-col-12 d-flex align-center">
                                           <hr class="v-divider v-theme--light" aria-orientation="horizontal" role="separator">
                                           <span class="mx-4">or</span>
                                           <hr class="v-divider v-theme--light" aria-orientation="horizontal" role="separator">
-                                       </div> --}}
-                                       {{-- <div class="v-col v-col-12 text-center">
+                                       </div>
+                                       --}}
+                                       {{-- 
+                                       <div class="v-col v-col-12 text-center">
                                           <div class="d-flex justify-center flex-wrap gap-3">
                                              <button type="button" class="v-btn v-btn--icon v-theme--light v-btn--density-default v-btn--variant-tonal rounded" style="color: rgb(66, 103, 178); caret-color: rgb(66, 103, 178); height: 38px; width: 38px;">
                                                 <span class="v-btn__overlay"></span><span class="v-btn__underlay"></span><!---->
@@ -976,7 +978,8 @@
                                                 <!----><!---->
                                              </button>
                                           </div>
-                                       </div> --}}
+                                       </div>
+                                       --}}
                                     </div>
                                  </form>
                               </div>
@@ -985,8 +988,6 @@
                         </div>
                      </div>
                   </div>
-                  
-                  
                </div>
             </div>
          </div>
@@ -1068,5 +1069,16 @@
             </template>
          </section>
       </div>
+
+      <script>
+         function passwordShow()
+         {
+            var type = $('#password_field').attr('type');
+            if(type === 'password')
+               $('#password_field').attr('type','text');
+            else
+               $('#password_field').attr('type','password');
+         }
+      </script>
    </body>
 </html>

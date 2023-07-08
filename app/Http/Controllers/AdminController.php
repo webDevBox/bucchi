@@ -8,7 +8,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard')->with('success','All OK');
     }
 
     public function production()

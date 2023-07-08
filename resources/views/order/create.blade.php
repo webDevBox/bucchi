@@ -314,46 +314,19 @@
                         <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
-                            {{-- <div id="itemizedPart">
-                                <div class="item">
-                                  <label>Item #: </label>
-                                  <input type="number" name="itemNumber" class="form-control item-number">
-                                  <br>
-                                  <label>Outfit Name: </label>
-                                  <input type="text" name="outfitName" class="form-control outfit-name">
-                                  <br>
-                                  <label>Outfit Description: </label>
-                                  <input type="text" name="outfitDescription" class="form-control outfit-description">
-                                  <br>
-                                  <label>Price: </label>
-                                  <input type="number" name="price" class="form-control price">
-                                  <br>
-                                  <label>Hours: </label>
-                                  <input type="number" name="hours" class="form-control hours">
-                                  <br>
-                                  <div class="item-actions">
-                                    <button class="delete-item">Delete</button>
-                                    <button class="move-up item-move-btn">Move Up</button>
-                                    <button class="move-down item-move-btn">Move Down</button>
-                                  </div>
-                                </div>
-                            </div> --}}
                             <div id="block-container">
                                 <div class="block">
-                                  <input type="number" class="input-field" placeholder="Enter Item #">
-                                  <input type="text" class="input-field" placeholder="Enter Outfit name..">
-                                  <textarea name="" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
-                                  {{-- <input type="text" class="input-field" placeholder="Enter Outfit Description.."> --}}
-                                  {{-- <div class="d-flex">
-                                    
-                                        <label for="">Price</label>
-                                        <input type="number" class="input-field" placeholder="Enter Price..">
-                                    
-                                        <label for="">Hours</label>
-                                        <input type="number" class="input-field" placeholder="Enter Hours..">
-                                    
-                                  </div> --}}
-
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-12">
+                                            <h3>Item# 1</h3>
+                                        </div>
+                                        <div class="col-md-10 col-sm-12">
+                                            <label for="outName">Outfit Name</label>
+                                            <input type="text" id="outName" class="input-field" placeholder="Enter Outfit name..">
+                                        </div>
+                                    </div>
+                                    <label for="outDetail">Outfit Name</label>
+                                    <textarea name="" id="outDetail" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
                                     <div class="row">
                                         <div class="col-md-3 col-sm-12">
                                             <label for="price">Price</label>
@@ -382,7 +355,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                            <button id="submit-button" class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
                         </div>
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
@@ -463,5 +436,6 @@
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 {{-- <script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script> --}}
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
+<script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 
 @endsection

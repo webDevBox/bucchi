@@ -211,9 +211,9 @@
     </div>
     <!-- END: Content-->
     @section('scripts')
-        <script>
+        {{-- <script>
             setTimeout(function () {
-                toastr['success'](
+                toastr['error'](
                 'In Admin dashboard',
                 '👋 Welcome John Doe!',
                 {
@@ -222,6 +222,6 @@
                 }
                 );
             }, 2000);
-        </script>
+        </script> --}}
     @endsection
 @endsection
