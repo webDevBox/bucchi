@@ -1,10 +1,10 @@
+var blockObjects = [];
 // Submit button click event
 document.getElementById("submit-button").addEventListener("click", function() {
     const blockContainer = document.getElementById("block-container");
     const blocks = blockContainer.getElementsByClassName("block");
-    
+    blockObjects = [];
     // Array to store the block objects
-    const blockObjects = [];
   
     // Iterate over each block
     for (let i = 0; i < blocks.length; i++) {
@@ -17,6 +17,7 @@ document.getElementById("submit-button").addEventListener("click", function() {
       const price = block.querySelector("#price").value;
       const hours = block.querySelector("#hours").value;
       const fabric = block.querySelector("#fabric").value;
+      total += Number(price);
   
       // Create an object for the block
       const blockObject = {
@@ -31,8 +32,10 @@ document.getElementById("submit-button").addEventListener("click", function() {
       // Add the block object to the array
       blockObjects.push(blockObject);
     }
+
+    createOutfits(4)
   
     // Log the block objects
-    console.log(blockObjects);
+    // console.log(blockObjects);
   });
   

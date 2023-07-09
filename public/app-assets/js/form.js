@@ -1,5 +1,6 @@
 // Add block button click event
-document.getElementById("add-block").addEventListener("click", function() {
+document.getElementById("add-block").addEventListener("click", (event) => {
+  event.preventDefault();
   addBlock();
 });
 

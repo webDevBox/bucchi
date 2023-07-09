@@ -27,6 +27,11 @@ Route::middleware(['auth.login'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
         Route::prefix('order')->group(function () {
             Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
+            Route::get('/storeClient',[OrderController::class, 'storeClient'])->name('storeClient');
+            Route::get('/storeOrder',[OrderController::class, 'storeOrder'])->name('storeOrder');
+            Route::get('/storeOutfits',[OrderController::class, 'storeOutfits'])->name('storeOutfits');
+            Route::get('/completeOrder',[OrderController::class, 'completeOrder'])->name('completeOrder');
+
             Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
             Route::get('/outfit',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
             Route::get('/changes',[OrderController::class, 'changes'])->name('outfitChanges');

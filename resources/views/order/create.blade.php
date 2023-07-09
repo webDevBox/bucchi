@@ -192,7 +192,7 @@
                             
                                 <div class="col-md-9">
                             
-                                <input type="text" id="client_name"  value="{{ old('client_name') }}" name="client_name" class="form-control" placeholder="Enter Client name.." required>
+                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Client name.." required>
                             
                                 @if ($errors->has('client_name')) <p style="color:red;">{{ $errors->first('client_name') }}</p> @endif 
                             
@@ -208,9 +208,9 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="number" id="client_contact"  value="{{ old('client_contact') }}" name="client_contact" class="form-control" placeholder="Enter Client Contact Number.." required>
+                                        <input type="number" id="client_contact" name="contact" class="form-control" placeholder="Enter Client Contact Number.." required>
                                     
-                                        @if ($errors->has('client_contact')) <p style="color:red;">{{ $errors->first('client_contact') }}</p> @endif 
+                                        @if ($errors->has('contact')) <p style="color:red;">{{ $errors->first('contact') }}</p> @endif 
                                     
                                         </div>
                                     
@@ -222,7 +222,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="email" id="client_email"  value="{{ old('client_email') }}" name="client_contact" class="form-control" placeholder="Enter Client Email Address.." required>
+                                        <input type="email" id="client_email" name="email" class="form-control" placeholder="Enter Client Email Address.." required>
                                     
                                         @if ($errors->has('client_email')) <p style="color:red;">{{ $errors->first('client_email') }}</p> @endif 
                                     
@@ -231,7 +231,7 @@
                                         </div>
                         </div>
                         <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                            <button class="button " type="button" onclick="createClient(2)" step_number="2">Next</button>
                         </div>
                     </section>
                     <!-- Step 2 Content, default hidden on page load. -->
@@ -245,9 +245,7 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="text" id="order_delivery"  value="{{ old('delivery') }}" name="delivery" class="form-control" placeholder="Enter Delivery" required>
-                                
-                                    @if ($errors->has('delivery')) <p style="color:red;">{{ $errors->first('delivery') }}</p> @endif 
+                                    <input type="text" id="order_delivery" name="delivery" class="form-control" placeholder="Enter Delivery" required>
                             
                                 </div>
                             
@@ -259,9 +257,7 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="date" id="order_date"  value="{{ old('order_date') }}" name="delivery_date" class="form-control" placeholder="Enter Delivery Date" required>
-                                
-                                    @if ($errors->has('delivery_date')) <p style="color:red;">{{ $errors->first('delivery_date') }}</p> @endif 
+                                    <input type="date" id="order_date" name="delivery_date" class="form-control" placeholder="Enter Delivery Date" required>
                             
                                 </div>
                             
@@ -286,7 +282,6 @@
                                         <option value="AUD">AUD</option>
                                         <option value="..other..">Add Other Currency</option>
                                     </select>
-                                {{-- @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif  --}}
                                 </div>
                                 </div>
                                 <br>
@@ -296,17 +291,15 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="text" id="order_currency"  value="{{ old('order_currency') }}" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
+                                    <input type="text" id="order_currency" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
                                 
-                                    @if ($errors->has('order_currency')) <p style="color:red;">{{ $errors->first('order_currency') }}</p> @endif 
-                            
                                 </div>
                             
                             </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                            <button class="button " onclick="addOrderDetails(3)" type="button" step_number="3">Next</button>
                         </div>
                     </section>
                     <!-- Step 3 Content, default hidden on page load. -->
@@ -325,7 +318,7 @@
                                             <input type="text" id="outName" class="input-field" placeholder="Enter Outfit name..">
                                         </div>
                                     </div>
-                                    <label for="outDetail">Outfit Name</label>
+                                    <label for="outDetail">Outfit Description</label>
                                     <textarea name="" id="outDetail" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
                                     <div class="row">
                                         <div class="col-md-3 col-sm-12">
@@ -355,7 +348,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button id="submit-button" class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                            <button id="submit-button" class="button " type="button" step_number="4">Next</button>
                         </div>
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
@@ -363,18 +356,18 @@
                         <h2 class="font-normal">Overview</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
-                            <h3 class="text-center">Total Price: <strong>150$</strong></h3>
+                            <h3 class="text-center">Total Price: <strong id="total-price"></strong></h3>
                             <hr>
-                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Payment</button>
+                            <button class="btn btn-primary" id="depositButton">Add Payment</button>
                             <br>
                             <div id="paymentAdder" class="row d-none">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="price">Add Payment</label>
-                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Amount..">
+                                    <input type="number" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="price">Payment Date</label>
-                                    <input type="date" name="" class="form-control" value="2023-07-23">
+                                    <input type="date" name="" class="form-control" id="date_deposit">
                                 </div>
                             </div>
                             <label for="notes">Additional Notes</label>
@@ -382,7 +375,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button class="button submit-btn" type="#">Add Order and Create Invoice Button</button>
+                            <button class="button submit-btn" id="submit-btn" type="#">Add Order and Create Invoice Button</button>
                         </div>
                     </section>
                 </form>
@@ -396,46 +389,14 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#client_select').change(function(){
-            var client = $('#client_select').val()
-            if(client === '..other..')
-            {
-                $('#client_name').val('');
-                $('#client_new').removeClass('d-none');
-                
-            }
-            else
-            {
-                $('#client_name').val(client)
-            }
-        })
-        
-        $('#currency_select').change(function(){
-            var currency = $('#currency_select').val();
-            if(currency === '..other..')
-            {
-                $('#order_currency').val('');
-                $('#currency_div').removeClass('d-none');
-                
-            }
-            else
-            {
-                $('#order_currency').val(currency);
-            }
-        })
-
-        function paymentPanel()
-        {
-            $('#paymentAdder').removeClass('d-none')
-            $('#depositButton').addClass('d-none')
-        }
-
-    </script>
-
+<script>
+    var baseUrl = "{{ url('/') }}";
+    var orderId = 0;
+    var total = 0;
+</script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
-{{-- <script src="{{ asset('app-assets/js/formItemAnimation.js')}}"></script> --}}
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
+<script src="{{ asset('app-assets/js/custom.js')}}"></script>
 
 @endsection
