@@ -5,21 +5,21 @@ document.getElementById("add-block").addEventListener("click", (event) => {
 });
 
 // Move up button click event
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
   if (event.target && event.target.className === "move-up") {
     moveUp(event.target.parentNode.parentNode);
   }
 });
 
 // Move down button click event
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
   if (event.target && event.target.className === "move-down") {
     moveDown(event.target.parentNode.parentNode);
   }
 });
 
 // Delete button click event
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
   if (event.target && event.target.className === "delete") {
     deleteBlock(event.target.parentNode.parentNode);
   }
@@ -30,6 +30,33 @@ function addBlock() {
   const blockContainer = document.getElementById("block-container");
   const blockCount = blockContainer.getElementsByClassName("block").length + 1;
 
+  // Check if all previous blocks have required fields filled
+  const previousBlocks = blockContainer.getElementsByClassName("block");
+  for (const block of previousBlocks) {
+    const outfitNameInput = block.querySelector("input[id='outName']");
+    const priceInput = block.querySelector("input[id='price']");
+    const hoursInput = block.querySelector("input[id='hours']");
+    const fabricInput = block.querySelector("input[id='fabric']");
+
+    if (
+      !outfitNameInput.value ||
+      !priceInput.value ||
+      !hoursInput.value ||
+      !fabricInput.value
+    ) {
+      // Show validation error and return without adding new block
+      outfitNameInput.classList.add("error");
+      priceInput.classList.add("error");
+      hoursInput.classList.add("error");
+      fabricInput.classList.add("error");
+      outfitNameInput.addEventListener("input", handleInput);
+      priceInput.addEventListener("input", handleInput);
+      hoursInput.addEventListener("input", handleInput);
+      fabricInput.addEventListener("input", handleInput);
+      return;
+    }
+  }
+
   // Create a new block element
   const newBlock = document.createElement("div");
   newBlock.classList.add("block");
@@ -38,13 +65,9 @@ function addBlock() {
   const row1 = document.createElement("div");
   row1.classList.add("row");
 
-  // const col1 = document.createElement("div");
-  // col1.classList.add("col-md-2", "col-sm-12");
-  
   const itemNumberHeading = document.createElement("h3");
   itemNumberHeading.classList.add("mt-2", "ml-2");
   itemNumberHeading.textContent = blockCount;
-  // col1.appendChild(itemNumberHeading);
 
   const col2 = document.createElement("div");
   col2.classList.add("col-md-11", "col-sm-12");
@@ -65,7 +88,7 @@ function addBlock() {
   const outfitDescLabel = document.createElement("label");
   outfitDescLabel.setAttribute("for", "outDetail");
   outfitDescLabel.textContent = "Outfit Description";
-  
+
   const outfitDescTextarea = document.createElement("textarea");
   outfitDescTextarea.classList.add("input-field");
   outfitDescTextarea.rows = "3";
@@ -179,4 +202,11 @@ function moveDown(block) {
 // Function to delete a block
 function deleteBlock(block) {
   block.parentNode.removeChild(block);
+}
+
+// Function to handle input event and remove error state
+function handleInput(event) {
+  const inputField = event.target;
+  inputField.classList.remove("error");
+  inputField.removeEventListener("input", handleInput);
 }

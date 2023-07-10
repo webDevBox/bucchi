@@ -1,80 +1,6 @@
 @extends('layouts.app')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
-{{-- <style>
-     .item {
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .item:hover {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .item label {
-      display: inline-block;
-      width: 100px;
-      font-weight: bold;
-    }
-
-    .item input {
-      margin-bottom: 5px;
-      width: 200px;
-    }
-
-    .item .item-actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .item:hover .item-actions {
-      opacity: 1;
-    }
-
-    .item .item-actions button {
-      padding: 5px 10px;
-      background-color: #ff4444;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #itemizedPart {
-      margin-bottom: 20px;
-    }
-
-    #itemizedPart::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    .item-move-btn {
-      display: inline-block;
-      margin-right: 5px;
-      padding: 3px 8px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .item-move-btn:hover {
-      background-color: #555;
-    }
-</style> --}}
 <style>
    .block {
   border: 1px solid #ccc;
@@ -107,6 +33,13 @@
   margin-top: 10px;
 }
 
+.input-field.error {
+  border-color: red;
+}
+
+.input-field.error::placeholder {
+  color: red;
+}
 </style>
 @endsection
 @section('content')
