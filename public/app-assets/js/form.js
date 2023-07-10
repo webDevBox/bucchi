@@ -38,15 +38,16 @@ function addBlock() {
   const row1 = document.createElement("div");
   row1.classList.add("row");
 
-  const col1 = document.createElement("div");
-  col1.classList.add("col-md-2", "col-sm-12");
-
+  // const col1 = document.createElement("div");
+  // col1.classList.add("col-md-2", "col-sm-12");
+  
   const itemNumberHeading = document.createElement("h3");
-  itemNumberHeading.textContent = "Item# " + blockCount;
-  col1.appendChild(itemNumberHeading);
+  itemNumberHeading.classList.add("mt-2", "ml-2");
+  itemNumberHeading.textContent = blockCount;
+  // col1.appendChild(itemNumberHeading);
 
   const col2 = document.createElement("div");
-  col2.classList.add("col-md-10", "col-sm-12");
+  col2.classList.add("col-md-11", "col-sm-12");
 
   const outfitNameLabel = document.createElement("label");
   outfitNameLabel.setAttribute("for", "outName");
@@ -57,7 +58,7 @@ function addBlock() {
   outfitNameInput.id = "outName";
   col2.appendChild(outfitNameInput);
 
-  row1.appendChild(col1);
+  row1.appendChild(itemNumberHeading);
   row1.appendChild(col2);
 
   // Add outfit description textarea
@@ -120,13 +121,13 @@ function addBlock() {
   buttonBlock.classList.add("button-block");
 
   // Add move up button
-  const moveUpButton = createButton("move-up", "Move Up");
+  const moveUpButton = createButton("move-up", "Up");
 
   // Add move down button
-  const moveDownButton = createButton("move-down", "Move Down");
+  const moveDownButton = createButton("move-down", "Down");
 
   // Add delete button
-  const deleteButton = createButton("delete", "Delete Outfit");
+  const deleteButton = createButton("delete", "Delete");
 
   // Append elements to the new block
   buttonBlock.appendChild(moveUpButton);

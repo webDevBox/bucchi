@@ -310,10 +310,8 @@
                             <div id="block-container">
                                 <div class="block">
                                     <div class="row">
-                                        <div class="col-md-2 col-sm-12">
-                                            <h3>Item# 1</h3>
-                                        </div>
-                                        <div class="col-md-10 col-sm-12">
+                                        <h3 class="mt-2 ml-2">1</h3>
+                                        <div class="col-md-11 col-sm-12">
                                             <label for="outName">Outfit Name</label>
                                             <input type="text" id="outName" class="input-field" placeholder="Enter Outfit name..">
                                         </div>
@@ -338,9 +336,9 @@
                                     </div>
                                   
                                   <div class="button-block">
-                                    <button class="move-up">Move Up</button>
-                                    <button class="move-down">Move Down</button>
-                                    <button class="delete">Delete Outfit</button>
+                                    <button class="move-up">Up</button>
+                                    <button class="move-down">Down</button>
+                                    <button class="delete">Delete</button>
                                   </div>
                                 </div>
                               </div>

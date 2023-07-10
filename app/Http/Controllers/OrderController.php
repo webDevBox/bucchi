@@ -45,8 +45,7 @@ class OrderController extends Controller
     {
         try
         {    
-            $client = Client::whereName($request->client_name)
-            ->whereContact($request->contact)->whereEmail($request->email)->first();
+            $client = Client::whereEmail($request->email)->first();
 
             if(!isset($client))
             {
