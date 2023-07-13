@@ -89,12 +89,21 @@
                             <span class="form-stepper-circle text-muted">
                                 <span>4</span>
                             </span>
+                            <div class="label text-muted">Notes</div>
+                        </a>
+                    </li>
+                    <!-- step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
                             <div class="label text-muted">Overview</div>
                         </a>
                     </li>
                 </ul>
                 <!-- Step Wise Form Content -->
-                <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+                <form action="#" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
                     <!-- Step 1 Content -->
                     <section id="step-1" class="form-step">
                         <h2 class="font-normal">Client Details</h2>
@@ -279,12 +288,12 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button id="submit-button" class="button " type="button" step_number="4">Next</button>
+                            <button id="submit-button" onclick="addOrderDetails(4)" class="button " type="button" step_number="4">Next</button>
                         </div>
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
                     <section id="step-4" class="form-step d-none">
-                        <h2 class="font-normal">Overview</h2>
+                        <h2 class="font-normal">Notes</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
                             <h3 class="text-center">Total Price: <strong id="total-price"></strong></h3>
@@ -306,6 +315,41 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                            <button id="submit-button" class="button" onclick="addOrderDetails(5)" type="button" step_number="5">Next</button>
+                        </div>
+                    </section>
+                    <!-- step 5-->
+                    <section id="step-5" class="form-step d-none">
+                        <h2 class="font-normal">Overview</h2>
+                        <div class="mt-3">
+                            <div id="invoice">
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                        <h4 class="text-center">Client Details</h4>
+                                        <p>Name: <strong id="client_name_over"></strong></p>
+                                        <p>Phone: <strong id="client_phone_over"></strong></p>
+                                        <p>Email: <strong id="client_email_over"></strong></p>
+                                    </div>
+                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                                        <h4 class="text-center">Order Details</h4>
+                                        <p>Name: <strong id="order_delivery_over"></strong></p>
+                                        <p>Phone: <strong id="order_date_over"></strong></p>
+                                        <p>Email: <strong id="order_currency_over"></strong></p>
+                                    </div>
+                                    <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                        <h4 class="text-center">Notes</h4>
+                                        <p id="notes_over"></p>
+                                    </div>
+                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                                        <h4 class="text-center">Outfits</h4>
+                                        <div id="outfits-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="mt-3">
+                            <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
                             <button class="button submit-btn" id="submit-btn" type="#">Add Order and Create Invoice Button</button>
                         </div>
                     </section>
@@ -325,9 +369,9 @@
     var orderId = 0;
     var total = 0;
 </script>
+<script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
-<script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/custom.js')}}"></script>
 
 @endsection

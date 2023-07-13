@@ -7,6 +7,7 @@ document.getElementById("add-block").addEventListener("click", (event) => {
 // Move up button click event
 document.addEventListener("click", function (event) {
   if (event.target && event.target.className === "move-up") {
+    event.preventDefault();
     moveUp(event.target.parentNode.parentNode);
   }
 });
@@ -14,6 +15,7 @@ document.addEventListener("click", function (event) {
 // Move down button click event
 document.addEventListener("click", function (event) {
   if (event.target && event.target.className === "move-down") {
+    event.preventDefault();
     moveDown(event.target.parentNode.parentNode);
   }
 });
@@ -21,6 +23,7 @@ document.addEventListener("click", function (event) {
 // Delete button click event
 document.addEventListener("click", function (event) {
   if (event.target && event.target.className === "delete") {
+    event.preventDefault();
     deleteBlock(event.target.parentNode.parentNode);
   }
 });

@@ -64,8 +64,36 @@ function createClient(step)
       });
 }
 
+function makeOverview(){
+    $('#client_name_over').html($('#client_name').val())
+    $('#client_phone_over').html($('#client_contact').val())
+    $('#client_email_over').html($('#client_email').val())
+
+    $('#order_delivery_over').html($('#order_delivery').val())
+    $('#order_date_over').html($('#order_date').val())
+    $('#order_currency_over').html($('#order_currency').val())
+    
+    $('#notes_over').html($('#notes').val())
+
+    const outfitsList = document.getElementById("outfits-list")
+    outfitsList.innerHTML = ""
+
+    for (let i = 0; i < blockObjects.length; i++) {
+        const item = blockObjects[i];
+        const listItem = document.createElement("li");
+        listItem.textContent = `Item# ${item.itemNumber} - Name: ${item.outfitName} - Price: $${item.price}
+         - Hours: ${item.hours} - fabric: ${item.fabric}`;
+        outfitsList.appendChild(listItem);
+    }
+
+
+}
+
 function addOrderDetails(step)
 {
+    if(step === 5)
+        makeOverview()
+        
     var url = baseUrl + "/admin/order/storeOrder";
     $.ajax({
         url: url,

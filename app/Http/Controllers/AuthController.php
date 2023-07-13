@@ -25,7 +25,7 @@ class AuthController extends Controller
             $user = auth()->user();
             if($user->role == 0)
             {
-                return redirect()->route('adminDashboard')->with('success','Ok ki awaz hai');
+                return redirect()->route('adminDashboard');
             }
             if($user->role == 1)
             {
