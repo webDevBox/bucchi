@@ -39,8 +39,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- BEGIN: Custom CSS-->
-<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+{{-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> --}}
 <!-- END: Custom CSS-->
+{{-- <script src="{{ asset('app-assets/js/jspdf.umd.min.js')}}"></script> --}}
+<script src="https://cdn.jsdelivr.net/jspdf/1.2.61/jspdf.min.js"></script>
 <style>
 .dropdown:hover .dropdown-content {display: block;}
 

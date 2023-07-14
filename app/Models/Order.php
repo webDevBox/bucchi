@@ -14,6 +14,18 @@ class Order extends Model
         'notes'
     ];
 
+    // protected $with =['client'];
+
+    public function client()
+    {
+        $this->belongsTo(Client::class);
+    }
+
+    public function scopeProduction($query)
+    {
+        return $query->whereProduction(0);
+    }
+
     public function scopeInactive($query)
     {
         return $query->where('status', 0);

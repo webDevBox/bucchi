@@ -13,12 +13,15 @@ class OrderController extends Controller
 {
     public function create()
     {
-        return view('order.create');
+        $order = Order::inactive()->get();
+        return view('order.create',compact('order'));
     }
     
     public function view()
     {
-        return view('order.view');
+        $orders = Order::production()->with('client')->get();
+        dd($orders);
+        return view('order.view',compact('orders'));
     }
 
     public function OutFitDetails()

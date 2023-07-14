@@ -1,7 +1,37 @@
 document.getElementById("submit-btn").addEventListener("click", (event) => {
     event.preventDefault();
     completeOrder();
+    createPDF()
   });
+
+//   function createPDF() {
+//     setTimeout(function() {
+//         html2canvas(document.getElementById('invoice_order'), {
+//           onrendered: function(canvas) {
+//             var data = canvas.toDataURL();
+//             var docDefinition = {
+//               content: [{
+//                 image: data,
+//                 width: 500
+//               }]
+//             };
+//             pdfMake.createPdf(docDefinition).download("Order.pdf");
+//           }
+//         });
+//       }, 500);
+//     }
+
+  function createPDF()
+  {
+    var doc = new jsPDF();
+  var elementHtml = $("#invoice_order").html();
+  
+  doc.fromHTML(elementHtml, 15, 15, {
+    'width': 170
+  });
+
+  doc.save("order.pdf");
+  }
 
 $('#client_select').change(function(){
     var client = $('#client_select').val()
@@ -119,6 +149,7 @@ function addOrderDetails(step)
 
 function createOutfits(step)
 {
+    $('#depositError').addClass('d-none')
     $('#total-price').text(total+'$')
     var url = baseUrl + "/admin/order/storeOutfits";
     $.ajax({
@@ -158,7 +189,22 @@ function completeOrder()
                 setTimeout(function () {
                     toastr['success'](
                         '',
-                    '👋 Order Completed',
+                    '👋 Order Created',
+                    {
+                        closeButton: true,
+                        tapToDismiss: false
+                    }
+                    );
+                }, 10000);
+                $('.final_order_button').addClass('d-none')
+                $('.order_re_create').removeClass('d-none')
+                
+            }
+            else{
+                setTimeout(function () {
+                    toastr['error'](
+                        'Please try again',
+                    'Some thing wrong!',
                     {
                         closeButton: true,
                         tapToDismiss: false
@@ -171,4 +217,30 @@ function completeOrder()
           // Handle the error response
         }
       });
+}
+
+function delPayment()
+{
+    if(confirm("Are you sure you want to delete payment?"))
+    {
+        $('#initial_deposit').val('')
+        $('#date_deposit').val('')
+        $('#paymentAdder').addClass('d-none')
+        $('#depositButton').removeClass('d-none')
+        $('#depositError').addClass('d-none')
+    }
+}
+
+function checkDepositAmout()
+{
+    var value = $('#initial_deposit').val()
+    if(value > total)
+    {
+        $('#depositError').removeClass('d-none')
+        $('#initial_deposit').val(total)
+    }
+    else
+    {
+        $('#depositError').addClass('d-none')
+    }
 }

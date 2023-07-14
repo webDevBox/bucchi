@@ -40,6 +40,10 @@
 .input-field.error::placeholder {
   color: red;
 }
+
+.payment_deleter{
+    margin-top: 24px;
+}
 </style>
 @endsection
 @section('content')
@@ -301,13 +305,17 @@
                             <button class="btn btn-primary" id="depositButton">Add Payment</button>
                             <br>
                             <div id="paymentAdder" class="row d-none">
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-5 col-sm-12">
                                     <label for="price">Add Payment</label>
-                                    <input type="number" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
+                                    <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
+                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order amount</small>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-5 col-sm-12">
                                     <label for="price">Payment Date</label>
                                     <input type="date" name="" class="form-control" id="date_deposit">
+                                </div>
+                                <div class="col-md-2 col-sm-12">
+                                    <button onclick="delPayment()" class="btn btn-danger payment_deleter"><i class="fa fa-trash"></i></button>
                                 </div>
                             </div>
                             <label for="notes">Additional Notes</label>
@@ -322,35 +330,35 @@
                     <section id="step-5" class="form-step d-none">
                         <h2 class="font-normal">Overview</h2>
                         <div class="mt-3">
-                            <div id="invoice">
+                            <div id="invoice_order">
                                 <div class="row">
                                     <div class="col-md-5 col-sm-12 border border-success rounded my-2">
-                                        <h4 class="text-center">Client Details</h4>
+                                        <h2 class="text-center">Client Details</h2>
                                         <p>Name: <strong id="client_name_over"></strong></p>
                                         <p>Phone: <strong id="client_phone_over"></strong></p>
                                         <p>Email: <strong id="client_email_over"></strong></p>
                                     </div>
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
-                                        <h4 class="text-center">Order Details</h4>
-                                        <p>Name: <strong id="order_delivery_over"></strong></p>
-                                        <p>Phone: <strong id="order_date_over"></strong></p>
-                                        <p>Email: <strong id="order_currency_over"></strong></p>
+                                        <h2 class="text-center">Order Details</h2>
+                                        <p>Delivery: <strong id="order_delivery_over"></strong></p>
+                                        <p>Completion Date: <strong id="order_date_over"></strong></p>
+                                        <p>Currency: <strong id="order_currency_over"></strong></p>
                                     </div>
                                     <div class="col-md-5 col-sm-12 border border-success rounded my-2">
-                                        <h4 class="text-center">Notes</h4>
+                                        <h2 class="text-center">Notes</h2>
                                         <p id="notes_over"></p>
                                     </div>
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
-                                        <h4 class="text-center">Outfits</h4>
+                                        <h2 class="text-center">Outfits</h2>
                                         <div id="outfits-list"></div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="mt-3">
-                            <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
-                            <button class="button submit-btn" id="submit-btn" type="#">Add Order and Create Invoice Button</button>
+                            <button class="final_order_button button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                            <button class="final_order_button button submit-btn" id="submit-btn" type="#">Add Order and Create Invoice Button</button>
+                            <button class="order_re_create d-none button submit-btn" onclick="window.location.href = '{{ route('createOrder') }}'">Create New Order</button>
                         </div>
                     </section>
                 </form>
@@ -372,6 +380,8 @@
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script src="{{ asset('app-assets/js/custom.js')}}"></script>
 
 @endsection
