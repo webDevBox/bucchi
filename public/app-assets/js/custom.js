@@ -21,6 +21,54 @@ document.getElementById("submit-btn").addEventListener("click", (event) => {
 //       }, 500);
 //     }
 
+function getInvoice(order)
+{
+    var url = baseUrl + "/admin/order/byId";
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            order: order
+        },
+        success: async function(response) {
+            if(response.success)
+            {
+                await makeInvoicer(response.data)
+                createPDF()
+            }
+        },
+        error: function(xhr, status, error) {
+          // Handle the error response
+        }
+      });
+    // $('#invoice_order').removeClass('d-none')
+    
+    // $('#invoice_order').addClass('d-none')
+}
+
+function makeInvoicer(data){
+    $('#client_name_over').html(data.client.name)
+    $('#client_phone_over').html(data.client.contact)
+    $('#client_email_over').html(data.client.email)
+
+    $('#order_delivery_over').html(data.delivery)
+    $('#order_date_over').html(data.completion_date)
+    $('#order_currency_over').html(data.currency)
+    
+    $('#notes_over').html(data.notes)
+
+    const outfitsList = document.getElementById("outfits-list")
+    outfitsList.innerHTML = ""
+    const blockObjects = data.outfits
+    for (let i = 0; i < blockObjects.length; i++) {
+        const item = blockObjects[i];
+        const listItem = document.createElement("li");
+        listItem.textContent = `Item# ${item.itemNumber} - Name: ${item.outfitName} - Price: $${item.price}
+         - Hours: ${item.hours} - fabric: ${item.fabric}`;
+        outfitsList.appendChild(listItem);
+    }
+}
+
   function createPDF()
   {
     var doc = new jsPDF();

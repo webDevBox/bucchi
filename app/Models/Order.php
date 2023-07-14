@@ -14,16 +14,31 @@ class Order extends Model
         'notes'
     ];
 
-    // protected $with =['client'];
+    protected $with =['client','outfits','transactions'];
 
     public function client()
     {
-        $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::Class);
+    }
+
+    public function outfits()
+    {
+        return $this->hasMany(Outfit::class);
     }
 
     public function scopeProduction($query)
     {
         return $query->whereProduction(0);
+    }
+    
+    public function scopeCompleted($query)
+    {
+        return $query->whereProduction(1);
     }
 
     public function scopeInactive($query)

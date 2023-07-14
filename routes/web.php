@@ -26,6 +26,7 @@ Route::middleware(['auth.login'])->group(function () {
     Route::middleware('auth.admin')->prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
         Route::prefix('order')->group(function () {
+            Route::get('/byId',[OrderController::class, 'byId'])->name('byId');
             Route::get('/create',[OrderController::class, 'create'])->name('createOrder');
             Route::get('/storeClient',[OrderController::class, 'storeClient'])->name('storeClient');
             Route::get('/storeOrder',[OrderController::class, 'storeOrder'])->name('storeOrder');
@@ -33,7 +34,8 @@ Route::middleware(['auth.login'])->group(function () {
             Route::get('/completeOrder',[OrderController::class, 'completeOrder'])->name('completeOrder');
 
             Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
-            Route::get('/outfit',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
+            Route::get('/outfit/{id}',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
+            Route::get('/outfits',[OrderController::class, 'getOrderOutfits'])->name('getOrderOutfits');
             Route::get('/changes',[OrderController::class, 'changes'])->name('outfitChanges');
             Route::get('/search',[OrderController::class, 'search'])->name('searchOrder');
             Route::get('/update/{id}',[OrderController::class, 'update'])->name('orderUpdate');

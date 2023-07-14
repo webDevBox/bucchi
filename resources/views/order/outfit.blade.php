@@ -31,15 +31,12 @@
             </div> --}}
             <div class="rounded box-shadow offset-md-2 col-md-8 col-sm-12">
                 {{-- <h2 class="text-center">Outfit Details</h2> --}}
-                <p>Outfit Name: <strong> Fit Me </strong></p>
-                <p>Client Name: <strong> John </strong></p>
-                <p>Delivery Date: <strong> 25 june 2023 </strong></p>
-                <p>Outfit Description: <strong> Lorem ipsum, dolor sit amet consectetur 
-                    adipisicing elit. Odio ad molestiae, hic dolor minus labore! Quibusdam 
-                    in possimus provident ut quam. Quidem perferendis pariatur nostrum in 
-                    exercitationem, incidunt facere nihil! </strong></p>
-                <p>Outfit Price: <strong> 1200 </strong></p>
-                <p>Hours: <strong> 25 </strong></p>
+                <p>Outfit Name: <strong> {{ $outfit->name }} </strong></p>
+                <p>Client Name: <strong> {{ $outfit->order->client->name }} </strong></p>
+                <p>Delivery Date: <strong> {{ $outfit->order->completion_date }} </strong></p>
+                <p>Outfit Description: <strong> {{ $outfit->description }} </strong></p>
+                <p>Outfit Price: <strong> {{ $outfit->price }} </strong></p>
+                <p>Hours: <strong> {{ $outfit->hours }} </strong></p>
                 
             </div>
         </div>

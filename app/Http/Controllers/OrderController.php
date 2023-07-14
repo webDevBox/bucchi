@@ -19,14 +19,14 @@ class OrderController extends Controller
     
     public function view()
     {
-        $orders = Order::production()->with('client')->get();
-        dd($orders);
+        $orders = Order::production()->get();
         return view('order.view',compact('orders'));
     }
 
-    public function OutFitDetails()
+    public function OutFitDetails($id)
     {
-        return view('order.outfit');
+        $outfit = Outfit::with('order.client')->find($id);
+        return view('order.outfit',compact('outfit'));
     }
     
     public function changes()
@@ -36,7 +36,8 @@ class OrderController extends Controller
     
     public function search()
     {
-        return view('order.search');
+        $orders = Order::completed()->get();
+        return view('order.search',compact('orders'));
     }
     
     public function update($id)
@@ -85,6 +86,27 @@ class OrderController extends Controller
                 'completion_date' => $request->completionDate,
                 'currency' => $request->currency
             ]);
+
+            return response()->json([
+                'success' => true,
+                'data' => $order
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'Error' => $th->getMessage()
+            ]);
+        }
+        
+    }
+    
+    
+    public function byId(Request $request)
+    {
+        try {
+            $order = Order::find($request->order);
 
             return response()->json([
                 'success' => true,
@@ -163,6 +185,30 @@ class OrderController extends Controller
                 'Error' => $th->getMessage()
             ]);
         }
+    }
+
+    public function getOrderOutfits(Request $request)
+    {
+        $orderId = $request->orderId;
+
+        // Fetch the outfits based on the order ID
+        $outfits = Outfit::where('order_id', $orderId)->get();
+    
+        // Process the fetched outfits and create an array with the necessary data
+        $data = [];
+        foreach ($outfits as $outfit) {
+            $data[] = [
+                // 'article' => $outfit->article,
+                'article' => '#123',
+                'name' => $outfit->name,
+                'hours' => $outfit->hours,
+                'status' => 'Active',
+                'detailsRoute' => route('OutFitDetails', ['id' => $outfit->id]),
+            ];
+        }
+    
+        // Return the outfits as a JSON response
+        return response()->json(['outfits' => $data]);
     }
     
 }

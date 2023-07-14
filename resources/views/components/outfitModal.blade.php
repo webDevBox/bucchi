@@ -18,8 +18,8 @@
                     <th class="text-center"> Status </th>
                     </tr>
                     </thead>
-                    <tbody>
-                            <tr>
+                    <tbody id="outfit-table-body">
+                            {{-- <tr>
                                 <td class="text-center"> 123 </td>
                                 <td class="text-center"> 
                                     <a target="_blank" href="{{ route('OutFitDetails') }}" > Fit Me </a>
@@ -27,22 +27,7 @@
                                 <td class="text-center">10 hours</td>
                                 <td class="text-center"> Active </td>
                             </tr>
-                            <tr>
-                                <td class="text-center"> 456 </td>
-                                <td class="text-center"> 
-                                    <a target="_blank" href="{{ route('OutFitDetails') }}" > Dekro </a>
-                                </td>
-                                <td class="text-center">13 hours</td>
-                                <td class="text-center"> Active </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"> 789 </td>
-                                <td class="text-center"> 
-                                    <a target="_blank" href="{{ route('OutFitDetails') }}" > Seep </a>
-                                </td>
-                                <td class="text-center">23 hours</td>
-                                <td class="text-center"> Active </td>
-                            </tr>
+                            --}}
                         
                     </tbody>
                     </table>

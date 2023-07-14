@@ -12,4 +12,9 @@ class Outfit extends Model
     protected $fillable = [
         'order_id', 'name', 'description', 'price', 'hours', 'fabric'
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
