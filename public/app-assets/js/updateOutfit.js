@@ -21,7 +21,19 @@ $(document).ready(function() {
                     row.append($('<td>').addClass('text-center').text(outfit.article));
                     row.append($('<td>').addClass('text-center').html('<a target="_blank" href="' + outfit.detailsRoute + '">' + outfit.name + '</a>'));
                     row.append($('<td>').addClass('text-center').text(outfit.hours));
-                    row.append($('<td>').addClass('text-center').text(outfit.status ? 'Completed' : 'InComplete'));
+                    if(outfit.status)
+                    {
+                        row.append($('<td>').addClass('text-center').html(`<div class="btn-group btn-group-xs">
+                            <button disabled id="button_${outfit.id}" title="In Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></button>
+                        </div> `));
+                    }
+                    else
+                    {
+                        row.append($('<td>').addClass('text-center').html(`<div class="btn-group btn-group-xs">
+                            <button onclick="sendProduction(${outfit.id}, '${outfit.article}', '${outfit.name}')" id="button_${outfit.id}" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></button>
+                        </div> `));
+                    }
+                    
                     tableBody.append(row);
                 });
             },

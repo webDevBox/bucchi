@@ -31,7 +31,8 @@ class OrderController extends Controller
     
     public function changes()
     {
-        return view('order.changes');
+        $orders = Order::completed()->active()->get();
+        return view('order.changes',compact('orders'));
     }
     
     public function search()
@@ -42,7 +43,9 @@ class OrderController extends Controller
     
     public function update($id)
     {
-        return view('order.update');
+        $order = Order::find($id);
+        $counter = 1;
+        return view('order.update',compact('order','counter'));
     }
 
     public function storeClient(Request $request)
@@ -198,17 +201,26 @@ class OrderController extends Controller
         $data = [];
         foreach ($outfits as $outfit) {
             $data[] = [
-                // 'article' => $outfit->article,
-                'article' => '#123',
+                'id' => $outfit->id,
+                'article' => $outfit->article,
                 'name' => $outfit->name,
                 'hours' => $outfit->hours,
-                'status' => 'Active',
+                'status' => $outfit->production,
                 'detailsRoute' => route('OutFitDetails', ['id' => $outfit->id]),
             ];
         }
     
         // Return the outfits as a JSON response
         return response()->json(['outfits' => $data]);
+    }
+
+    public function OutfitProduction(Request $request)
+    {
+        Outfit::whereId($request->id)->update([
+            'production' => 1
+        ]);
+
+        return response()->json(['ok' => true]);
     }
     
 }

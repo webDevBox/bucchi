@@ -35,6 +35,8 @@ Route::middleware(['auth.login'])->group(function () {
 
             Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
             Route::get('/outfit/{id}',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
+            Route::get('/production/outfit',[OrderController::class, 'OutfitProduction'])->name('OutfitProduction');
+            
             Route::get('/outfits',[OrderController::class, 'getOrderOutfits'])->name('getOrderOutfits');
             Route::get('/changes',[OrderController::class, 'changes'])->name('outfitChanges');
             Route::get('/search',[OrderController::class, 'search'])->name('searchOrder');

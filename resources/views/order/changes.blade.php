@@ -27,11 +27,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                    @foreach ($orders as $order)
                         <tr>
                             <td class="text-center"> 
-                                <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
+                                <a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="{{ $order->id }}"> {{ $order->client->name }} </a>
                             </td>
-                            <td class="text-center">3 june 2023</td>
+                            <td class="text-center">{{ $order->completion_date }}</td>
                             <td class="text-center"> 
                                 <div class="btn-group btn-group-xs">
                                     <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
@@ -39,44 +40,11 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-xs">
-                                    <a href="#" onclick="editConfirmation(2)" title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" onclick="editConfirmation({{ $order->id }})" title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="text-center"> 
-                                <a href="#" data-toggle="modal" data-target="#myModal8" > Mark </a>
-                            </td>
-                            <td class="text-center">23 june 2023</td>
-                            <td class="text-center"> 
-                                <div class="btn-group btn-group-xs">
-                                    <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
-                                </div>    
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group btn-group-xs">
-                                    <a href="#" onclick="editConfirmation(4)" title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center"> 
-                                <a href="#" data-toggle="modal" data-target="#myModal8" > De-Gro </a>
-                            </td>
-                            <td class="text-center">15 may 2023</td>
-                            <td class="text-center"> 
-                                <div class="btn-group btn-group-xs">
-                                    <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
-                                </div>    
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group btn-group-xs">
-                                    <a href="#" onclick="editConfirmation(8)" title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                    
+                        @endforeach
                 </tbody>
                 </table>
 
@@ -100,6 +68,10 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('app-assets/js/updateOutfit.js')}}"></script>
+<script>
+    var baseUrl = "{{ url('/') }}";
+</script>
 <script>
     function editConfirmation(id) {
         let text = "Are you sure you want to edit the invoice?";
@@ -112,14 +84,37 @@
         }
     }
     
-    function sendProduction(id) {
-        let text = "Send Article#123, Outfit Name XYZ for production?”";
+    function sendProduction(id,article,name) {
+        let text = `Send Article # ${article}, Outfit Name ${name} for production?`;
         if (confirm(text) == true) {
-            $(`#${id}`).attr('disabled',true)
+            updateOutfitProduction(id)
         } else {
             text = "You canceled!";
         }
     }
+
+    function updateOutfitProduction(id)
+    {
+        var url = baseUrl + "/admin/order/production/outfit";
+        $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            id: id
+        },
+        success: async function(response) {
+            if(response.ok)
+            {
+                console.log('alll')
+                $(`#button_${id}`).attr('disabled',true)
+            }
+        },
+        error: function(xhr, status, error) {
+          // Handle the error response
+        }
+        })
+    }
 </script>
-    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 @endsection

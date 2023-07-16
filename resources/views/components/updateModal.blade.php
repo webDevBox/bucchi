@@ -18,46 +18,7 @@
                     <th class="text-center"> Action </th>
                     </tr>
                     </thead>
-                    <tbody>
-                            <tr>
-                                <td class="text-center"> 123 </td>
-                                <td class="text-center"> 
-                                    Fit Me 
-                                </td>
-                                <td class="text-center">10 hours</td>
-                                <td class="text-center"> 
-                                    <div class="btn-group btn-group-xs">
-                                        <button onclick="sendProduction('button_1')" id="button_1" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
-                                    </div>     
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"> 45 </td>
-                                <td class="text-center"> 
-                                    Rooper 
-                                </td>
-                                <td class="text-center">14 hours</td>
-                                <td class="text-center"> 
-                                    <div class="btn-group btn-group-xs">
-                                        <button onclick="sendProduction('button_2')" id="button_2" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
-                                    </div>     
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"> 789 </td>
-                                <td class="text-center"> 
-                                    Shamp 
-                                </td>
-                                <td class="text-center">23 hours</td>
-                                <td class="text-center"> 
-                                    <div class="btn-group btn-group-xs">
-                                        <button onclick="sendProduction('button_3')" id="button_3" title="Send To Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></a>
-                                    </div>     
-                                </td>
-                            </tr>
-                            
-                        
-                    </tbody>
+                    <tbody id="outfit-table-body"></tbody>
                     </table>
                 </div>
             </div>

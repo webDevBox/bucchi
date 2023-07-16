@@ -33,6 +33,17 @@
   margin-top: 10px;
 }
 
+.input-field.error {
+  border-color: red;
+}
+
+.input-field.error::placeholder {
+  color: red;
+}
+
+.payment_deleter{
+    margin-top: 24px;
+}
 </style>
 @endsection
 @section('content')
@@ -45,7 +56,7 @@
     <div class="content-body">
 
         <div style="background-color: white;">
-            <h1> <strong> Update </strong> Order</h1>
+            <h1> <strong> Create New </strong> Order</h1>
             <div id="multi-step-form-container">
                 <!-- Form Steps / Progress Bar -->
                 <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
@@ -82,12 +93,21 @@
                             <span class="form-stepper-circle text-muted">
                                 <span>4</span>
                             </span>
+                            <div class="label text-muted">Notes</div>
+                        </a>
+                    </li>
+                    <!-- step 5 -->
+                    <li class="form-stepper-unfinished text-center form-stepper-list" step="5">
+                        <a class="mx-2">
+                            <span class="form-stepper-circle text-muted">
+                                <span>5</span>
+                            </span>
                             <div class="label text-muted">Overview</div>
                         </a>
                     </li>
                 </ul>
                 <!-- Step Wise Form Content -->
-                <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+                <form action="#" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
                     <!-- Step 1 Content -->
                     <section id="step-1" class="form-step">
                         <h2 class="font-normal">Client Details</h2>
@@ -102,11 +122,11 @@
                                     <select class="form-control" id="client_select" name="client_select" required>
                         
                                         <option selected disabled >Select Any Client</option>
+                                        <option value="..other..">Add New Client</option>
                                         <option value="John">John</option>
                                         <option value="Morder">Morder</option>
-                                        <option value="Jack" selected>Jack</option>
+                                        <option value="Jack">Jack</option>
                                         <option value="Nick">Nick</option>
-                                        <option value="..other..">Add New Client</option>
                                     </select>
                                 @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif 
                                 </div>
@@ -118,7 +138,7 @@
                             
                                 <div class="col-md-9">
                             
-                                <input type="text" id="client_name"  value="{{ old('client_name') }}" name="client_name" class="form-control" placeholder="Enter Client name.." required>
+                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Client name.." required>
                             
                                 @if ($errors->has('client_name')) <p style="color:red;">{{ $errors->first('client_name') }}</p> @endif 
                             
@@ -134,9 +154,9 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="number" id="client_contact"  value="03000000000" name="client_contact" class="form-control" placeholder="Enter Client Contact Number.." required>
+                                        <input type="number" id="client_contact" value="{{ $order->client->contact }}" name="contact" class="form-control" placeholder="Enter Client Contact Number.." required>
                                     
-                                        @if ($errors->has('client_contact')) <p style="color:red;">{{ $errors->first('client_contact') }}</p> @endif 
+                                        @if ($errors->has('contact')) <p style="color:red;">{{ $errors->first('contact') }}</p> @endif 
                                     
                                         </div>
                                     
@@ -148,7 +168,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="email" id="client_email"  value="jack@gmal.com" name="client_contact" class="form-control" placeholder="Enter Client Email Address.." required>
+                                        <input type="email" id="client_email" name="email" value="{{ $order->client->email }}" class="form-control" placeholder="Enter Client Email Address.." required>
                                     
                                         @if ($errors->has('client_email')) <p style="color:red;">{{ $errors->first('client_email') }}</p> @endif 
                                     
@@ -156,8 +176,8 @@
                                     
                                         </div>
                         </div>
-                        <div class="mt-3 row">
-                            <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                        <div class="mt-3">
+                            <button class="button " type="button" onclick="createClient(2)" step_number="2">Next</button>
                         </div>
                     </section>
                     <!-- Step 2 Content, default hidden on page load. -->
@@ -171,9 +191,7 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="text" id="order_delivery"  value="Deliver it soon" name="delivery" class="form-control" placeholder="Enter Delivery" required>
-                                
-                                    @if ($errors->has('delivery')) <p style="color:red;">{{ $errors->first('delivery') }}</p> @endif 
+                                    <input type="text" id="order_delivery" value="{{ $order->delivery }}" name="delivery" class="form-control" placeholder="Enter Delivery" required>
                             
                                 </div>
                             
@@ -181,13 +199,11 @@
                             <br>
                             <div class="form-group">
                             
-                                <label class="col-md-12 h5 control-label" for="order_date">Delivery Date</label>
+                                <label class="col-md-12 h5 control-label" for="order_date">Completion Date (Internal)</label>
 
                                 <div class="col-md-9">
                             
-                                    <input type="date" id="order_date"  value="2023-06-07" name="delivery_date" class="form-control" placeholder="Enter Delivery Date" required>
-                                
-                                    @if ($errors->has('delivery_date')) <p style="color:red;">{{ $errors->first('delivery_date') }}</p> @endif 
+                                    <input type="date" id="order_date" name="delivery_date" value="{{ $order->completion_date }}" class="form-control" placeholder="Enter Delivery Date" required>
                             
                                 </div>
                             
@@ -203,16 +219,14 @@
                         
                                     <select class="form-control" id="currency_select" name="" required>
                         
-                                        <option selected disabled >Select Currency</option>
-                                        <option value="PKR" selected>PKR</option>
-                                        <option value="USD">USD</option>
-                                        <option value="GBP">GBP</option>
-                                        <option value="EUR">EUR</option>
-                                        <option value="CAD">CAD</option>
-                                        <option value="AUD">AUD</option>
+                                        <option @if($order->currency == 'PKR') selected @endif value="PKR" selected>PKR</option>
+                                        <option @if($order->currency == 'USD') selected @endif value="USD">USD</option>
+                                        <option @if($order->currency == 'GBP') selected @endif value="GBP">GBP</option>
+                                        <option @if($order->currency == 'EUR') selected @endif value="EUR">EUR</option>
+                                        <option @if($order->currency == 'CAD') selected @endif value="CAD">CAD</option>
+                                        <option @if($order->currency == 'AUD') selected @endif value="AUD">AUD</option>
                                         <option value="..other..">Add Other Currency</option>
                                     </select>
-                                {{-- @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif  --}}
                                 </div>
                                 </div>
                                 <br>
@@ -222,17 +236,15 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="text" id="order_currency"  value="{{ old('order_currency') }}" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
+                                    <input type="text" id="order_currency" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
                                 
-                                    @if ($errors->has('order_currency')) <p style="color:red;">{{ $errors->first('order_currency') }}</p> @endif 
-                            
                                 </div>
                             
                             </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                            <button class="button " onclick="addOrderDetails(3)" type="button" step_number="3">Next</button>
                         </div>
                     </section>
                     <!-- Step 3 Content, default hidden on page load. -->
@@ -240,150 +252,148 @@
                         <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
-                            {{-- <div id="itemizedPart">
-                                <div class="item">
-                                  <label>Item #: </label>
-                                  <input type="number" name="itemNumber" class="form-control item-number">
-                                  <br>
-                                  <label>Outfit Name: </label>
-                                  <input type="text" name="outfitName" class="form-control outfit-name">
-                                  <br>
-                                  <label>Outfit Description: </label>
-                                  <input type="text" name="outfitDescription" class="form-control outfit-description">
-                                  <br>
-                                  <label>Price: </label>
-                                  <input type="number" name="price" class="form-control price">
-                                  <br>
-                                  <label>Hours: </label>
-                                  <input type="number" name="hours" class="form-control hours">
-                                  <br>
-                                  <div class="item-actions">
-                                    <button class="delete-item">Delete</button>
-                                    <button class="move-up item-move-btn">Move Up</button>
-                                    <button class="move-down item-move-btn">Move Down</button>
-                                  </div>
-                                </div>
-                            </div> --}}
                             <div id="block-container">
-                                <div class="block">
-                                  <input type="number" class="input-field" placeholder="Enter Item #">
-                                  <input type="text" class="input-field" placeholder="Enter Outfit name..">
-                                  <textarea name="" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
-                                  {{-- <input type="text" class="input-field" placeholder="Enter Outfit Description.."> --}}
-                                  {{-- <div class="d-flex">
+                                @foreach ($order->outfits as $outfit)
+                                    <div class="block">
+                                        <div class="row">
+                                            <h3 class="mt-2 ml-2">{{ $counter++ }}</h3>
+                                            <div class="col-md-11 col-sm-12">
+                                                <label for="outName">Outfit Name</label>
+                                                <input type="text" id="outName" value={{ $outfit->name }} class="input-field" placeholder="Enter Outfit name..">
+                                            </div>
+                                        </div>
+                                        <label for="outDetail">Outfit Description</label>
+                                        <textarea name="" id="outDetail" class="input-field" rows="3" id="" placeholder="Enter Outfit Description.." cols="30" rows="10">{{ $outfit->description }}</textarea>
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-12">
+                                                <label for="price">Price</label>
+                                                <input type="number" id="price" class="input-field" value="{{ $outfit->price }}" placeholder="Enter Price..">
+                                            </div>
+                                            
+                                            <div class="col-md-3 offset-md-1 col-sm-12">
+                                                <label for="hours">Hours</label>
+                                                <input type="number" id="hours" value="{{ $outfit->hours }}" class="input-field" placeholder="Enter Hours..">
+                                            </div>
+                                            
+                                            <div class="col-md-3 offset-md-1 col-sm-12">
+                                                <label for="fabric">Fabric</label>
+                                                <input type="number" id="fabric" class="input-field" value="{{ $outfit->fabric }}" placeholder="Enter Fabric..">
+                                            </div>
+                                        </div>
                                     
-                                        <label for="">Price</label>
-                                        <input type="number" class="input-field" placeholder="Enter Price..">
-                                    
-                                        <label for="">Hours</label>
-                                        <input type="number" class="input-field" placeholder="Enter Hours..">
-                                    
-                                  </div> --}}
-
-                                  <div class="row offset-2">
-                                    <div class="col-5">
-                                        <label for="price">Price</label>
-                                        <input type="number" id="price" class="input-field" placeholder="Enter Price..">
+                                    <div class="button-block">
+                                        <button class="move-up">Up</button>
+                                        <button class="move-down">Down</button>
+                                        <button class="delete">Delete</button>
                                     </div>
-                                    
-                                    <div class="col-5">
-                                        <label for="hours">Hours</label>
-                                        <input type="number" id="hours" class="input-field" placeholder="Enter Hours..">
                                     </div>
-                                    </div>
-                                  
-                                  <div class="button-block">
-                                    <button class="move-up">Move Up</button>
-                                    <button class="move-down">Move Down</button>
-                                    <button class="delete">Delete Outfit</button>
-                                  </div>
-                                </div>
+                                @endforeach
                               </div>
                               <button class="button" id="add-block">Add Outfit</button>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button class="button btn-navigate-form-step" type="button" step_number="4">Next</button>
+                            <button id="submit-button" onclick="addOrderDetails(4)" class="button " type="button" step_number="4">Next</button>
                         </div>
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
                     <section id="step-4" class="form-step d-none">
-                        <h2 class="font-normal">Overview</h2>
+                        <h2 class="font-normal">Notes</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
-                            <h3 class="text-center">Total Price: <strong>150$</strong></h3>
+                            <h3 class="text-center">Total Price: <strong id="total-price"></strong></h3>
                             <hr>
-                            <button class="btn btn-primary" id="depositButton" onclick="paymentPanel()">Add Payment</button>
+                            @foreach ($order->transactions as $transaction)
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="price">Payment Amount</label>
+                                        <input type="text" value="{{ $transaction->payment }}" class="form-control" disabled>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="price">Payment Date</label>
+                                        <input type="text" value="{{ $transaction->date }}" disabled class="form-control">
+                                    </div>
+                                </div>
+                            @endforeach
+                            <button class="btn btn-primary mt-2" id="depositButton">Add Payment</button>
                             <br>
                             <div id="paymentAdder" class="row d-none">
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-5 col-sm-12">
                                     <label for="price">Add Payment</label>
-                                    <input type="number" name="" class="form-control" value="100" placeholder="Enter Amount..">
+                                    <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
+                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order amount</small>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
+                                <div class="col-md-5 col-sm-12">
                                     <label for="price">Payment Date</label>
-                                    <input type="date" name="" class="form-control" value="2023-07-23">
+                                    <input type="date" name="" class="form-control" id="date_deposit">
+                                </div>
+                                <div class="col-md-2 col-sm-12">
+                                    <button onclick="delPayment()" class="btn btn-danger payment_deleter"><i class="fa fa-trash"></i></button>
                                 </div>
                             </div>
                             <label for="notes">Additional Notes</label>
-                            <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes..">Make this as soon as possible with good quality</textarea>
+                            <textarea name="" id="notes" rows="5" class="form-control" placeholder="Enter Additional Notes..">{{ $order->notes }}</textarea>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
+                            <button id="submit-button" class="button" onclick="addOrderDetails(5)" type="button" step_number="5">Next</button>
                         </div>
                     </section>
-                    <div class="d-flex ml-auto p-2">
-                        <button class="ml-auto btn btn-success  mr-1">Update</button>
-                        <a href="{{ route('outfitChanges') }}" class="btn btn-danger">Cancel</a>
-                    </div>
+                    <!-- step 5-->
+                    <section id="step-5" class="form-step d-none">
+                        <h2 class="font-normal">Overview</h2>
+                        <div class="mt-3">
+                            <div id="invoice_order">
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                        <h2 class="text-center">Client Details</h2>
+                                        <p>Name: <strong id="client_name_over"></strong></p>
+                                        <p>Phone: <strong id="client_phone_over"></strong></p>
+                                        <p>Email: <strong id="client_email_over"></strong></p>
+                                    </div>
+                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                                        <h2 class="text-center">Order Details</h2>
+                                        <p>Delivery: <strong id="order_delivery_over"></strong></p>
+                                        <p>Completion Date: <strong id="order_date_over"></strong></p>
+                                        <p>Currency: <strong id="order_currency_over"></strong></p>
+                                    </div>
+                                    <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                        <h2 class="text-center">Notes</h2>
+                                        <p id="notes_over"></p>
+                                    </div>
+                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                                        <h2 class="text-center">Outfits</h2>
+                                        <div id="outfits-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
+                            <button class="button submit-btn" id="submit-btn" type="#">Download Invoice</button>
+                        </div>
+                    </section>
                 </form>
             </div>
         </div>
+
+
     </div>
 </div>
 </div>
 @endsection
 
 @section('scripts')
-    <script>
-        $('#client_select').change(function(){
-            var client = $('#client_select').val()
-            if(client === '..other..')
-            {
-                $('#client_name').val('');
-                $('#client_new').removeClass('d-none');
-                
-            }
-            else
-            {
-                $('#client_name').val(client)
-            }
-        })
-        
-        $('#currency_select').change(function(){
-            var currency = $('#currency_select').val();
-            if(currency === '..other..')
-            {
-                $('#order_currency').val('');
-                $('#currency_div').removeClass('d-none');
-                
-            }
-            else
-            {
-                $('#order_currency').val(currency);
-            }
-        })
-
-        function paymentPanel()
-        {
-            $('#paymentAdder').removeClass('d-none')
-            $('#depositButton').addClass('d-none')
-        }
-
-    </script>
-
+<script>
+    var baseUrl = "{{ url('/') }}";
+    var orderId = 0;
+    var total = 0;
+</script>
+<script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
-
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="{{ asset('app-assets/js/custom.js')}}"></script>
 
 @endsection
