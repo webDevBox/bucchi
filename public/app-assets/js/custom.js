@@ -115,33 +115,6 @@ document.getElementById("depositButton").addEventListener("click", (event) => {
     $('#depositButton').addClass('d-none')
   });
 
-
-
-
-function createClient(step)
-{
-    var url = baseUrl + "/admin/order/storeClient";
-    $.ajax({
-        url: url,
-        type: "GET",
-        data: {
-            client_name: $('#client_name').val(),
-            contact: $('#client_contact').val(),
-            email: $('#client_email').val()
-        },
-        success: function(response) {
-            if(response.success)
-            {
-                orderId = response.data.id
-                navigateToFormStep(step)
-            }
-        },
-        error: function(xhr, status, error) {
-          // Handle the error response
-        }
-      });
-}
-
 function makeOverview(){
     $('#client_name_over').html($('#client_name').val())
     $('#client_phone_over').html($('#client_contact').val())
@@ -163,9 +136,40 @@ function makeOverview(){
          - Hours: ${item.hours} - fabric: ${item.fabric}`;
         outfitsList.appendChild(listItem);
     }
-
-
 }
+
+function createClient(step)
+{
+    if(orderId === 0)
+    {
+        var url = baseUrl + "/admin/order/storeClient";
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                client_name: $('#client_name').val(),
+                contact: $('#client_contact').val(),
+                email: $('#client_email').val()
+            },
+            success: function(response) {
+                if(response.success)
+                {
+                    orderId = response.data.id
+                    navigateToFormStep(step)
+                }
+            },
+            error: function(xhr, status, error) {
+            // Handle the error response
+            }
+      })
+    }
+    else
+    {
+        navigateToFormStep(step)
+        
+    }
+}
+
 
 function addOrderDetails(step)
 {
@@ -282,6 +286,21 @@ function delPayment()
 function checkDepositAmout()
 {
     var value = $('#initial_deposit').val()
+    if(orderId != 0)
+    {
+        const depositers = document.getElementsByClassName("prev_transactions");
+  
+        let sum = 0;
+        for (let i = 0; i < depositers.length; i++) {
+            const value = parseFloat(depositers[i].value)
+            if (!isNaN(value)) {
+            sum += value;
+            }
+        }
+
+        total -= Number(sum);
+    console.log(total)
+    }
     if(value > total)
     {
         $('#depositError').removeClass('d-none')

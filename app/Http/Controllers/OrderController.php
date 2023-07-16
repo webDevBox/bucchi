@@ -43,9 +43,10 @@ class OrderController extends Controller
     
     public function update($id)
     {
-        $order = Order::find($id);
+        $clients = Client::get();
+        $order = Order::findOrFail($id);
         $counter = 1;
-        return view('order.update',compact('order','counter'));
+        return view('order.update',compact('clients','order','counter'));
     }
 
     public function storeClient(Request $request)

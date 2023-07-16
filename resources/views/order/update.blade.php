@@ -114,34 +114,12 @@
                         <!-- Step 1 input fields -->
                         <div class="mt-3 offset-3">
                             <div class="form-group">
-                            
-                                <label class="col-md-12  h5  control-label" for="product_description">Select Client</label>
-                        
-                                <div class="col-md-9">
-                        
-                                    <select class="form-control" id="client_select" name="client_select" required>
-                        
-                                        <option selected disabled >Select Any Client</option>
-                                        <option value="..other..">Add New Client</option>
-                                        <option value="John">John</option>
-                                        <option value="Morder">Morder</option>
-                                        <option value="Jack">Jack</option>
-                                        <option value="Nick">Nick</option>
-                                    </select>
-                                @if ($errors->has('client_select')) <p style="color:red;">{{ $errors->first('client_select') }}</p> @endif 
-                                </div>
-                                </div>
-                                <br>
-                            <div class="form-group d-none" id="client_new">
-            
+                                <input type="number" class="d-none" value="{{ $order->id }}" id="order_id_update">
                                 <label class="col-md-12 h5 control-label" for="client_name">Client Name</label>
                             
                                 <div class="col-md-9">
                             
-                                <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Enter Client name.." required>
-                            
-                                @if ($errors->has('client_name')) <p style="color:red;">{{ $errors->first('client_name') }}</p> @endif 
-                            
+                                <input type="text" class="form-control" value="{{ $order->client->name }}" disabled>
                                 </div>
                             
                                 </div>
@@ -154,9 +132,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="number" id="client_contact" value="{{ $order->client->contact }}" name="contact" class="form-control" placeholder="Enter Client Contact Number.." required>
-                                    
-                                        @if ($errors->has('contact')) <p style="color:red;">{{ $errors->first('contact') }}</p> @endif 
+                                        <input type="number" value="{{ $order->client->contact }}" class="form-control" disabled>
                                     
                                         </div>
                                     
@@ -168,10 +144,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="email" id="client_email" name="email" value="{{ $order->client->email }}" class="form-control" placeholder="Enter Client Email Address.." required>
-                                    
-                                        @if ($errors->has('client_email')) <p style="color:red;">{{ $errors->first('client_email') }}</p> @endif 
-                                    
+                                        <input type="email" value="{{ $order->client->email }}" class="form-control" disabled>
                                         </div>
                                     
                                         </div>
@@ -307,7 +280,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="price">Payment Amount</label>
-                                        <input type="text" value="{{ $transaction->payment }}" class="form-control" disabled>
+                                        <input type="text" value="{{ $transaction->payment }}" class="prev_transactions form-control" disabled>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="price">Payment Date</label>
@@ -386,7 +359,7 @@
 @section('scripts')
 <script>
     var baseUrl = "{{ url('/') }}";
-    var orderId = 0;
+    var orderId = $('#order_id_update').val();
     var total = 0;
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
