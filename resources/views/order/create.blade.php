@@ -292,7 +292,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button id="submit-button" onclick="addOrderDetails(4)" class="button " type="button" step_number="4">Next</button>
+                            <button id="submit-button" class="button " type="button" step_number="4">Next</button>
                         </div>
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
@@ -323,7 +323,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button id="submit-button" class="button" onclick="addOrderDetails(5)" type="button" step_number="5">Next</button>
+                            <button class="button" onclick="makeOverview(5)" type="button" step_number="5">Next</button>
                         </div>
                     </section>
                     <!-- step 5-->
@@ -357,7 +357,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="final_order_button button btn-navigate-form-step" type="button" step_number="4">Prev</button>
-                            <button class="final_order_button button submit-btn" id="submit-btn" type="#">Add Order and Create Invoice Button</button>
+                            <button class="final_order_button button submit-btn" id="submit-btn" type="#">Add Order and Create Invoice</button>
                             <button class="order_re_create d-none button submit-btn" onclick="window.location.href = '{{ route('createOrder') }}'">Create New Order</button>
                         </div>
                     </section>

@@ -115,7 +115,7 @@ document.getElementById("depositButton").addEventListener("click", (event) => {
     $('#depositButton').addClass('d-none')
   });
 
-function makeOverview(){
+function makeOverview(step){
     $('#client_name_over').html($('#client_name').val())
     $('#client_phone_over').html($('#client_contact').val())
     $('#client_email_over').html($('#client_email').val())
@@ -136,6 +136,7 @@ function makeOverview(){
          - Hours: ${item.hours} - fabric: ${item.fabric}`;
         outfitsList.appendChild(listItem);
     }
+    navigateToFormStep(step)
 }
 
 function createClient(step)
@@ -173,9 +174,6 @@ function createClient(step)
 
 function addOrderDetails(step)
 {
-    if(step === 5)
-        makeOverview()
-        
     var url = baseUrl + "/admin/order/storeOrder";
     $.ajax({
         url: url,
@@ -282,7 +280,6 @@ function delPayment()
         $('#depositError').addClass('d-none')
     }
 }
-
 function checkDepositAmout()
 {
     var value = $('#initial_deposit').val()
@@ -297,9 +294,9 @@ function checkDepositAmout()
             sum += value;
             }
         }
-
+        
         total -= Number(sum);
-    console.log(total)
+        console.log(total)
     }
     if(value > total)
     {

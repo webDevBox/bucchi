@@ -24,7 +24,7 @@ $(document).ready(function() {
                     if(outfit.status)
                     {
                         row.append($('<td>').addClass('text-center').html(`<div class="btn-group btn-group-xs">
-                            <button disabled id="button_${outfit.id}" title="In Production" class="btn btn-success"><i class="fa fa-paper-plane"></i></button>
+                            <button disabled id="button_${outfit.id}" title="In Production" class="btn btn-dark"><i class="fa fa-paper-plane"></i></button>
                         </div> `));
                     }
                     else

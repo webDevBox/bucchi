@@ -31,7 +31,7 @@ class OrderController extends Controller
     
     public function changes()
     {
-        $orders = Order::completed()->active()->get();
+        $orders = Order::active()->get();
         return view('order.changes',compact('orders'));
     }
     
@@ -130,24 +130,21 @@ class OrderController extends Controller
     public function storeOutfits(Request $request)
     {
         try {
-            $outfits = [];
 
             foreach($request['outfitsObj'] as $outfit)
             {
-                $outfits[] = [
+                Outfit::updateOrCreate([
                     'order_id' => $request->order ,
                     'name' => $outfit['outfitName'] ,
                     'description' => $outfit['outfitDescription'] ,
                     'price' => $outfit['price'] ,
                     'hours' => $outfit['hours'] ,
-                    'fabric' => $outfit['fabric'] 
-                ];
+                    'fabric' => $outfit['fabric']
+                ]);
             }
 
-            $outfitCreate = Outfit::insert($outfits);
             return response()->json([
-                'success' => true,
-                'data' => $outfitCreate
+                'success' => true
             ]);
         } catch (\Throwable $th) {
             return response()->json([

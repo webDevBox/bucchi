@@ -105,8 +105,10 @@
         success: async function(response) {
             if(response.ok)
             {
-                console.log('alll')
                 $(`#button_${id}`).attr('disabled',true)
+                $(`#button_${id}`).attr('class','btn btn-dark')
+                $(`#button_${id}`).attr('onclick',false)
+                $(`#button_${id}`).attr('title','In Production')
             }
         },
         error: function(xhr, status, error) {

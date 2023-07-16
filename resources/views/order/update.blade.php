@@ -253,12 +253,11 @@
                                                 <input type="number" id="fabric" class="input-field" value="{{ $outfit->fabric }}" placeholder="Enter Fabric..">
                                             </div>
                                         </div>
-                                    
-                                    <div class="button-block">
-                                        <button class="move-up">Up</button>
-                                        <button class="move-down">Down</button>
-                                        <button class="delete">Delete</button>
-                                    </div>
+                                        <div class="button-block">
+                                            <button class="move-up">Up</button>
+                                            <button class="move-down">Down</button>
+                                            <button class="delete">Delete</button>
+                                        </div>
                                     </div>
                                 @endforeach
                               </div>
@@ -266,7 +265,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
-                            <button id="submit-button" onclick="addOrderDetails(4)" class="button " type="button" step_number="4">Next</button>
+                            <button id="submit-button" class="button " type="button" step_number="4">Next</button>
                         </div>
                     </section>
                     <!-- Step 4 Content, default hidden on page load. -->
@@ -294,7 +293,7 @@
                                 <div class="col-md-5 col-sm-12">
                                     <label for="price">Add Payment</label>
                                     <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
-                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order amount</small>
+                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order total amount</small>
                                 </div>
                                 <div class="col-md-5 col-sm-12">
                                     <label for="price">Payment Date</label>
@@ -309,7 +308,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button id="submit-button" class="button" onclick="addOrderDetails(5)" type="button" step_number="5">Next</button>
+                            <button class="button" onclick="addOrderDetails(5)" type="button" step_number="5">Next</button>
                         </div>
                     </section>
                     <!-- step 5-->
