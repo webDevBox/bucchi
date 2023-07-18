@@ -8,7 +8,7 @@ function percentage($value,$total)
         $formattedPercentage = number_format($percentage, 2) . "%";
         return $formattedPercentage;
     }
-    return 0;
+    return 0 . "%";
 }
 
 function remainingDays($time)
