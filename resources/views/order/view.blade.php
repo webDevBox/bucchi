@@ -33,7 +33,7 @@
                                 <a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="{{ $order->id }}" > {{ $order->client->name }} </a>
                             </td>
                             <td class="text-center">{{ $order->completion_date }}</td>
-                            <td class="text-center"> {{  percentage($order->outfits->pluck('price')->sum(),$order->transactions->pluck('payment')->sum()) }}</td>
+                            <td class="text-center"> {{  percentage($order->transactions->pluck('payment')->sum(),$order->outfits->pluck('price')->sum()) }}</td>
                             <td class="text-center">{{ remainingDays($order->completion_date) }}</td>
                         </tr>
                     @endforeach
