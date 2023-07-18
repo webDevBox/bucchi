@@ -17,4 +17,9 @@ class Outfit extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function scopeProduction($query)
+    {
+        return $query->whereProduction(1);
+    }
 }

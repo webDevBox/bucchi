@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <style>
    .block {
   border: 1px solid #ccc;
@@ -32,6 +33,38 @@
 #add-block {
   margin-top: 10px;
 }
+
+
+@media (max-width: 768px) {
+  .audio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .counter {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .delete-button {
+    margin-top: 10px;
+  }
+}
+
+
+.gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px; /* Adjust this value to set the space between images */
+    }
+    .gallery a {
+      display: block;
+    }
+    .gallery img {
+      max-width: 100px; /* Set the desired maximum width for the gallery image */
+      max-height: 100px; /* Set the desired maximum height for the gallery image */
+    }
 
 </style>
 @endsection
@@ -77,23 +110,23 @@
                           <p class="text-center">
                             Client Name
                           </p>
-                          <h3 class="text-center">John</h3>
+                          <h3 class="text-center">{{ $outfit->order->client->name }}</h3>
                         </div>
                         <div class="col-4">
                           <p class="text-center">
                             Outfit Name
                           </p>
-                          <h3 class="text-center">Fit Me</h3>
+                          <h3 class="text-center">{{ $outfit->name }}</h3>
                         </div>
                         <div class="col-4">
                           <p class="text-center">
                             Completion Date 
                           </p>
-                          <h3 class="text-center">2 July 2023</h3>
+                          <h3 class="text-center">{{ $outfit->order->completion_date }}</h3>
                         </div>
                         <div class="col-12 mt-3">
                           <h3>Description</h3>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque natus rem, accusantium laborum quibusdam minus iure velit veritatis praesentium. Maiores ipsa minus fuga porro? Dignissimos, veritatis! Unde ut mollitia asperiores?</p>
+                          <p>{{ $outfit->description }}</p>
                         </div>
                       </div>
                         <h2 class="font-normal">Material Details</h2>
@@ -107,12 +140,11 @@
                           
                           <ul id="audioList" style="list-style: none;"></ul>
                           <h3>Images</h3>
-                          <div id="imager" class="bg-light d-flex mx-auto mt-2" style="cursor: pointer; min-height: 100px; width: 100%;">
-                                <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
-                                
-                                <div class="gallery"></div>
-                            </div>
-                            <input type="file" class="d-none" multiple id="gallery-photo-add">
+                          <div id="imager" class="col-md-6 offset-md-3 bg-light d-flex mx-auto mt-2" style="cursor: pointer; min-height: 100px; width: 100%;">
+                                <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>      
+                          </div>
+                          <div class="gallery"></div>
+                          <input type="file" class="d-none" multiple id="gallery-photo-add">
 
                           </div>
                             <div class="mt-3">
@@ -214,7 +246,7 @@
         }
   }
 </script>
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/notes.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-image.js')}}"></script>

@@ -42,7 +42,7 @@ Route::middleware(['auth.login'])->group(function () {
             Route::get('/search',[OrderController::class, 'search'])->name('searchOrder');
             Route::get('/update/{id}',[OrderController::class, 'update'])->name('orderUpdate');
             Route::get('production',[AdminController::class, 'production'])->name('productionLine');
-            Route::get('outfitProfile',[AdminController::class, 'outfitProfile'])->name('adminOutfitProfile');
+            Route::get('outfitProfile/{id}',[AdminController::class, 'outfitProfile'])->name('adminOutfitProfile');
         });
     });
     Route::middleware('auth.office')->prefix('office')->group(function() {

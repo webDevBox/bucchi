@@ -182,6 +182,8 @@ class OrderController extends Controller
                 ]);
             }
 
+            $order = Order::find($request->order);
+            
             return response()->json([
                 'success' => true,
                 'data' => $order,

@@ -29,21 +29,22 @@
                 </tr>
                 </thead>
                 <tbody>
+                    @foreach ($outfits as $outfit)
                         <tr>
-                            <td class="text-center"> 7894 </td>
-                            <td class="text-center"> John </td>
+                            <td class="text-center"> {{ $outfit->article }} </td>
+                            <td class="text-center"> {{ $outfit->order->client->name }} </td>
                             <td class="text-center">
-                                <a href="{{ route('adminOutfitProfile') }}"> Fit Me </a>
+                                <a href="{{ route('adminOutfitProfile',['id' => $outfit->id ]) }}"> {{ $outfit->name }} </a>
                             </td>
                             <td class="text-center"> Active </td>
-                            <td class="text-center">3 june 2023</td>
+                            <td class="text-center">{{ $outfit->order->completion_date }}</td>
                             <td class="text-center">
-                                <a href="#" onclick="outfitModalOpener('Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis, quae assumenda placeat reiciendis, omnis consectetur aliquid, dolore magni eum est quisquam nihil temporibus quis repellendus nisi delectus ab excepturi voluptatibus.')" data-toggle="modal" data-target="#myModal8">
+                                <a href="#" onclick="outfitModalOpener('{{ $outfit->description }}')" data-toggle="modal" data-target="#myModal8">
                                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>
-                        
+                    @endforeach
                 </tbody>
                 </table>
 

@@ -4,23 +4,6 @@ document.getElementById("submit-btn").addEventListener("click", (event) => {
     createPDF()
   });
 
-//   function createPDF() {
-//     setTimeout(function() {
-//         html2canvas(document.getElementById('invoice_order'), {
-//           onrendered: function(canvas) {
-//             var data = canvas.toDataURL();
-//             var docDefinition = {
-//               content: [{
-//                 image: data,
-//                 width: 500
-//               }]
-//             };
-//             pdfMake.createPdf(docDefinition).download("Order.pdf");
-//           }
-//         });
-//       }, 500);
-//     }
-
 function getInvoice(order)
 {
     var url = baseUrl + "/admin/order/byId";
@@ -132,8 +115,17 @@ function makeOverview(step){
     for (let i = 0; i < blockObjects.length; i++) {
         const item = blockObjects[i];
         const listItem = document.createElement("li");
-        listItem.textContent = `Item# ${item.itemNumber} - Name: ${item.outfitName} - Price: $${item.price}
-         - Hours: ${item.hours} - fabric: ${item.fabric}`;
+        // listItem.textContent = `Item# ${item.itemNumber} - Name: ${item.outfitName} - Price: $${item.price}
+        //  - Hours: ${item.hours} - fabric: ${item.fabric}`;
+        listItem.innerHTML = `
+        <div class="row">
+            <div class="col-12">Item# <strong>${item.itemNumber}</strong></div>
+            <div class="col-md-6 col-sm-12">Name <strong>${item.outfitName}</strong></div>
+            <div class="col-md-6 col-sm-12">Price <strong>$${item.price}</strong></div>
+            <div class="col-md-6 col-sm-12">Hours <strong>${item.hours}</strong></div>
+            <div class="col-md-6 col-sm-12">Fabric <strong>${item.fabric}</strong></div>
+        </div>
+        `
         outfitsList.appendChild(listItem);
     }
     navigateToFormStep(step)
@@ -195,7 +187,7 @@ function updateNotes(step)
                 $('#paymentAdder').addClass('d-none')
                 $('#depositButton').removeClass('d-none')
                 $('#depositError').addClass('d-none')
-                navigateToFormStep(step)   
+                makeOverview(step)
             }
             else{
                 setTimeout(function () {

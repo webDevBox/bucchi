@@ -23,7 +23,7 @@
                 <th class="text-center">Client Name</th>
                 <th class="text-center">Delivery Date</th>
                 <th class="text-center"> PDF </th>
-                <th class="text-center">Edit</th>
+                <th class="text-center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,6 +40,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-xs">
+                                    <a href="#" title="Mark as Complete" class="btn btn-success"><i class="fa fa-check"></i></a>
                                     <a href="#" onclick="editConfirmation({{ $order->id }})" title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                                 </div>
                             </td>

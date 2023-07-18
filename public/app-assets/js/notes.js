@@ -6,14 +6,18 @@ const stopButton = document.getElementById('stopButton');
 const audioPlayer = document.getElementById('audioPlayer');
 const audioList = document.getElementById('audioList');
 
-recordButton.addEventListener('click', startRecording);
-recordButton.addEventListener('touchstart', startRecording);
-stopButton.addEventListener('click', stopRecording);
-stopButton.addEventListener('touchstart', stopRecording);
+recordButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  startRecording();
+});
+stopButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  stopRecording();
+});
 
 function startRecording() {
-  stopButton.classList.remove('hidden');
-  recordButton.classList.add('hidden');
+  $('#stopButton').removeClass('d-none');
+  $('#recordButton').addClass('d-none');
 
   navigator.mediaDevices.getUserMedia({ audio: true })
     .then((newStream) => {
@@ -42,9 +46,9 @@ function startRecording() {
 }
 
 function stopRecording() {
-  stopButton.classList.add('hidden');
-  recordButton.classList.remove('hidden');
-  audioPlayer.classList.remove('hidden');
+  $('#stopButton').addClass('d-none');
+  $('#recordButton').removeClass('d-none');
+  $('#audioPlayer').removeClass('d-none');
 
   recordButton.disabled = false;
   stopButton.disabled = true;
@@ -88,6 +92,8 @@ function displayRecordedAudios() {
     audioList.appendChild(listItem);
   });
 }
+
+
 
 function deleteAudio(index) {
   recordedAudios.splice(index, 1);

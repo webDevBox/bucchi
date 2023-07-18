@@ -44,6 +44,28 @@
 .payment_deleter{
     margin-top: 24px;
 }
+
+#outfits-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style each list item */
+#outfits-list li {
+  background-color: #f9eaea;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Add a hover effect to highlight the list items */
+#outfits-list li:hover {
+  background-color: #fff0f0;
+  cursor: pointer;
+}
 </style>
 @endsection
 @section('content')
@@ -119,7 +141,7 @@
                             
                                 <div class="col-md-9">
                             
-                                <input type="text" class="form-control" value="{{ $order->client->name }}" disabled>
+                                <input type="text" id="client_name" class="form-control" value="{{ $order->client->name }}" disabled>
                                 </div>
                             
                                 </div>
@@ -132,7 +154,7 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="number" value="{{ $order->client->contact }}" class="form-control" disabled>
+                                        <input type="number" id="client_contact" value="{{ $order->client->contact }}" class="form-control" disabled>
                                     
                                         </div>
                                     
@@ -144,13 +166,13 @@
                                     
                                         <div class="col-md-9">
                                     
-                                        <input type="email" value="{{ $order->client->email }}" class="form-control" disabled>
+                                        <input type="email" id="client_email" value="{{ $order->client->email }}" class="form-control" disabled>
                                         </div>
                                     
                                         </div>
                         </div>
                         <div class="mt-3">
-                            <button class="button " type="button" onclick="createClient(2)" step_number="2">Next</button>
+                            <button class="button " type="button" onclick="navigateToFormStep(2)" step_number="2">Next</button>
                         </div>
                     </section>
                     <!-- Step 2 Content, default hidden on page load. -->
@@ -325,16 +347,20 @@
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
                                         <h2 class="text-center">Order Details</h2>
                                         <p>Delivery: <strong id="order_delivery_over"></strong></p>
-                                        <p>Completion Date: <strong id="order_date_over"></strong></p>
+                                        <p>Completion Date (Internal): <strong id="order_date_over"></strong></p>
                                         <p>Currency: <strong id="order_currency_over"></strong></p>
+                                    </div>
+                                    <div class="col-12 border border-success rounded my-2">
+                                        <h2 class="text-center">Outfits</h2>
+                                        <div id="outfits-list"></div>
                                     </div>
                                     <div class="col-md-5 col-sm-12 border border-success rounded my-2">
                                         <h2 class="text-center">Notes</h2>
                                         <p id="notes_over"></p>
                                     </div>
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
-                                        <h2 class="text-center">Outfits</h2>
-                                        <div id="outfits-list"></div>
+                                        <h2 class="text-center">Payments</h2>
+                                        
                                     </div>
                                 </div>
                             </div>

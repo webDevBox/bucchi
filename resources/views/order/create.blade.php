@@ -44,6 +44,27 @@
 .payment_deleter{
     margin-top: 24px;
 }
+#outfits-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style each list item */
+#outfits-list li {
+  background-color: #f9eaea;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Add a hover effect to highlight the list items */
+#outfits-list li:hover {
+  background-color: #fff0f0;
+  cursor: pointer;
+}
 </style>
 @endsection
 @section('content')
@@ -337,17 +358,22 @@
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
                                         <h2 class="text-center">Order Details</h2>
                                         <p>Delivery: <strong id="order_delivery_over"></strong></p>
-                                        <p>Completion Date: <strong id="order_date_over"></strong></p>
+                                        <p>Completion Date (Internal): <strong id="order_date_over"></strong></p>
                                         <p>Currency: <strong id="order_currency_over"></strong></p>
+                                    </div>
+                                    <div class="col-12 border border-success rounded my-2">
+                                        <h2 class="text-center">Outfits</h2>
+                                        <div id="outfits-list"></div>
                                     </div>
                                     <div class="col-md-5 col-sm-12 border border-success rounded my-2">
                                         <h2 class="text-center">Notes</h2>
                                         <p id="notes_over"></p>
                                     </div>
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
-                                        <h2 class="text-center">Outfits</h2>
-                                        <div id="outfits-list"></div>
+                                        <h2 class="text-center">Payments</h2>
+                                        
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
