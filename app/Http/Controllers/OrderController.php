@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Client;
 use App\Models\Outfit;
 use App\Models\Transaction;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +15,8 @@ class OrderController extends Controller
     public function create()
     {
         $order = Order::inactive()->get();
-        return view('order.create',compact('order'));
+        $currencies = Currency::get();
+        return view('order.create',compact('currencies','order'));
     }
     
     public function view()
@@ -45,8 +47,9 @@ class OrderController extends Controller
     {
         $clients = Client::get();
         $order = Order::findOrFail($id);
+        $currencies = Currency::get();
         $counter = 1;
-        return view('order.update',compact('clients','order','counter'));
+        return view('order.update',compact('currencies','clients','order','counter'));
     }
 
     public function storeClient(Request $request)
@@ -84,6 +87,10 @@ class OrderController extends Controller
     {
         try {
             $order = Order::find($request->order);
+            if($request->selected == '..other..')
+            {
+                $newCurrency = Currency::updateOrCreate(['name' => $request->currency]);
+            }
 
             $order->update([
                 'delivery' => $request->delivery,
@@ -164,10 +171,11 @@ class OrderController extends Controller
                 'notes' => $request->notes,
                 'status' => 1
             ]);
+            $transaction = null;
 
-            if($request->payment != '')
+            if($request->payment != '' && $request->payment > 0)
             {
-                Transaction::create([
+                $transaction = Transaction::create([
                     'order_id' => $order->id,
                     'payment' => $request->payment,
                     'date' => $request->date
@@ -176,7 +184,8 @@ class OrderController extends Controller
 
             return response()->json([
                 'success' => true,
-                'data' => $order
+                'data' => $order,
+                'transaction' => $transaction
             ]);
 
         } catch (\Throwable $th) {

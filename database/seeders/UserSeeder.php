@@ -13,17 +13,23 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt(123456),
-            'role' => 0
-        ]);
-        User::updateOrCreate([
-            'name' => 'officer',
-            'email' => 'office@gmail.com',
-            'password' => bcrypt(123456),
-            'role' => 1
-        ]);
+        if(User::whereEmail('admin@gmail.com')->count() == 0)
+        {
+            User::updateOrCreate([
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt(123456),
+                'role' => 0
+            ]);
+        }
+        if(User::whereEmail('office@gmail.com')->count() == 0)
+        {
+            User::updateOrCreate([
+                'name' => 'officer',
+                'email' => 'office@gmail.com',
+                'password' => bcrypt(123456),
+                'role' => 1
+            ]);
+        }
     }
 }

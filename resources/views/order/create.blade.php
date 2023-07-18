@@ -218,15 +218,11 @@
                                 <div class="col-md-9">
                         
                                     <select class="form-control" id="currency_select" name="" required>
-                        
-                                        <option selected disabled >Select Currency</option>
-                                        <option value="PKR">PKR</option>
-                                        <option value="USD">USD</option>
-                                        <option value="GBP">GBP</option>
-                                        <option value="EUR">EUR</option>
-                                        <option value="CAD">CAD</option>
-                                        <option value="AUD">AUD</option>
+                                        <option selected disabled>Select Currency</option>
                                         <option value="..other..">Add Other Currency</option>
+                                        @foreach ($currencies as $curreny)
+                                            <option value="{{ $curreny->name }}">{{ $curreny->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 </div>
@@ -238,7 +234,7 @@
                                 <div class="col-md-9">
                             
                                     <input type="text" id="order_currency" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
-                                
+                                    <small id="currency_error" style="color: red" class="d-none">Please Enter Currency</small>
                                 </div>
                             
                             </div>
@@ -373,9 +369,10 @@
 
 @section('scripts')
 <script>
-    var baseUrl = "{{ url('/') }}";
-    var orderId = 0;
-    var total = 0;
+    var baseUrl = "{{ url('/') }}"
+    var orderId = 0
+    var total = 0
+    var checker = 0
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>

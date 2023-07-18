@@ -7,7 +7,8 @@ document.getElementById("submit-button").addEventListener("click", function() {
     // Array to store the block objects
   
     // Iterate over each block
-    total = 0;
+    total = 0
+    checker = 0
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i];
   

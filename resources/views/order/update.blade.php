@@ -191,14 +191,10 @@
                                 <div class="col-md-9">
                         
                                     <select class="form-control" id="currency_select" name="" required>
-                        
-                                        <option @if($order->currency == 'PKR') selected @endif value="PKR" selected>PKR</option>
-                                        <option @if($order->currency == 'USD') selected @endif value="USD">USD</option>
-                                        <option @if($order->currency == 'GBP') selected @endif value="GBP">GBP</option>
-                                        <option @if($order->currency == 'EUR') selected @endif value="EUR">EUR</option>
-                                        <option @if($order->currency == 'CAD') selected @endif value="CAD">CAD</option>
-                                        <option @if($order->currency == 'AUD') selected @endif value="AUD">AUD</option>
                                         <option value="..other..">Add Other Currency</option>
+                                        @foreach ($currencies as $curreny)
+                                            <option @if($order->currency == $curreny->name) selected @endif value="{{ $curreny->name }}">{{ $curreny->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 </div>
@@ -209,7 +205,8 @@
 
                                 <div class="col-md-9">
                             
-                                    <input type="text" id="order_currency" name="order_currency" class="form-control" placeholder="Enter Currency Name" required>
+                                    <input type="text" id="order_currency" name="order_currency" class="form-control" value="{{ $order->currency }}" placeholder="Enter Currency Name" required>
+                                    <small id="currency_error" style="color: red" class="d-none">Please Enter Currency</small>
                                 
                                 </div>
                             
@@ -275,18 +272,20 @@
                         <div class="mt-3">
                             <h3 class="text-center">Total Price: <strong id="total-price"></strong></h3>
                             <hr>
-                            @foreach ($order->transactions as $transaction)
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="price">Payment Amount</label>
-                                        <input type="text" value="{{ $transaction->payment }}" class="prev_transactions form-control" disabled>
+                            <div id="transactions_list">
+                                @foreach ($order->transactions as $transaction)
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="price">Payment Amount</label>
+                                            <input type="text" value="{{ $transaction->payment }}" class="prev_transactions form-control" disabled>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="price">Payment Date</label>
+                                            <input type="text" value="{{ $transaction->date }}" disabled class="form-control">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="price">Payment Date</label>
-                                        <input type="text" value="{{ $transaction->date }}" disabled class="form-control">
-                                    </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                             <button class="btn btn-primary mt-2" id="depositButton">Add Payment</button>
                             <br>
                             <div id="paymentAdder" class="row d-none">
@@ -308,7 +307,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button class="button" onclick="addOrderDetails(5)" type="button" step_number="5">Next</button>
+                            <button class="button" onclick="updateNotes(5)" type="button" step_number="5">Next</button>
                         </div>
                     </section>
                     <!-- step 5-->
@@ -359,7 +358,9 @@
 <script>
     var baseUrl = "{{ url('/') }}";
     var orderId = $('#order_id_update').val();
-    var total = 0;
+    var total = 0
+    var remaining = 0
+    var checker = 0
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>

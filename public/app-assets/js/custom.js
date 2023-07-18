@@ -171,9 +171,83 @@ function createClient(step)
     }
 }
 
+function updateNotes(step)
+{
+    var url = baseUrl + "/admin/order/completeOrder";
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            order:orderId,
+            payment: $('#initial_deposit').val(),
+            date: $('#date_deposit').val(),
+            notes: $('#notes').val()
+        },
+        success: function(response) {
+            if(response.success)
+            {
+                if(response.transaction)
+                {
+                    appendPaymentRow()   
+                }
+                $('#initial_deposit').val('')
+                $('#date_deposit').val('')
+                $('#paymentAdder').addClass('d-none')
+                $('#depositButton').removeClass('d-none')
+                $('#depositError').addClass('d-none')
+                navigateToFormStep(step)   
+            }
+            else{
+                setTimeout(function () {
+                    toastr['error'](
+                        'Please try again',
+                    'Some thing wrong!',
+                    {
+                        closeButton: true,
+                        tapToDismiss: false
+                    }
+                    );
+                }, 2000);
+            }
+        },
+        error: function(xhr, status, error) {
+          // Handle the error response
+        }
+      });
+}
+
+function appendPaymentRow()
+{
+    var amount = $('#initial_deposit').val()
+    var date = $('#date_deposit').val()
+    const transactionsListDiv = document.getElementById("transactions_list");
+        const newRowHTML = `
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <label for="price">Payment Amount</label>
+                    <input type="text" value="${amount}" class="prev_transactions form-control" disabled>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label for="price">Payment Date</label>
+                    <input type="text" value="${date}" disabled class="form-control">
+                </div>
+            </div>
+        `;
+
+        // Append the new row div to the transactions_list div
+        transactionsListDiv.insertAdjacentHTML("beforeend", newRowHTML);
+}
 
 function addOrderDetails(step)
 {
+    if($('#order_currency').val() === '')
+    {
+        $('#currency_error').removeClass('d-none')
+    }
+    else
+    {
+        $('#currency_error').addClass('d-none')
+        $('#currency_div').addClass('d-none')
     var url = baseUrl + "/admin/order/storeOrder";
     $.ajax({
         url: url,
@@ -182,7 +256,8 @@ function addOrderDetails(step)
             order: orderId,
             delivery: $('#order_delivery').val(),
             completionDate: $('#order_date').val(),
-            currency: $('#order_currency').val()
+            currency: $('#order_currency').val(),
+            selected: $('#currency_select').val()
         },
         success: function(response) {
             if(response.success)
@@ -195,6 +270,7 @@ function addOrderDetails(step)
           // Handle the error response
         }
       });
+    }
 }
 
 function createOutfits(step)
@@ -294,9 +370,14 @@ function checkDepositAmout()
             sum += value;
             }
         }
+        if(checker === 0)
+        {
+            checker++
+            remaining = total
+        }
+        total = remaining
         
-        total -= Number(sum);
-        console.log(total)
+        total -= Number(sum)
     }
     if(value > total)
     {
