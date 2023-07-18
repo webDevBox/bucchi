@@ -1,11 +1,14 @@
 <?php
 
-function percentage($total,$value)
+function percentage($value,$total)
 {
-    $percentage = ($total/$value)*100;
-    $formattedPercentage = number_format($percentage, 2) . "%";
-
-    return $formattedPercentage;
+    if($value > 0)
+    {
+        $percentage = ($value/$total)*100;
+        $formattedPercentage = number_format($percentage, 2) . "%";
+        return $formattedPercentage;
+    }
+    return 0;
 }
 
 function remainingDays($time)
