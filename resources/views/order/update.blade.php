@@ -78,7 +78,7 @@
     <div class="content-body">
 
         <div style="background-color: white;">
-            <h1> <strong> Create New </strong> Order</h1>
+            <h1> <strong> Update </strong> Order</h1>
             <div id="multi-step-form-container">
                 <!-- Form Steps / Progress Bar -->
                 <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
@@ -187,7 +187,7 @@
                                 <div class="col-md-9">
                             
                                     <input type="text" id="order_delivery" value="{{ $order->delivery }}" name="delivery" class="form-control" placeholder="Enter Delivery" required>
-                            
+                                    <small id="delivery_error" style="color: red" class="d-none">Please Enter Delivery</small>
                                 </div>
                             
                             </div>
@@ -199,7 +199,7 @@
                                 <div class="col-md-9">
                             
                                     <input type="date" id="order_date" name="delivery_date" value="{{ $order->completion_date }}" class="form-control" placeholder="Enter Delivery Date" required>
-                            
+                                    <small id="completion_date_error" style="color: red" class="d-none">Please Select Completion Date</small>
                                 </div>
                             
                             </div>
@@ -218,6 +218,8 @@
                                             <option @if($order->currency == $curreny->name) selected @endif value="{{ $curreny->name }}">{{ $curreny->name }}</option>
                                         @endforeach
                                     </select>
+                                    <small id="currency_error" style="color: red" class="d-none">Please Add/Select
+                                        Currency</small>
                                 </div>
                                 </div>
                                 <br>
@@ -252,6 +254,7 @@
                                             <div class="col-md-11 col-sm-12">
                                                 <label for="outName">Outfit Name</label>
                                                 <input type="text" id="outName" value={{ $outfit->name }} class="input-field" placeholder="Enter Outfit name..">
+                                                <input type="number" id="outId" value={{ $outfit->id }} class="input-field">
                                             </div>
                                         </div>
                                         <label for="outDetail">Outfit Description</label>
@@ -314,7 +317,7 @@
                                 <div class="col-md-5 col-sm-12">
                                     <label for="price">Add Payment</label>
                                     <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
-                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order total amount</small>
+                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order amount</small>
                                 </div>
                                 <div class="col-md-5 col-sm-12">
                                     <label for="price">Payment Date</label>

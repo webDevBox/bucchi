@@ -16,7 +16,8 @@ class OrderController extends Controller
     {
         $order = Order::inactive()->get();
         $currencies = Currency::get();
-        return view('order.create',compact('currencies','order'));
+        $clients = Client::get();
+        return view('order.create',compact('clients','currencies','order'));
     }
     
     public function view()
@@ -56,15 +57,17 @@ class OrderController extends Controller
     {
         try
         {    
-            $client = Client::whereEmail($request->email)->first();
-
-            if(!isset($client))
+            if($request->select == '..other..')
             {
                 $client = Client::create([
                     'name' => $request->client_name,
                     'contact' => $request->contact,
                     'email' => $request->email
                 ]);
+            }
+            else
+            {
+                $client = Client::find($request->selectedOptionId);
             }
             $order = Order::create([
                 'client_id' => $client->id
@@ -137,10 +140,11 @@ class OrderController extends Controller
     public function storeOutfits(Request $request)
     {
         try {
+            Outfit::whereOrderId($request->order)->delete();
 
             foreach($request['outfitsObj'] as $outfit)
             {
-                Outfit::updateOrCreate([
+                Outfit::create([
                     'order_id' => $request->order ,
                     'name' => $outfit['outfitName'] ,
                     'description' => $outfit['outfitDescription'] ,
@@ -152,6 +156,52 @@ class OrderController extends Controller
 
             return response()->json([
                 'success' => true
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'Error' => $th->getMessage()
+            ]);
+        }
+    }
+    
+    
+    public function updateOutfits(Request $request)
+    {
+        try {
+            $ids = [];
+            foreach($request['outfitsObj'] as $outfit)
+            {
+                $id = $outfit['outfitId'];
+                if($id != null)
+                {
+                    $ids[] = (int)$id;
+                    Outfit::whereId($id)->update([
+                        'name' => $outfit['outfitName'] ,
+                        'description' => $outfit['outfitDescription'] ,
+                        'price' => $outfit['price'] ,
+                        'hours' => $outfit['hours'] ,
+                        'fabric' => $outfit['fabric']
+                    ]);
+                }
+                else
+                {
+                    $outfit = Outfit::create([
+                        'order_id' => $request->order ,
+                        'name' => $outfit['outfitName'] ,
+                        'description' => $outfit['outfitDescription'] ,
+                        'price' => $outfit['price'] ,
+                        'hours' => $outfit['hours'] ,
+                        'fabric' => $outfit['fabric']
+                    ]);
+                    $ids[] = $outfit->id;
+                }
+            }
+            $existingOutfits = Outfit::whereIn('id', $ids)->pluck('id')->toArray();
+            Outfit::where('order_id',$request->order)->whereNotIn('id', $existingOutfits)->delete();
+            return response()->json([
+                'success' => true,
             ]);
         } catch (\Throwable $th) {
             return response()->json([

@@ -31,6 +31,7 @@ Route::middleware(['auth.login'])->group(function () {
             Route::get('/storeClient',[OrderController::class, 'storeClient'])->name('storeClient');
             Route::get('/storeOrder',[OrderController::class, 'storeOrder'])->name('storeOrder');
             Route::get('/storeOutfits',[OrderController::class, 'storeOutfits'])->name('storeOutfits');
+            Route::get('/updateOutfits',[OrderController::class, 'updateOutfits'])->name('updateOutfits');
             Route::get('/completeOrder',[OrderController::class, 'completeOrder'])->name('completeOrder');
 
             Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');

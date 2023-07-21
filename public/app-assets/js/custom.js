@@ -133,6 +133,12 @@ function makeOverview(step){
 
 function createClient(step)
 {
+    if($('#client_name').val() === '')
+    {
+        $('#client_select_error').removeClass('d-none')
+    }
+    else{
+        $('#client_select_error').addClass('d-none')
     if(orderId === 0)
     {
         var url = baseUrl + "/admin/order/storeClient";
@@ -140,7 +146,9 @@ function createClient(step)
             url: url,
             type: "GET",
             data: {
+                selectedOptionId: $("#client_select option:selected").attr("id"),
                 client_name: $('#client_name').val(),
+                select: $('#client_select').val(),
                 contact: $('#client_contact').val(),
                 email: $('#client_email').val()
             },
@@ -159,7 +167,7 @@ function createClient(step)
     else
     {
         navigateToFormStep(step)
-        
+    }
     }
 }
 
@@ -235,9 +243,25 @@ function addOrderDetails(step)
     if($('#order_currency').val() === '')
     {
         $('#currency_error').removeClass('d-none')
+        $('#delivery_error').addClass('d-none')
+        $('#completion_date_error').addClass('d-none')
+    }
+    else if($('#order_delivery').val() === '')
+    {
+        $('#delivery_error').removeClass('d-none')
+        $('#currency_error').addClass('d-none')
+        $('#completion_date_error').addClass('d-none')
+    }
+    else if($('#order_date').val() === '')
+    {
+        $('#delivery_error').addClass('d-none')
+        $('#currency_error').addClass('d-none')
+        $('#completion_date_error').removeClass('d-none')
     }
     else
     {
+        $('#delivery_error').addClass('d-none')
+        $('#completion_date_error').addClass('d-none')
         $('#currency_error').addClass('d-none')
         $('#currency_div').addClass('d-none')
     var url = baseUrl + "/admin/order/storeOrder";
@@ -270,6 +294,30 @@ function createOutfits(step)
     $('#depositError').addClass('d-none')
     $('#total-price').text(total+'$')
     var url = baseUrl + "/admin/order/storeOutfits";
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            order:orderId,
+            outfitsObj: blockObjects
+        },
+        success: function(response) {
+            if(response.success)
+            {
+                navigateToFormStep(step)
+            }
+        },
+        error: function(xhr, status, error) {
+          // Handle the error response
+        }
+      });
+}
+
+function updateOutfits(step)
+{
+    $('#depositError').addClass('d-none')
+    $('#total-price').text(total+'$')
+    var url = baseUrl + "/admin/order/updateOutfits";
     $.ajax({
         url: url,
         type: "GET",
