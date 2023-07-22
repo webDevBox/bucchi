@@ -16,7 +16,7 @@
     <div class="card card-company-table">
     <div class="card-body p-0">
     <div class="table-responsive">
-        <div class="block full">
+        <div class="block full p-2">
             <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
@@ -71,7 +71,25 @@
 @section('scripts')
 <script src="{{ asset('app-assets/js/updateOutfit.js')}}"></script>
 <script>
-    var baseUrl = "{{ url('/') }}";
+    var baseUrl = "{{ url('/') }}"
+    $(document).ready(function() {
+    $('#ecom-orders').DataTable({
+        // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
+        "order": [[1, "asc"]],
+        "columnDefs": [
+            {
+                // Disable ordering for the 2nd column (PDF column)
+                "targets": [2],
+                "orderable": false
+            },
+            {
+                // Disable ordering for the last column (Action column)
+                "targets": [3],
+                "orderable": false
+            }
+        ]
+    });
+});
 </script>
 <script>
     function editConfirmation(id) {

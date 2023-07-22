@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.min.css')}}">
 <!-- END: Vendor CSS-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
 
 <!-- BEGIN: Theme CSS-->
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/bootstrap.css')}}">
@@ -64,7 +65,7 @@
     <ul  class="nav navbar-nav align-items-center ml-auto">
         <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             
-            <span class="avatar"><img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+            <span class="avatar"><img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-4.jpg')}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
             <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder">John Doe</span><span class="user-status">Admin</span></div>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item" href="#"><i class="mr-50" data-feather="user"></i> Profile</a>
@@ -238,7 +239,7 @@
 <!-- BEGIN: Page JS-->
 <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
 <!-- END: Page JS-->
-
+<script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
 <script>
 $(window).on('load', function() {
 if (feather) {
