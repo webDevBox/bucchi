@@ -35,12 +35,12 @@
                             <td class="text-center">{{ $order->completion_date }}</td>
                             <td class="text-center"> 
                                 <div class="btn-group btn-group-xs">
-                                    <a href="#" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
+                                    <a href="#" onclick="getInvoice({{ $order->id }})" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
                                 </div>    
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-xs">
-                                    <a href="#" title="Mark as Complete" class="btn btn-success"><i class="fa fa-check"></i></a>
+                                    <a href="#" id="mark_{{ $order->id }}" onclick="markAsComplete({{ $order->id }})" title="Mark as Complete" class="btn btn-success"><i class="fa fa-check"></i></a>
                                     <a href="#" onclick="editConfirmation({{ $order->id }})" title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                                 </div>
                             </td>
@@ -50,6 +50,30 @@
                 </table>
 
             </div>
+    </div>
+    <div id="invoice_order" class="d-none">
+        <div class="row">
+            <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Client Details</h2>
+                <p>Name: <strong id="client_name_over"></strong></p>
+                <p>Phone: <strong id="client_phone_over"></strong></p>
+                <p>Email: <strong id="client_email_over"></strong></p>
+            </div>
+            <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Order Details</h2>
+                <p>Delivery: <strong id="order_delivery_over"></strong></p>
+                <p>Completion Date: <strong id="order_date_over"></strong></p>
+                <p>Currency: <strong id="order_currency_over"></strong></p>
+            </div>
+            <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Notes</h2>
+                <p id="notes_over"></p>
+            </div>
+            <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Outfits</h2>
+                <div id="outfits-list"></div>
+            </div>
+        </div>
     </div>
     </div>
     </div>
@@ -87,7 +111,8 @@
                 "targets": [3],
                 "orderable": false
             }
-        ]
+        ],
+        "lengthMenu": [10, 25, 50, 100, 500, 1000],
     });
 });
 </script>
@@ -101,6 +126,30 @@
         } else {
             text = "You canceled!";
         }
+    }
+
+    function markAsComplete(id)
+    {
+        var url = baseUrl + "/admin/order/markAsComplete";
+        $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            id: id
+        },
+        success: async function(response) {
+            if(response.success)
+            {
+                $(`#mark_${id}`).attr('disabled',true)
+                $(`#mark_${id}`).attr('class','btn btn-dark')
+                $(`#mark_${id}`).attr('onclick',false)
+                $(`#mark_${id}`).attr('title','Completed')
+            }
+        },
+        error: function(xhr, status, error) {
+          // Handle the error response
+        }
+        })
     }
     
     function sendProduction(id,article,name) {
@@ -138,4 +187,5 @@
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="{{ asset('app-assets/js/custom.js')}}"></script>
 @endsection

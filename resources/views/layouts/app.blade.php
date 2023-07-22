@@ -184,6 +184,8 @@
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('createOrder') }}"><i class="fa fa-cart-plus" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Create Order</span></a>
 </li>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('draftOrders') }}"><i class="fa fa-cart-plus" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Draft Orders</span></a>
+</li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfitChanges') }}"><i class="fa fa-cart-arrow-down" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Update Orders</span></a>
 </li>
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('viewOrder') }}"><i class="fa fa-shopping-cart" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">View Orders</span></a>
@@ -240,6 +242,9 @@
 <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
 <!-- END: Page JS-->
 <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
 <script>
 $(window).on('load', function() {
 if (feather) {

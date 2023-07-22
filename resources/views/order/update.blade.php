@@ -248,13 +248,15 @@
                         <div class="mt-3">
                             <div id="block-container">
                                 @foreach ($order->outfits as $outfit)
+                                        {{ $outfit->name}}
                                     <div class="block">
                                         <div class="row">
                                             <h3 class="mt-2 ml-2">{{ $counter++ }}</h3>
                                             <div class="col-md-11 col-sm-12">
                                                 <label for="outName">Outfit Name</label>
-                                                <input type="text" id="outName" value={{ $outfit->name }} class="input-field" placeholder="Enter Outfit name..">
-                                                <input type="number" id="outId" value={{ $outfit->id }} class="input-field">
+                                                {{-- <input type="text" id="outName" value={{ $outfit->name }} class="form-control" > --}}
+                                                <textarea id="outName" class="input-field" rows="1">{{ $outfit->name }}</textarea>
+                                                <input type="number" id="outId" value={{ $outfit->id }} class="d-none">
                                             </div>
                                         </div>
                                         <label for="outDetail">Outfit Description</label>
@@ -317,7 +319,7 @@
                                 <div class="col-md-5 col-sm-12">
                                     <label for="price">Add Payment</label>
                                     <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name="" class="form-control" placeholder="Enter Amount..">
-                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order amount</small>
+                                    <small id="depositError" class="d-none" style="color: red">Deposit amount should not be more than total order amount</small>
                                 </div>
                                 <div class="col-md-5 col-sm-12">
                                     <label for="price">Payment Date</label>
@@ -363,7 +365,7 @@
                                     </div>
                                     <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
                                         <h2 class="text-center">Payments</h2>
-                                        
+                                        <div id="show_payments"></div>
                                     </div>
                                 </div>
                             </div>
@@ -390,6 +392,7 @@
     var total = 0
     var remaining = 0
     var checker = 0
+    var newOrder = false
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>

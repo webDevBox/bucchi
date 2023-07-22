@@ -344,7 +344,7 @@
                                         <label for="price">Add Payment</label>
                                         <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name=""
                                             class="form-control" placeholder="Enter Amount..">
-                                        <small id="depositError" class="d-none" style="color: red">Deposit amount should not more than total order amount</small>
+                                        <small id="depositError" class="d-none" style="color: red">Deposit amount should not be more than total order amount</small>
                                     </div>
                                     <div class="col-md-5 col-sm-12">
                                         <label for="price">Payment Date</label>
@@ -388,13 +388,13 @@
                                             <h2 class="text-center">Outfits</h2>
                                             <div id="outfits-list"></div>
                                         </div>
-                                        <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                        <div class="col-md-5 col-sm-12 border border-success rounded my-2 p-2">
                                             <h2 class="text-center">Notes</h2>
                                             <p id="notes_over"></p>
                                         </div>
                                         <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
                                             <h2 class="text-center">Payments</h2>
-
+                                            <div id="show_payments"></div>
                                         </div>
 
                                     </div>
@@ -426,6 +426,7 @@
     var orderId = 0
     var total = 0
     var checker = 0
+    var newOrder = true
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>

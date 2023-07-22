@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('outfits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->onUpdate('cascade')->onDelete('cascade');
-            // $table->tinyInteger('status')->comment('0=InComplete, 1=Complete')
-            //     ->default(0);
+            $table->string('article')->nullable();
             $table->string('name');
             $table->longText('description')->nullable();
+            $table->tinyInteger('production')->default(0)
+            ->comment('0=inComplete, 1=completed');
             $table->integer('price');
             $table->integer('hours');
             $table->integer('fabric');

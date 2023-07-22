@@ -10,7 +10,8 @@ class Outfit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'order_id', 'name', 'description', 'price', 'hours', 'fabric'
+        'order_id', 'article', 'name', 'description', 'price', 'hours', 'fabric',
+        'production'
     ];
 
     public function order()

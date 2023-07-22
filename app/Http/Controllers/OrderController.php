@@ -22,7 +22,7 @@ class OrderController extends Controller
     
     public function view()
     {
-        $orders = Order::production()->get();
+        $orders = Order::active()->production()->latest()->get();
         return view('order.view',compact('orders'));
     }
 
@@ -34,8 +34,14 @@ class OrderController extends Controller
     
     public function changes()
     {
-        $orders = Order::active()->latest()->get();
+        $orders = Order::active()->production()->latest()->get();
         return view('order.changes',compact('orders'));
+    }
+    
+    public function draft()
+    {
+        $orders = Order::inactive()->latest()->get();
+        return view('order.draft',compact('orders'));
     }
     
     public function search()
@@ -116,6 +122,29 @@ class OrderController extends Controller
         
     }
     
+    public function markAsComplete(Request $request)
+    {
+        try {
+            Order::where('id',$request->id)->update([
+                'production' => 1
+            ]);
+            $order = Order::find($request->id);
+            
+            return response()->json([
+                'success' => true,
+                'data' => $order
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'data' => null,
+                'Error' => $th->getMessage()
+            ]);
+        }
+        
+
+
+    }
     
     public function byId(Request $request)
     {

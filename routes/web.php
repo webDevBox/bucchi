@@ -33,6 +33,7 @@ Route::middleware(['auth.login'])->group(function () {
             Route::get('/storeOutfits',[OrderController::class, 'storeOutfits'])->name('storeOutfits');
             Route::get('/updateOutfits',[OrderController::class, 'updateOutfits'])->name('updateOutfits');
             Route::get('/completeOrder',[OrderController::class, 'completeOrder'])->name('completeOrder');
+            Route::get('/markAsComplete',[OrderController::class, 'markAsComplete'])->name('markAsComplete');
 
             Route::get('/view',[OrderController::class, 'view'])->name('viewOrder');
             Route::get('/outfit/{id}',[OrderController::class, 'OutFitDetails'])->name('OutFitDetails');
@@ -44,6 +45,8 @@ Route::middleware(['auth.login'])->group(function () {
             Route::get('/update/{id}',[OrderController::class, 'update'])->name('orderUpdate');
             Route::get('production',[AdminController::class, 'production'])->name('productionLine');
             Route::get('outfitProfile/{id}',[AdminController::class, 'outfitProfile'])->name('adminOutfitProfile');
+
+            Route::get('/draft',[OrderController::class, 'draft'])->name('draftOrders');
         });
     });
     Route::middleware('auth.office')->prefix('office')->group(function() {

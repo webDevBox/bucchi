@@ -23,23 +23,21 @@
                                                 <tr>
                                                     <th class="text-center">Client Name</th>
                                                     <th class="text-center">Delivery Date</th>
-                                                    <th class="text-center"> Payment </th>
-                                                    <th class="text-center">Remaining Days</th>
+                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($orders as $order)
                                                 <tr>
-                                                    <td class="text-center">
-                                                        <a href="#" data-toggle="modal" data-target="#myModal8"
-                                                            data-order-id="{{ $order->id }}"> {{ $order->client->name }}
-                                                        </a>
-                                                    </td>
+                                                    <td class="text-center">{{ $order->client->name }}</td>
                                                     <td class="text-center">{{ $order->completion_date }}</td>
-                                                    <td class="text-center"> {{
-                                                        percentage($order->transactions->pluck('payment')->sum(),$order->outfits->pluck('price')->sum())
-                                                        }}</td>
-                                                    <td class="text-center">{{ remainingDays($order->completion_date) }}
+                                                    
+                                                    <td class="text-center">
+                                                        <div class="btn-group btn-group-xs">
+                                                            <a href="#" onclick="editConfirmation({{ $order->id }})"
+                                                                title="Edit" class="btn btn-primary"><i
+                                                                    class="fa fa-pencil"></i></a>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -59,23 +57,21 @@
         </div>
     </div>
 </div>
-@component('components.outfitModal', ['modalId' => 'myModal', 'modalTitle' => 'Outfits'])
-
-@endcomponent
 
 @endsection
 
 @section('scripts')
+<script src="{{ asset('app-assets/js/updateOutfit.js')}}"></script>
 <script>
     var baseUrl = "{{ url('/') }}"
-        $(document).ready(function() {
+    $(document).ready(function() {
     $('#ecom-orders').DataTable({
         // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
         "order": [[1, "asc"]],
         "columnDefs": [
             {
                 // Disable ordering for the last column (Action column)
-                "targets": [3],
+                "targets": [2],
                 "orderable": false
             }
         ],
@@ -83,5 +79,52 @@
     });
 });
 </script>
-<script src="{{ asset('app-assets/js/outfitModal.js')}}"></script>
+<script>
+    function editConfirmation(id) {
+        // let text = "Are you sure you want to edit the invoice?";
+        // if (confirm(text) == true) {
+            let url = "{{ route('orderUpdate', ['id' => ':id']) }}";
+            url = url.replace(':id', id);
+            window.location.href = url;
+        // } else {
+        //     text = "You canceled!";
+        // }
+    }
+    
+    function sendProduction(id,article,name) {
+        let text = `Send Article # ${article}, Outfit Name ${name} for production?`;
+        if (confirm(text) == true) {
+            updateOutfitProduction(id)
+        } else {
+            text = "You canceled!";
+        }
+    }
+
+    function updateOutfitProduction(id)
+    {
+        var url = baseUrl + "/admin/order/production/outfit";
+        $.ajax({
+        url: url,
+        type: "GET",
+        data: {
+            id: id
+        },
+        success: async function(response) {
+            if(response.ok)
+            {
+                $(`#button_${id}`).attr('disabled',true)
+                $(`#button_${id}`).attr('class','btn btn-dark')
+                $(`#button_${id}`).attr('onclick',false)
+                $(`#button_${id}`).attr('title','In Production')
+            }
+        },
+        error: function(xhr, status, error) {
+          // Handle the error response
+        }
+        })
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js">
+</script>
 @endsection
