@@ -34,7 +34,7 @@ class OrderController extends Controller
     
     public function changes()
     {
-        $orders = Order::active()->get();
+        $orders = Order::active()->latest()->get();
         return view('order.changes',compact('orders'));
     }
     
