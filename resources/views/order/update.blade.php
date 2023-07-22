@@ -129,7 +129,7 @@
                     </li>
                 </ul>
                 <!-- Step Wise Form Content -->
-                <form action="#" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+                {{-- <form action="#" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST"> --}}
                     <!-- Step 1 Content -->
                     <section id="step-1" class="form-step">
                         <h2 class="font-normal">Client Details</h2>
@@ -248,14 +248,12 @@
                         <div class="mt-3">
                             <div id="block-container">
                                 @foreach ($order->outfits as $outfit)
-                                        {{ $outfit->name}}
                                     <div class="block">
                                         <div class="row">
                                             <h3 class="mt-2 ml-2">{{ $counter++ }}</h3>
                                             <div class="col-md-11 col-sm-12">
                                                 <label for="outName">Outfit Name</label>
-                                                {{-- <input type="text" id="outName" value={{ $outfit->name }} class="form-control" > --}}
-                                                <textarea id="outName" class="input-field" rows="1">{{ $outfit->name }}</textarea>
+                                                <input type="text" id="outName" value="{{ $outfit->name }}" class="input-field" placeholder="Enter Outfit Name">
                                                 <input type="number" id="outId" value={{ $outfit->id }} class="d-none">
                                             </div>
                                         </div>
@@ -375,7 +373,7 @@
                             <button class="button submit-btn" id="submit-btn" type="#">Download Invoice</button>
                         </div>
                     </section>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
 
