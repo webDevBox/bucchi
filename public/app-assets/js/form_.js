@@ -35,30 +35,40 @@ function addBlock() {
 
   // Check if all previous blocks have required fields filled
   const previousBlocks = blockContainer.getElementsByClassName("block");
+  var errorOccue = false
   for (const block of previousBlocks) {
     const outfitNameInput = block.querySelector("input[id='outName']");
+    // const outfitNameInput = block.querySelector("textarea[id='outName']");
     const priceInput = block.querySelector("input[id='price']");
     const hoursInput = block.querySelector("input[id='hours']");
     const fabricInput = block.querySelector("input[id='fabric']");
 
-    if (
-      !outfitNameInput.value ||
-      !priceInput.value ||
-      !hoursInput.value ||
-      !fabricInput.value
-    ) {
+    if (!outfitNameInput.value) {
       // Show validation error and return without adding new block
       outfitNameInput.classList.add("error");
-      priceInput.classList.add("error");
-      hoursInput.classList.add("error");
-      fabricInput.classList.add("error");
       outfitNameInput.addEventListener("input", handleInput);
+      errorOccue = true
+    }
+    if(!priceInput.value || priceInput.value < 0)
+    {
+      priceInput.classList.add("error");
       priceInput.addEventListener("input", handleInput);
+      errorOccue = true
+    }
+    if(!hoursInput.value)
+    {
+      hoursInput.classList.add("error");
       hoursInput.addEventListener("input", handleInput);
+      errorOccue = true
+    }
+    if(!fabricInput.value)
+    {
+      fabricInput.classList.add("error");
       fabricInput.addEventListener("input", handleInput);
-      return;
+      errorOccue = true
     }
   }
+  if(errorOccue) return
 
   // Create a new block element
   const newBlock = document.createElement("div");

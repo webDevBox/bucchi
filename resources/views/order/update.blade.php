@@ -131,7 +131,7 @@
                 <!-- Step Wise Form Content -->
                 {{-- <form action="#" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST"> --}}
                     <!-- Step 1 Content -->
-                    <section id="step-1" class="form-step">
+                    <section id="step-1" class="form-step d-none">
                         <h2 class="font-normal">Client Details</h2>
                         <!-- Step 1 input fields -->
                         <div class="mt-3 offset-3">
@@ -242,7 +242,7 @@
                         </div>
                     </section>
                     <!-- Step 3 Content, default hidden on page load. -->
-                    <section id="step-3" class="form-step d-none">
+                    <section id="step-3" class="form-step -none">
                         <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
@@ -250,7 +250,7 @@
                                 @foreach ($order->outfits as $outfit)
                                     <div class="block">
                                         <div class="row">
-                                            <h3 class="mt-2 ml-2">{{ $counter++ }}</h3>
+                                            <h3 id="blocker_{{ $counter }}" class="mt-2 ml-2">{{ $counter++ }}</h3>
                                             <div class="col-md-11 col-sm-12">
                                                 <label for="outName">Outfit Name</label>
                                                 <input type="text" id="outName" value="{{ $outfit->name }}" class="input-field" placeholder="Enter Outfit Name">

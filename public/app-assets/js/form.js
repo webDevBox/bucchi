@@ -49,26 +49,23 @@ function addBlock() {
       outfitNameInput.addEventListener("input", handleInput);
       errorOccue = true
     }
-    if(!priceInput.value || priceInput.value < 0)
-    {
+    if (!priceInput.value || priceInput.value < 0) {
       priceInput.classList.add("error");
       priceInput.addEventListener("input", handleInput);
       errorOccue = true
     }
-    if(!hoursInput.value)
-    {
+    if (!hoursInput.value) {
       hoursInput.classList.add("error");
       hoursInput.addEventListener("input", handleInput);
       errorOccue = true
     }
-    if(!fabricInput.value)
-    {
+    if (!fabricInput.value) {
       fabricInput.classList.add("error");
       fabricInput.addEventListener("input", handleInput);
       errorOccue = true
     }
   }
-  if(errorOccue) return
+  if (errorOccue) return
 
   // Create a new block element
   const newBlock = document.createElement("div");
@@ -80,6 +77,7 @@ function addBlock() {
 
   const itemNumberHeading = document.createElement("h3");
   itemNumberHeading.classList.add("mt-2", "ml-2");
+  itemNumberHeading.id = `blocker_${blockCount}`
   itemNumberHeading.textContent = blockCount;
 
   const col2 = document.createElement("div");
@@ -179,6 +177,17 @@ function addBlock() {
   blockContainer.appendChild(newBlock);
 }
 
+function reArrangeBlocks() {
+  const blockContainer = document.getElementById("block-container");
+  const blocks = blockContainer.getElementsByClassName("block");
+  let iteration = 1;
+
+  for (const block of blocks) {
+    const itemNumberHeading = block.querySelector("h3");
+    itemNumberHeading.textContent = iteration++;
+  }
+}
+
 // Function to create an input field
 function createInputField(type, placeholder) {
   const inputField = document.createElement("input");
@@ -202,6 +211,7 @@ function moveUp(block) {
   if (previousBlock) {
     block.parentNode.insertBefore(block, previousBlock);
   }
+  reArrangeBlocks()
 }
 
 // Function to move a block down
@@ -210,11 +220,13 @@ function moveDown(block) {
   if (nextBlock) {
     block.parentNode.insertBefore(nextBlock, block);
   }
+  reArrangeBlocks()
 }
 
 // Function to delete a block
 function deleteBlock(block) {
   block.parentNode.removeChild(block);
+  reArrangeBlocks()
 }
 
 // Function to handle input event and remove error state
