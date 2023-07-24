@@ -45,6 +45,7 @@ Route::middleware(['auth.login'])->group(function () {
             Route::get('/update/{id}',[OrderController::class, 'update'])->name('orderUpdate');
             Route::get('production',[AdminController::class, 'production'])->name('productionLine');
             Route::get('outfitProfile/{id}',[AdminController::class, 'outfitProfile'])->name('adminOutfitProfile');
+            Route::post('sendMaterial',[AdminController::class, 'sendMaterial'])->name('sendMaterial');
 
             Route::get('/draft',[OrderController::class, 'draft'])->name('draftOrders');
         });

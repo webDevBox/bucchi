@@ -142,8 +142,6 @@ class OrderController extends Controller
             ]);
         }
         
-
-
     }
     
     public function byId(Request $request)

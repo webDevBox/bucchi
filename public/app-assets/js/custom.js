@@ -8,7 +8,6 @@ document.getElementById("submit-btn").addEventListener("click", (event) => {
 });
 
 function getInvoice(order) {
-    console.log(order)
     var url = baseUrl + "/admin/order/byId";
     $.ajax({
         url: url,

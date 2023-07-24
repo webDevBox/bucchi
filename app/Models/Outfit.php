@@ -14,9 +14,22 @@ class Outfit extends Model
         'production'
     ];
 
+    protected $with =[
+        'statuses', 'notes'
+    ];
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function statuses()
+    {
+        return $this->hasMany(OutfitStatus::class);
+    }
+    
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
     }
 
     public function scopeProduction($query)
