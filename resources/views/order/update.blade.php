@@ -131,7 +131,7 @@
                 <!-- Step Wise Form Content -->
                 {{-- <form action="#" id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST"> --}}
                     <!-- Step 1 Content -->
-                    <section id="step-1" class="form-step d-none">
+                    <section id="step-1" class="form-step">
                         <h2 class="font-normal">Client Details</h2>
                         <!-- Step 1 input fields -->
                         <div class="mt-3 offset-3">
@@ -242,7 +242,7 @@
                         </div>
                     </section>
                     <!-- Step 3 Content, default hidden on page load. -->
-                    <section id="step-3" class="form-step -none">
+                    <section id="step-3" class="form-step d-none">
                         <h2 class="font-normal">Outfit Details</h2>
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
