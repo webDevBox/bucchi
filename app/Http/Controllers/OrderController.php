@@ -142,8 +142,6 @@ class OrderController extends Controller
             ]);
         }
         
-
-
     }
     
     public function byId(Request $request)
@@ -309,6 +307,20 @@ class OrderController extends Controller
         ]);
 
         return response()->json(['ok' => true]);
+    }
+
+    public function delete($id)
+    {
+        if(Order::whereId($id)->count() > 0)
+        {
+            Order::whereId($id)->delete();
+            return response()->json([
+                'success' => true,
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+        ]);
     }
     
 }

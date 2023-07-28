@@ -1,14 +1,13 @@
 document.getElementById("submit-btn").addEventListener("click", (event) => {
     event.preventDefault();
-    if(newOrder)
-    {
+    if (newOrder) {
         completeOrder();
+        makeOverview(5)
     }
     createPDF()
 });
 
 function getInvoice(order) {
-    console.log(order)
     var url = baseUrl + "/admin/order/byId";
     $.ajax({
         url: url,
@@ -53,11 +52,8 @@ function makeInvoicer(data) {
 
 function createPDF() {
     var doc = new jsPDF();
-  var elementHtml = $("#invoice_order").html();
-  var elementHtml = $("#invoice_order").html();
-  
     var elementHtml = $("#invoice_order").html();
-  
+
     doc.fromHTML(elementHtml, 15, 15, {
         'width': 170
     });
@@ -106,17 +102,14 @@ function makeOverview(step) {
 
     $('#notes_over').html($('#notes').val())
 
-    if(newOrder)
-    {
+    if (newOrder) {
         const targetDiv = document.getElementById('show_payments');
-        if($('#initial_deposit').val() === '')
-        {
+        if ($('#initial_deposit').val() === '') {
             targetDiv.innerHTML = `
                 <h3 class='text-center my-2'>No Initial Deposit</h3>
             `;
         }
-        else
-        {
+        else {
             targetDiv.innerHTML = `
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -131,7 +124,7 @@ function makeOverview(step) {
             `;
         }
     }
-    else{
+    else {
         const sourceDiv = document.getElementById('transactions_list');
         const targetDiv = document.getElementById('show_payments');
 
@@ -371,7 +364,7 @@ function completeOrder() {
                             tapToDismiss: false
                         }
                     );
-                }, 10000);
+                }, 2000);
                 $('.final_order_button').addClass('d-none')
                 $('.order_re_create').removeClass('d-none')
 

@@ -362,7 +362,7 @@
                             <div class="mt-3">
                                 <button class="button btn-navigate-form-step" type="button"
                                     step_number="3">Prev</button>
-                                <button class="button" onclick="makeOverview(5)" type="button"
+                                <button class="button" id="submit-btn" type="button"
                                     step_number="5">Next</button>
                             </div>
                         </section>
@@ -403,8 +403,7 @@
                             <div class="mt-3">
                                 <button class="final_order_button button btn-navigate-form-step" type="button"
                                     step_number="4">Prev</button>
-                                <button class="final_order_button button submit-btn" id="submit-btn" type="#">Add Order
-                                    and Create Invoice</button>
+                                <button class="final_order_button button submit-btn" type="#">Download Invoice</button>
                                 <button class="order_re_create d-none button submit-btn"
                                     onclick="window.location.href = '{{ route('createOrder') }}'">Create New
                                     Order</button>

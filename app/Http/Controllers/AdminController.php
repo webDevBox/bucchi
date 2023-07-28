@@ -9,6 +9,8 @@ use App\Models\Client;
 use App\Models\Outfit;
 use App\Models\Transaction;
 use App\Models\Currency;
+use App\Models\Note;
+use App\Models\OutfitStatus;
 
 class AdminController extends Controller
 {
@@ -27,6 +29,24 @@ class AdminController extends Controller
     {
         $outfit = Outfit::with('order')->find($id);
         return view('order.adminOutfitProfile',compact('outfit'));
+    }
+
+    public function sendMaterial(Request $request)
+    {
+            $paths = [];
+            foreach ($request->all() as $audioId => $note) {
+                try {
+                    $path = $note->store('notes');
+                } catch (\Throwable $th) {
+                    return response()->json([$th->getMessage()]);
+                }
+                $paths[] = $path;
+            }
+            return response()->json([
+                'success' => true,
+                'note' => $paths
+            ]);
+        
     }
 
 }
