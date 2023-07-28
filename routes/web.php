@@ -57,13 +57,19 @@ Route::middleware(['auth.login'])->group(function () {
         });
     });
     Route::middleware('auth.office')->prefix('office')->group(function() {
+        Route::prefix('client')->group(function () {
+            Route::get('/', [ClientController::class, 'index'])->name('clientPageOffice');
+        });
         Route::get('dashboard',[OfficeController::class, 'index'])->name('officeDashboard');
         Route::get('outfits',[OfficeController::class, 'outfits'])->name('outfits');
         Route::get('outfits/profile',[OfficeController::class, 'outfitProfile'])->name('outfitProfile');
         Route::get('order/search',[OfficeController::class, 'orderSearch'])->name('orderSearch');
     });
-    Route::middleware('auth.common')->prefix('office')->group(function() {
+    Route::middleware('auth.common')->group(function() {
         Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+        Route::get('/checkFileNum', [ClientController::class, 'checkFileNum']);
+        Route::get('/createClient', [ClientController::class, 'createClient']);
+        Route::get('/getFile', [ClientController::class, 'getFile'])->name('getFile');
 
     });
     
