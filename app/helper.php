@@ -11,6 +11,11 @@ function percentage($value,$total)
     return 0 . "%";
 }
 
+function formateDateTime($created_at)
+{
+    return $created_at->format('d F Y');
+}
+
 function remainingDays($time)
 {
     $currentDate = now()->startOfDay();

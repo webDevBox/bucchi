@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PettyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,19 @@ Route::middleware(['auth.login'])->group(function () {
 
     Route::middleware('auth.admin')->prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('adminDashboard');
+        Route::get('/pettyListAdmin', [PettyController::class, 'pettyListAdmin'])->name('pettyListAdmin');
+
         Route::prefix('client')->group(function () {
             Route::get('/', [ClientController::class, 'index'])->name('clientPage');
         });
-        
+
+        Route::prefix('office')->group(function (){
+            Route::get('/',[OfficeController::class, 'list'])->name('officeList');
+            Route::get('delete/{id}',[OfficeController::class, 'officeDelete'])->name('officeDelete');
+            Route::post('createOffice',[OfficeController::class, 'createOffice'])->name('createOffice');
+            Route::get('editOffice/{id}',[OfficeController::class, 'editOffice'])->name('editOffice');
+            Route::post('updateOffice/{id}',[OfficeController::class, 'updateOffice'])->name('updateOffice');
+        });
         
         Route::prefix('order')->group(function () {
             Route::get('/byId',[OrderController::class, 'byId'])->name('byId');
@@ -58,7 +68,11 @@ Route::middleware(['auth.login'])->group(function () {
     });
     Route::middleware('auth.office')->prefix('office')->group(function() {
         Route::prefix('client')->group(function () {
-            Route::get('/', [ClientController::class, 'index'])->name('clientPageOffice');
+            Route::get('/', [ClientController::class, 'clientPageOffice'])->name('clientPageOffice');
+        });
+        Route::prefix('petty')->group(function (){
+            Route::get('/',[PettyController::class, 'index'])->name('pettyList');
+            Route::post('create',[PettyController::class, 'createPetty'])->name('createPetty');
         });
         Route::get('dashboard',[OfficeController::class, 'index'])->name('officeDashboard');
         Route::get('outfits',[OfficeController::class, 'outfits'])->name('outfits');
@@ -66,13 +80,13 @@ Route::middleware(['auth.login'])->group(function () {
         Route::get('order/search',[OfficeController::class, 'orderSearch'])->name('orderSearch');
     });
     Route::middleware('auth.common')->group(function() {
+        Route::get('delete/{id}',[PettyController::class, 'pettyDelete'])->name('pettyDelete');
         Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
         Route::get('/checkFileNum', [ClientController::class, 'checkFileNum']);
         Route::get('/createClient', [ClientController::class, 'createClient']);
         Route::get('/getFile', [ClientController::class, 'getFile'])->name('getFile');
         Route::get('/deleteClient', [ClientController::class, 'deleteClient'])->name('deleteClient');
         Route::get('/editClient/{id}', [ClientController::class, 'editClient'])->name('editClient');
-        Route::get('office/editClient/{id}', [ClientController::class, 'editClient']);
         Route::post('/updateClient/{id}', [ClientController::class, 'updateClient'])->name('updateClient');
 
     });

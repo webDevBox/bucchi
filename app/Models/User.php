@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'status'
     ];
 
     /**
@@ -42,4 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $with = ['permission'];
+
+    public function permission()
+    {
+        return $this->hasOne(Permission::class);
+    }
 }

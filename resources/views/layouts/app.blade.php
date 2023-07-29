@@ -263,9 +263,16 @@
                             class="fa fa-user" style="color:  #6610F2" aria-hidden="true"></i><span
                             class="menu-title text-truncate" data-i18n="Email">Clients</span></a>
                 </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('officeList') }}"><i
+                            class="fa fa-briefcase" style="color:  #6610F2" aria-hidden="true"></i><span
+                            class="menu-title text-truncate" data-i18n="Email">Offices</span></a>
+                </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('productionLine') }}"><i
                             class="fa fa-industry" style="color:  #6610F2" aria-hidden="true"></i><span
                             class="menu-title text-truncate" data-i18n="Email">Production Line</span></a>
+                </li>
+
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('pettyListAdmin') }}"><i class="fa fa-money" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Petty Cash</span></a>
                 </li>
 
             </ul>

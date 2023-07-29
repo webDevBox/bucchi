@@ -16,7 +16,13 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::latest()->get();
-        return view('client.index',compact('clients'));
+        return view('client.admin',compact('clients'));
+    }
+    
+    public function clientPageOffice()
+    {
+        $clients = Client::latest()->get();
+        return view('client.office',compact('clients'));
     }
 
     public function checkFileNum(Request $request)
@@ -78,7 +84,9 @@ class ClientController extends Controller
     public function editClient($id)
     {
         $client = Client::find($id);
-        return view('client.update',compact('client'));
+        if(auth()->user()->role == 0)
+            return view('client.updateAdmin',compact('client'));
+        return view('client.updateOffice',compact('client'));
     }
 
     public function createClient(Request $request)

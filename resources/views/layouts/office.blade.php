@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
 <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico')}}">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
 <!-- BEGIN: Vendor CSS-->
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/vendors.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/charts/apexcharts.css')}}">
@@ -179,14 +179,24 @@
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('officeDashboard') }}"><i data-feather="home" style="color:  #6610F2;"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span></a></li>
 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
 </li>
-<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('clientPageOffice') }}"><i
-    class="fa fa-user" style="color:  #6610F2" aria-hidden="true"></i><span
-    class="menu-title text-truncate" data-i18n="Email">Clients</span></a>
+
+@if(auth()->user()->permission->client == 1)
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('clientPageOffice') }}"><i class="fa fa-user" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Clients</span></a>
 </li>
+@endif
+@if(auth()->user()->permission->production == 1)
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfits') }}"><i class="fa fa-shopping-bag" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Production Line</span></a>
 </li>
+@endif
+@if(auth()->user()->permission->petty == 1)
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('pettyList') }}"><i class="fa fa-money" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Petty Cash</span></a>
+</li>
+@endif
+@if(auth()->user()->permission->search == 1)
 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('orderSearch') }}"><i class="fa fa-search" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Search Order</span></a>
 </li>
+@endif
+
 
 {{-- <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="save" style="color:  #6610F2;"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Edit Main Page</span></a>
 <ul class="menu-content">
@@ -233,6 +243,7 @@
 
 <!-- BEGIN: Page JS-->
 <script src="{{ asset('app-assets/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
+<script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
 <!-- END: Page JS-->
 
 <script>
@@ -261,7 +272,7 @@ height: 14
 @endif
 @if (Session::has('success'))
 <script>
-    var message = {{ Session::get('error') }}
+    var message = {{ Session::get('success') }}
     setTimeout(function () {
         toastr['success'](
             message,

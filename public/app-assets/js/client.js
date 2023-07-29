@@ -68,9 +68,7 @@ function deleteClient(id, button) {
             },
             success: async function (response) {
                 if (response.success) {
-                    var table = $('#clients_directory').DataTable();
-                    var row = table.row($(button).closest('tr'));
-                    row.remove().draw();
+                    window.location.reload();
                 }
                 else {
                     setTimeout(function () {
