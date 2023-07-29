@@ -1,5 +1,4 @@
-async function createBulkClients()
-{
+async function createBulkClients() {
     // $('#loader_wait').removeClass('d-none')
     var myModal = document.getElementById('myModal8');
     $(myModal).modal('hide');
@@ -18,7 +17,7 @@ async function createBulkClients()
         }
 
     };
-    
+
     reader.onerror = function (ex) {
         console.error(ex);
     };
@@ -37,12 +36,11 @@ async function addBulkClients(clients) {
     var files = response.files
 
     clients.map((client) => {
-        if(!files.includes(client['File#'].toString()) 
-        && client['Client Name'] !== undefined && client['Client Name'] !== null
-        && client['File#'] !== undefined && client['File#'] !== null &&
-        client['Client Name'] !== '' && client['File#'] !== ''
-        )
-        {
+        if (!files.includes(client['File#'].toString())
+            && client['Client Name'] !== undefined && client['Client Name'] !== null
+            && client['File#'] !== undefined && client['File#'] !== null &&
+            client['Client Name'] !== '' && client['File#'] !== ''
+        ) {
             createBulkCalls(
                 client['Client Name'],
                 client['Country'],
@@ -51,13 +49,50 @@ async function addBulkClients(clients) {
                 client['Email']
             )
         }
-        else
-        {
+        else {
             bulkErrors++
         }
     })
-    
+
 }
+
+function deleteClient(id, button) {
+    let text = `Are you sure you want to delete client`;
+    if (confirm(text) == true) {
+        var url = baseUrl + "/deleteClient";
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: async function (response) {
+                if (response.success) {
+                    var table = $('#clients_directory').DataTable();
+                    var row = table.row($(button).closest('tr'));
+                    row.remove().draw();
+                }
+                else {
+                    setTimeout(function () {
+                        toastr['error'](
+                            'Please try again',
+                            'Some thing wrong!',
+                            {
+                                closeButton: true,
+                                tapToDismiss: false
+                            }
+                        );
+                    }, 2000);
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response
+            }
+        });
+    }
+
+}
+
 async function createBulkCalls(name, country, file, contact, email) {
     var url = baseUrl + "/createClient";
     $.ajax({
@@ -222,13 +257,17 @@ function generateRow(response) {
             <td class="text-center">${response.client.file_num ? response.client.file_num : ''}</td>
             <td class="text-center">
                 <div class="btn-group btn-group-xs">
-                    <a href="#" id="client_${response.client.id}"
-                        class="btn btn-success">
-                        <i class="fa fa-check"></i>
+                    <a href="/editClient/${response.client.id}" target="_blank"
+                        class="btn btn-primary">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="#" onclick="deleteClient(${response.client.id},this)"
+                        class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
                     </a>
                 </div>
             </td>
         </tr>
     `
-
+    
 }

@@ -82,9 +82,13 @@
                                                     <td class="text-center">{{ $client->file_num }}</td>
                                                     <td class="text-center">
                                                         <div class="btn-group btn-group-xs">
-                                                            <a href="#" id="client_{{ $client->id }}"
-                                                                class="btn btn-success">
-                                                                <i class="fa fa-check"></i>
+                                                            <a href="{{ route('editClient', ['id' => $client->id]) }}"
+                                                                target="_blank" class="btn btn-primary">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                            <a href="#" onclick="deleteClient({{ $client->id }},this)"
+                                                                class="btn btn-danger">
+                                                                <i class="fa fa-trash"></i>
                                                             </a>
                                                         </div>
                                                     </td>

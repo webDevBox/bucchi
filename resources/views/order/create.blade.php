@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('style')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
 <style>
     .block {
@@ -146,7 +147,7 @@
                                         <select class="form-control" id="client_select" name="client_select" required>
 
                                             <option selected disabled>Select Any Client</option>
-                                            <option id="" value="..other..">Add New Client</option>
+                                            {{-- <option id="" value="..other..">Add New Client</option> --}}
                                             @foreach ($clients as $client)
                                             <option id="{{ $client->id }}" value="{{ $client->name }}">{{ $client->name
                                                 }}</option>
@@ -426,6 +427,9 @@
     var total = 0
     var checker = 0
     var newOrder = true
+</script>
+<script>
+    
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>

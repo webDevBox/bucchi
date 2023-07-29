@@ -70,6 +70,10 @@ Route::middleware(['auth.login'])->group(function () {
         Route::get('/checkFileNum', [ClientController::class, 'checkFileNum']);
         Route::get('/createClient', [ClientController::class, 'createClient']);
         Route::get('/getFile', [ClientController::class, 'getFile'])->name('getFile');
+        Route::get('/deleteClient', [ClientController::class, 'deleteClient'])->name('deleteClient');
+        Route::get('/editClient/{id}', [ClientController::class, 'editClient'])->name('editClient');
+        Route::get('office/editClient/{id}', [ClientController::class, 'editClient']);
+        Route::post('/updateClient/{id}', [ClientController::class, 'updateClient'])->name('updateClient');
 
     });
     

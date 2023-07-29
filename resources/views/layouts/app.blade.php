@@ -326,7 +326,7 @@ height: 14
                 closeButton: true,
                 tapToDismiss: false
             });
-        }, 5000);
+        }, 2000);
     @endif
     
     @if (Session::has('success'))
@@ -336,7 +336,7 @@ height: 14
                 closeButton: true,
                 tapToDismiss: false
             });
-        }, 5000);
+        }, 2000);
     @endif
     </script>
     {{-- <script>

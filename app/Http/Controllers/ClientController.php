@@ -40,6 +40,46 @@ class ClientController extends Controller
             'files' => $files
         ]);
     }
+    
+    public function deleteClient(Request $request)
+    {
+        try {
+            Client::whereId($request->id)->delete();
+            return response()->json([
+                'success' => true,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage()
+            ]);
+        }
+        
+    }
+
+    public function updateClient(Request $request,$id)
+    {
+        try {
+            $client = Client::find($id);
+            $client->update([
+                'name' => $request->name,
+                'contact' => $request->contact, 
+                'email' => $request->email, 
+                'country' => $request->country
+            ]);
+
+            return redirect()->back()->withSuccess('Client Updated');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withError('Client Not Updated');
+        }
+        
+    }
+
+    public function editClient($id)
+    {
+        $client = Client::find($id);
+        return view('client.update',compact('client'));
+    }
 
     public function createClient(Request $request)
     {
