@@ -165,7 +165,7 @@
                 <h4>Old Images</h4>
                 <div class="row">
                   @foreach ($outfit->notes->where('type',0) as $image)
-                  <div class="col-md-2 col-sm-4 col-xs-4" onclick="showModal({{ $image->id }},'{{ asset("files/".$image->file) }}')">
+                  <div class="col-md-2 col-sm-4 col-xs-4 mt-1" onclick="showModal({{ $image->id }},'{{ asset("files/".$image->file) }}')">
                     <div class="image-container" style="background-image: url('{{ asset("files/".$image->file) }}');
                       height: 100px; width: 100px;">
                     </div>
@@ -184,11 +184,10 @@
               <div class="mt-3">
                 <label for="notes">Additional Notes</label>
                 <textarea name="additionals" id="notes" rows="5" class="form-control"
-                  placeholder="Enter Additional Notes.."></textarea>
+                  placeholder="Enter Additional Notes..">{{ $outfit->production_notes }}</textarea>
               </div>
 
               <div class="mt-3">
-                {{-- <button onclick="makeMaterial(2)" class="button" type="button">Next</button> --}}
                 <button onclick="navigateToFormStep(2)" class="button" type="button">Next</button>
               </div>
             </section>
@@ -197,61 +196,30 @@
               <label class="h3" for="article">Article#</label>
               <input type="text" value="{{ $outfit->article }}" placeholder="Enter Article Number.." name="article_number" class="col-4 form-control" id="article">
               <!-- Step 3 input fields -->
-
-
               <h3 class="mt-3">Select Status</h3>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Fabric')" id="fabric" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="fabric">Fabric</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Dying')" id="Dying" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Dying">Dying</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Embr In')" id="EmbrIn" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="EmbrIn">Embr In</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Embr Out')" id="EmbrOut" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="EmbrOut">Embr Out</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Tailor In')" id="TailorIn" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="TailorIn">Tailor In</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Tailor Out')" id="TailorOut" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="TailorOut">Tailor Out</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Checking')" id="Checking" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Checking">Checking</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Photo')" id="Photo" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Photo">Photo</label>
-              </div>
-              <div id="photo-block" class="d-none">
-                <h3>Select Photos</h3>
-                <div id="photos-picker" class="bg-light d-flex mx-auto mt-2"
-                  style="cursor: pointer; min-height: 100px; width: 800px;">
-                  <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
-
-                  <div class="status-gallery"></div>
+              @foreach ($statuses as $status)
+                <div class="row border p-1">
+                  <input type="radio" onchange="confirmation('{{ $status->status }}')" value="{{ $status->status }}" id="{{ $status->status }}" name="outfitStatus" class=""
+                  @if($outfit->statuses->where('current',0)->first()->status == $status->status) checked @endif
+                  @if($outfit->statuses->where('current',1)->where('status',$status->status)->count() == 1) disabled @endif  >
+                  <label class="h5" style="margin-top: 5px; margin-left:5px;" for="{{ $status->status }}">{{ $status->status }}</label>
+                  @if($outfit->statuses->where('status',$status->status)->isNotEmpty())
+                    <span class="ml-5 badge badge-primary">{{ formateDateAndTime($outfit->statuses->where('status',$status->status)->first()->date_time) }}</span>
+                  @endif
                 </div>
-                <input type="file" class="d-none" multiple id="status-photo-add">
+                @if($status->status == 'Photo')
+                  <div id="photo-block" class="d-none">
+                    <h3>Select Photos</h3>
+                    <div id="photos-picker" class="bg-light d-flex mx-auto mt-2"
+                      style="cursor: pointer; min-height: 100px; width: 800px;">
+                      <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
 
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Packing')" id="Packing" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Packing">Packing</label>
-              </div>
-              <div class="row">
-                <input type="radio" onchange="confirmation('Completed')" id="Completed" name="outfitStatus" class="">
-                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="Completed">Completed</label>
-              </div>
-
+                      <div class="status-gallery"></div>
+                    </div>
+                    <input type="file" class="d-none" multiple id="status-photo-add">
+                  </div>
+                @endif
+              @endforeach
               <div class="mt-3">
                 <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
                 <button class="button submit-btn" type="submit">Update</button>
@@ -293,6 +261,8 @@
 <script>
   var baseUrl = "{{ url('/') }}"
   const outfitId = {{ $outfit->id }}
+  var checkedValue = document.querySelector('input[name="outfitStatus"]:checked').value;
+  var radioButtons = document.querySelectorAll('input[name="outfitStatus"]');
   function confirmation(status)
   {
     let text = `Are you sure you want change outfit status to ${status}`;
@@ -301,8 +271,20 @@
           {
             $('#photo-block').removeClass('d-none')
           }
-        } else {
-            text = "You canceled!";
+          else {
+            $('#photo-block').addClass('d-none')
+          }
+        } 
+        else
+        {
+          radioButtons.forEach(function(radio) {
+            if (radio.value === checkedValue) {
+              radio.checked = true;
+            } else {
+              radio.checked = false;
+            }
+          });
+          // $('input[name="outfitStatus"]').prop('checked', false);
         }
   }
 </script>

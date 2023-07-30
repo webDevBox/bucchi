@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\Currency;
 use App\Models\Note;
 use App\Models\OutfitStatus;
+use App\Models\OutfitStatusType;
 
 class AdminController extends Controller
 {
@@ -28,7 +29,8 @@ class AdminController extends Controller
     public function outfitProfile($id)
     {
         $outfit = Outfit::with('order')->find($id);
-        return view('order.adminOutfitProfile',compact('outfit'));
+        $statuses = OutfitStatusType::get();
+        return view('order.adminOutfitProfile',compact('statuses','outfit'));
     }
 
     public function sendMaterial(Request $request)

@@ -75,7 +75,6 @@
                                                     <th class="text-center">Weight</th>
                                                     <th class="text-center">Amount</th>
                                                     <th class="text-center">Date</th>
-                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -85,18 +84,14 @@
                                                     <td class="text-center">{{ $cash->expense_type }}</td>
                                                     <td class="text-center">{{ $cash->particular }}</td>
                                                     <td class="text-center">{{ $cash->weight }}</td>
-                                                    <td class="text-center">{{ $cash->amount }}</td>
-                                                    <td class="text-center">{{ formateDateTime($cash->created_at) }}</td>
                                                     <td class="text-center">
-                                                        <div class="btn-group btn-group-xs">
-                                                            
-                                                            <a href="{{ route('pettyDelete',['id' => $cash->id]) }}"
-                                                                onclick="return confirm('Are you sure you want to Delete Transaction')"
-                                                                class="btn btn-danger">
-                                                                <i class="fa fa-trash"></i>
-                                                            </a>
-                                                        </div>
+                                                        @if($cash->entry_type == 'Received')
+                                                           <span class="text-success"> +{{ $cash->amount }} </span>
+                                                        @else
+                                                           <span class="text-danger"> -{{ $cash->amount }} </span>
+                                                        @endif
                                                     </td>
+                                                    <td class="text-center">{{ formateDateTime($cash->created_at) }}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

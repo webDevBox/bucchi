@@ -16,6 +16,12 @@ function formateDateTime($created_at)
     return $created_at->format('d F Y');
 }
 
+function formateDateAndTime($created_at)
+{
+    $dateTime = new DateTime($created_at);
+    return $dateTime->format('j F Y \a\t g:i A');
+}
+
 function remainingDays($time)
 {
     $currentDate = now()->startOfDay();

@@ -9,7 +9,9 @@ use App\Models\Outfit;
 use App\Models\Transaction;
 use App\Models\Currency;
 use App\Models\Note;
+use App\Models\OutfitStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -31,9 +33,26 @@ class OrderController extends Controller
                 }
             }
 
+            //Add Article Number and Additional Notes
             $outfit = Outfit::whereId($id)->update([
-                'article' => $request->article_number
+                'article' => $request->article_number,
+                'production_notes' => $request->additionals,
             ]);
+
+            //Add Status of Outfit
+            $outfitStatus = OutfitStatus::where('status',$request->outfitStatus)
+            ->where('outfit_id',$id)->first();
+
+            if(!isset($outfitStatus))
+            {
+                OutfitStatus::where('outfit_id',$id)->update(['current' => 1]);
+                OutfitStatus::create([
+                    'outfit_id' => $id,
+                    'status' => $request->outfitStatus,
+                    'current' => 0,
+                    'date_time' => date('Y-m-d H:i:s')
+                ]);
+            }
 
             return redirect()->back()->withSuccess('Outfit Production Updated');
         } catch (\Throwable $th) {
@@ -44,7 +63,9 @@ class OrderController extends Controller
     public function deleteMaterialImage($id)
     {
         try {
-            Note::whereId($id)->delete();
+            $image = Note::find($id);
+            Storage::delete($image->file);
+            $image->delete();
             return redirect()->back()->withSuccess('Image Deleted');
         } catch (\Throwable $th) {
             return redirect()->back()->withError('Image Not Deleted');

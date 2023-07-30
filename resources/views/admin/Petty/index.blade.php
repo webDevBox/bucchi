@@ -42,7 +42,13 @@
                                                     <td class="text-center">{{ $cash->expense_type }}</td>
                                                     <td class="text-center">{{ $cash->particular }}</td>
                                                     <td class="text-center">{{ $cash->weight }}</td>
-                                                    <td class="text-center">{{ $cash->amount }}</td>
+                                                    <td class="text-center">
+                                                        @if($cash->entry_type == 'Received')
+                                                           <span class="text-success"> +{{ $cash->amount }} </span>
+                                                        @else
+                                                           <span class="text-danger"> -{{ $cash->amount }} </span>
+                                                        @endif
+                                                    </td>
                                                     <td class="text-center">{{ formateDateTime($cash->created_at) }}</td>
                                                     <td class="text-center">{{ $cash->user->name }}</td>
                                                     <td class="text-center">
