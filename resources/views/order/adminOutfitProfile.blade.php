@@ -70,6 +70,21 @@
     max-height: 100px;
     /* Set the desired maximum height for the gallery image */
   }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .image-container .btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
 </style>
 @endsection
 @section('content')
@@ -105,7 +120,9 @@
             </li>
           </ul>
           <!-- Step Wise Form Content -->
-          <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+          <form method="POST" action="{{ route('updateOutfitProductin',['id' => $outfit->id]) }}"
+            enctype="multipart/form-data">
+            @csrf
             <!-- Step 1 Content -->
             <section id="step-1" class="form-step">
               <h2 class="font-normal">Order Details</h2>
@@ -144,28 +161,41 @@
 
                 <ul id="audioList" style="list-style: none;"></ul>
                 <h3>Images</h3>
+                @if($outfit->notes->where('type',0)->count() > 0)
+                <h4>Old Images</h4>
+                <div class="row">
+                  @foreach ($outfit->notes->where('type',0) as $image)
+                  <div class="col-md-2 col-sm-4 col-xs-4" onclick="showModal({{ $image->id }},'{{ asset("files/".$image->file) }}')">
+                    <div class="image-container" style="background-image: url('{{ asset("files/".$image->file) }}');
+                      height: 100px; width: 100px;">
+                    </div>
+                  </div>
+                  @endforeach
+                </div>
+                @endif
                 <div id="imager" class="col-md-6 offset-md-3 bg-light d-flex mx-auto mt-2"
                   style="cursor: pointer; min-height: 100px; width: 100%;">
-                  <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
+                  <h1 class="mx-auto" style="padding-top:30px;">Select Images</h1>
                 </div>
                 <div class="gallery"></div>
-                <input type="file" class="d-none" multiple id="gallery-photo-add">
+                <input type="file" class="d-none" name="material_images[]" multiple id="gallery-photo-add">
 
               </div>
               <div class="mt-3">
                 <label for="notes">Additional Notes</label>
-                <textarea name="" id="notes" rows="5" class="form-control"
+                <textarea name="additionals" id="notes" rows="5" class="form-control"
                   placeholder="Enter Additional Notes.."></textarea>
               </div>
 
               <div class="mt-3">
-                <button onclick="makeMaterial(2)" class="button" type="button" >Next</button>
+                {{-- <button onclick="makeMaterial(2)" class="button" type="button">Next</button> --}}
+                <button onclick="navigateToFormStep(2)" class="button" type="button">Next</button>
               </div>
             </section>
             <section id="step-2" class="form-step d-none">
               <h2 class="font-normal text-center">Status Details</h2>
               <label class="h3" for="article">Article#</label>
-              <input type="number" placeholder="Enter Article Number.." name="" class="col-4 form-control" id="article">
+              <input type="text" value="{{ $outfit->article }}" placeholder="Enter Article Number.." name="article_number" class="col-4 form-control" id="article">
               <!-- Step 3 input fields -->
 
 
@@ -224,13 +254,34 @@
 
               <div class="mt-3">
                 <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                <button class="button submit-btn" type="#">Update</button>
+                <button class="button submit-btn" type="submit">Update</button>
               </div>
-            </section>
           </form>
+          </section>
         </div>
       </div>
 
+      <div class="modal fade" id="imageModal" tabindex="-1" role="dialog">
+        <div class="modal-lg modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Image Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <img src="" alt="Image" class="img-fluid" id="modalImage">
+                </div>
+                <div class="modal-footer">
+                  <a id="modalDeleter" href=""
+                    onclick="return confirm('Are You Sure You want to Delete Image')" class="btn btn-danger"><i
+                      class="fa fa-trash"></i></a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </div>
   </div>
@@ -253,6 +304,13 @@
         } else {
             text = "You canceled!";
         }
+  }
+</script>
+<script>
+  function showModal(id,imageUrl) {
+    $('#modalImage').attr('src', imageUrl);
+    $('#modalDeleter').attr('href', `${baseUrl}/deleteMaterialImage/${id}`);
+    $('#imageModal').modal('show');
   }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>

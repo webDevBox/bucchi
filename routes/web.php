@@ -88,6 +88,8 @@ Route::middleware(['auth.login'])->group(function () {
         Route::get('/deleteClient', [ClientController::class, 'deleteClient'])->name('deleteClient');
         Route::get('/editClient/{id}', [ClientController::class, 'editClient'])->name('editClient');
         Route::post('/updateClient/{id}', [ClientController::class, 'updateClient'])->name('updateClient');
+        Route::post('updateOutfitProductin/{id}', [OrderController::class, 'updateOutfitProductin'])->name('updateOutfitProductin');
+        Route::get('deleteMaterialImage/{id}', [OrderController::class, 'deleteMaterialImage'])->name('deleteMaterialImage');
 
     });
     

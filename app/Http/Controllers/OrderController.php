@@ -8,10 +8,50 @@ use App\Models\Client;
 use App\Models\Outfit;
 use App\Models\Transaction;
 use App\Models\Currency;
+use App\Models\Note;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    public function updateOutfitProductin(Request $request, $id)
+    {
+        try {
+            //Add Material Images
+            $uploadedFiles = $request->file('material_images');
+            if(isset($uploadedFiles))
+            {
+                foreach ($uploadedFiles as $file) {
+                    $path = $file->store('images');
+                    Note::create([
+                        'outfit_id' => $id,
+                        'file' => $path,
+                        'type' => 0
+                    ]);
+                }
+            }
+
+            $outfit = Outfit::whereId($id)->update([
+                'article' => $request->article_number
+            ]);
+
+            return redirect()->back()->withSuccess('Outfit Production Updated');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withError($th->getMessage());
+        }
+    }
+
+    public function deleteMaterialImage($id)
+    {
+        try {
+            Note::whereId($id)->delete();
+            return redirect()->back()->withSuccess('Image Deleted');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withError('Image Not Deleted');
+        }
+    }
+
+
     public function create()
     {
         $order = Order::inactive()->get();
