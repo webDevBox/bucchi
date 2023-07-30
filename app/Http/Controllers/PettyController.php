@@ -23,7 +23,7 @@ class PettyController extends Controller
     public function pettyListAdmin()
     {
         $petty = PettyCash::latest()->get();
-        return view('admin.petty.index',compact('petty'));
+        return view('admin.Petty.index',compact('petty'));
     }
 
     public function pettyDelete($id)
