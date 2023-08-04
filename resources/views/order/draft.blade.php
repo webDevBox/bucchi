@@ -31,12 +31,16 @@
                                                 <tr>
                                                     <td class="text-center">{{ $order->client->name }}</td>
                                                     <td class="text-center">{{ $order->completion_date }}</td>
-                                                    
+
                                                     <td class="text-center">
                                                         <div class="btn-group btn-group-xs">
-                                                            <a href="#" onclick="editConfirmation({{ $order->id }})"
+                                                            <a href="#" id="editor_{{ $order->id }}" onclick="editConfirmation({{ $order->id }})"
                                                                 title="Edit" class="btn btn-primary"><i
                                                                     class="fa fa-pencil"></i></a>
+                                                            <a href="#" id="deleter_{{ $order->id }}"
+                                                                onclick="deleteOrder({{ $order->id }})"
+                                                                title="Delete Order" class="btn btn-danger"><i
+                                                                    class="fa fa-trash"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -80,6 +84,38 @@
 });
 </script>
 <script>
+    function deleteOrder(id)
+    {
+        let text = "Are you sure you want to Delete the Order?";
+        if (confirm(text) == true) {
+            var url = baseUrl + "/admin/order/delete/"+id;
+            $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: async function(response) {
+                if(response.success)
+                {
+                    $(`#deleter_${id}`).attr('disabled',true)
+                    $(`#deleter_${id}`).attr('onclick',false)
+                    
+                    $(`#editor_${id}`).attr('disabled',true)
+                    $(`#editor_${id}`).attr('onclick',false)
+
+                    $(`#deleter_${id}`).attr('class','btn btn-dark')
+                    $(`#editor_${id}`).attr('class','btn btn-dark')
+                }
+            },
+            error: function(xhr, status, error) {
+            // Handle the error response
+            }
+            })
+        }
+    }
+
+    
     function editConfirmation(id) {
         // let text = "Are you sure you want to edit the invoice?";
         // if (confirm(text) == true) {

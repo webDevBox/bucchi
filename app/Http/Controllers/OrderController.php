@@ -129,7 +129,9 @@ class OrderController extends Controller
                 $client = Client::create([
                     'name' => $request->client_name,
                     'contact' => $request->contact,
-                    'email' => $request->email
+                    'email' => $request->email,
+                    'country' => $request->country,
+                    'file_num' => $request->file
                 ]);
             }
             else
@@ -365,6 +367,13 @@ class OrderController extends Controller
     {
         Outfit::whereId($request->id)->update([
             'production' => 1
+        ]);
+
+        OutfitStatus::create([
+            'outfit_id' => $request->id,
+            'status' => 'Production Started',
+            'current' => 0,
+            'date_time' => date('Y-m-d H:i:s')
         ]);
 
         return response()->json(['ok' => true]);

@@ -200,7 +200,7 @@
               @foreach ($statuses as $status)
                 <div class="row border p-1">
                   <input type="radio" onchange="confirmation('{{ $status->status }}')" value="{{ $status->status }}" id="{{ $status->status }}" name="outfitStatus" class=""
-                  @if($outfit->statuses->where('current',0)->first()->status == $status->status) checked @endif
+                  @if($outfit->statuses->where('current',0)->isNotEmpty() && $outfit->statuses->where('current',0)->first()->status == $status->status) checked @endif
                   @if($outfit->statuses->where('current',1)->where('status',$status->status)->count() == 1) disabled @endif  >
                   <label class="h5" style="margin-top: 5px; margin-left:5px;" for="{{ $status->status }}">{{ $status->status }}</label>
                   @if($outfit->statuses->where('status',$status->status)->isNotEmpty())

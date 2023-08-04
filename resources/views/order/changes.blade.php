@@ -55,7 +55,7 @@
                                                                 title="Edit" class="btn btn-primary"><i
                                                                     class="fa fa-pencil"></i></a>
                                                             <a href="#" id="deleter_{{ $order->id }}"
-                                                                onclick="deleteOrder({{ $order->id }})" title="Edit"
+                                                                onclick="deleteOrder({{ $order->id }})" title="Delete Order"
                                                                 class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                         </div>
                                                     </td>
@@ -205,7 +205,7 @@
     
     function sendProduction(id,article,name) {
         let text = `Send Article # ${article}, Outfit Name ${name} for production?`;
-        if (confirm(text) == true) {
+        if (confirm(text) === true) {
             updateOutfitProduction(id)
         } else {
             text = "You canceled!";

@@ -62,13 +62,14 @@ function createPDF() {
 }
 
 $('#client_select').change(function () {
+    $('#client_select_error').addClass('d-none')
     var client = $('#client_select').val()
     if (client === '..other..') {
         $('#client_name').val('');
-        $('#client_new').removeClass('d-none');
-
+        $('#client_new').removeClass('d-none')
     }
     else {
+        $('#client_new').addClass('d-none')
         $('#client_name').val(client)
     }
 })
@@ -155,7 +156,55 @@ function makeOverview(step) {
     navigateToFormStep(step)
 }
 
-function createClient(step) {
+function checkValidation() {
+    return new Promise(function (resolve, reject) {
+        const name = $('#client_name').val()
+        const file = $('#client_file').val()
+        $('#client_name_error').addClass('d-none');
+        $('#client_file_error').addClass('d-none');
+        var url = baseUrl + "/checkFileNum";
+
+        if (name === '') {
+            $('#client_name_error').removeClass('d-none');
+            resolve(true);
+        } else if (file === '') {
+            $('#client_file_error').removeClass('d-none');
+            $('#client_file_error').text('Client File Number Required');
+            resolve(true);
+        } else {
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    file: file
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#client_file_error').text('Client File Number Already Taken');
+                        $('#client_file_error').removeClass('d-none');
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response
+                    reject(error);
+                }
+            });
+        }
+    });
+}
+
+async function createClient(step) {
+    if($('#client_select').val() === '..other..')
+    {
+        const result = await checkValidation();
+        if (result) {
+            return
+        }
+    }
+
     if ($('#client_name').val() === '') {
         $('#client_select_error').removeClass('d-none')
     }
@@ -171,7 +220,9 @@ function createClient(step) {
                     client_name: $('#client_name').val(),
                     select: $('#client_select').val(),
                     contact: $('#client_contact').val(),
-                    email: $('#client_email').val()
+                    email: $('#client_email').val(),
+                    country: $('#client_country').val(),
+                    file: $('#client_file').val(),
                 },
                 success: function (response) {
                     if (response.success) {

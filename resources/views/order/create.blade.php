@@ -67,6 +67,11 @@
         background-color: #fff0f0;
         cursor: pointer;
     }
+
+    .extra-anchor:hover {
+        color: #ffffff
+    }
+
 </style>
 @endsection
 @section('content')
@@ -147,13 +152,14 @@
                                         <select class="form-control" id="client_select" name="client_select" required>
 
                                             <option selected disabled>Select Any Client</option>
-                                            {{-- <option id="" value="..other..">Add New Client</option> --}}
+                                            <option id="" value="..other..">Add New Client</option>
                                             @foreach ($clients as $client)
                                             <option id="{{ $client->id }}" value="{{ $client->name }}">{{ $client->name
                                                 }}</option>
                                             @endforeach
                                         </select>
-                                        <small id="client_select_error" style="color: red" class="d-none">Please Add/Select Client</small>
+                                        <small id="client_select_error" style="color: red" class="d-none">Please
+                                            Add/Select Client</small>
                                     </div>
                                 </div>
                                 <br>
@@ -164,35 +170,53 @@
                                     <div class="col-md-9">
 
                                         <input type="text" id="client_name" name="client_name" class="form-control"
-                                            placeholder="Enter Client name.." required>
+                                            placeholder="Enter Client name..">
+                                            <small id="client_name_error" class="d-none text-danger">Client Name
+                                                Required</small>
                                     </div>
 
-                                </div>
+                                    <br>
 
-                                <br>
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <label class="col-md-12 h5 control-label" for="client_name">Client Contact
+                                            No</label>
 
-                                    <label class="col-md-12 h5 control-label" for="client_name">Client Contact
-                                        No</label>
+                                        <div class="col-md-9">
 
-                                    <div class="col-md-9">
+                                            <input type="number" id="client_contact" name="contact" class="form-control"
+                                                placeholder="Enter Client Contact Number..">
 
-                                        <input type="number" id="client_contact" name="contact" class="form-control"
-                                            placeholder="Enter Client Contact Number.." required>
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="col-md-12 h5 control-label" for="client_name">Client Email</label>
+                                        <div class="col-md-9">
+                                            <input type="email" id="client_email" name="email" class="form-control"
+                                                placeholder="Enter Client Email Address..">
+                                        </div>
 
                                     </div>
 
-                                </div>
-                                <br>
-                                <div class="form-group">
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="col-md-12 h5 control-label" for="client_country">Client Country</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="client_country" class="form-control"
+                                                placeholder="Enter Client Country..">
+                                        </div>
 
-                                    <label class="col-md-12 h5 control-label" for="client_name">Client Email</label>
-
-                                    <div class="col-md-9">
-
-                                        <input type="email" id="client_email" name="email" class="form-control"
-                                            placeholder="Enter Client Email Address.." required>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="col-md-12 h5 control-label" for="client_file">Client File#</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="client_file" class="form-control"
+                                                placeholder="Enter Client File Number...">
+                                                <small id="client_file_error" class="d-none text-danger"></small>
+                                        </div>
 
                                     </div>
 
@@ -216,7 +240,8 @@
 
                                         <input type="text" id="order_delivery" name="delivery" class="form-control"
                                             placeholder="Enter Delivery" required>
-                                            <small id="delivery_error" style="color: red" class="d-none">Please Enter Delivery</small>
+                                        <small id="delivery_error" style="color: red" class="d-none">Please Enter
+                                            Delivery</small>
 
                                     </div>
 
@@ -231,7 +256,8 @@
 
                                         <input type="date" id="order_date" name="delivery_date" class="form-control"
                                             placeholder="Enter Delivery Date" required>
-                                            <small id="completion_date_error" style="color: red" class="d-none">Please Select Completion Date</small>
+                                        <small id="completion_date_error" style="color: red" class="d-none">Please
+                                            Select Completion Date</small>
 
                                     </div>
 
@@ -345,7 +371,8 @@
                                         <label for="price">Add Payment</label>
                                         <input type="number" onkeyup="checkDepositAmout()" id="initial_deposit" name=""
                                             class="form-control" placeholder="Enter Amount..">
-                                        <small id="depositError" class="d-none" style="color: red">Deposit amount should not be more than total order amount</small>
+                                        <small id="depositError" class="d-none" style="color: red">Deposit amount should
+                                            not be more than total order amount</small>
                                     </div>
                                     <div class="col-md-5 col-sm-12">
                                         <label for="price">Payment Date</label>
@@ -363,8 +390,7 @@
                             <div class="mt-3">
                                 <button class="button btn-navigate-form-step" type="button"
                                     step_number="3">Prev</button>
-                                <button class="button" id="submit-btn" type="button"
-                                    step_number="5">Next</button>
+                                <button class="button" id="submit-btn" type="button" step_number="5">Next</button>
                             </div>
                         </section>
                         <!-- step 5-->
@@ -402,12 +428,15 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <button class="final_order_button button btn-navigate-form-step" type="button"
+                                {{-- <button class="final_order_button button btn-navigate-form-step" type="button"
                                     step_number="4">Prev</button>
-                                <button class="final_order_button button submit-btn" type="#">Download Invoice</button>
-                                <button class="order_re_create d-none button submit-btn"
+                                <button class="final_order_button button submit-btn" type="#">Download Invoice</button> --}}
+                                {{-- <button class="order_re_create d-none button submit-btn"
                                     onclick="window.location.href = '{{ route('createOrder') }}'">Create New
-                                    Order</button>
+                                    Order</button> --}}
+                                <a class="order_re_create d-none button submit-btn extra-anchor" 
+                                href="{{ route('createOrder') }}">Create New
+                                    Order</a>
                             </div>
                         </section>
                     </form>
@@ -429,7 +458,7 @@
     var newOrder = true
 </script>
 <script>
-    
+
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>

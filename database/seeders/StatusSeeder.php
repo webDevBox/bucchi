@@ -13,7 +13,7 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $statuses = ['Fabric','Dying','Embr In','Embr Out','Tailor In',
+        $statuses = ['Production Started', 'Fabric','Dying','Embr In','Embr Out','Tailor In',
         'Tailor Out','Checking','Photo','Packing','Completed'];
         foreach ($statuses as $status) {
             OutfitStatusType::updateOrCreate([

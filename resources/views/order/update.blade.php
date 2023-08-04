@@ -170,6 +170,28 @@
                                         </div>
                                     
                                         </div>
+                                        <br>
+                                        <div class="form-group">
+                            
+                                        <label class="col-md-12 h5 control-label" for="client_country">Client Country</label>
+                                    
+                                        <div class="col-md-9">
+                                    
+                                        <input type="text" id="client_country" value="{{ $order->client->country }}" class="form-control" disabled>
+                                        </div>
+                                    
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                            
+                                        <label class="col-md-12 h5 control-label" for="client_file">Client File#</label>
+                                    
+                                        <div class="col-md-9">
+                                    
+                                        <input type="text" id="client_file" value="{{ $order->client->file_num }}" class="form-control" disabled>
+                                        </div>
+                                    
+                                        </div>
                         </div>
                         <div class="mt-3">
                             <button class="button " type="button" onclick="navigateToFormStep(2)" step_number="2">Next</button>
