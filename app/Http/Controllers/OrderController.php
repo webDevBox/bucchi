@@ -20,15 +20,31 @@ class OrderController extends Controller
     {
         try {
             //Add Material Images
-            $uploadedFiles = $request->file('material_images');
-            if(isset($uploadedFiles))
+            $notesImages = $request->file('material_images');
+            if(isset($notesImages))
             {
-                foreach ($uploadedFiles as $file) {
+                foreach ($notesImages as $file) {
                     $path = $file->store('images');
                     Note::create([
                         'outfit_id' => $id,
                         'file' => $path,
-                        'type' => 0
+                        'type' => 0,
+                        'image_type' => 0
+                    ]);
+                }
+            }
+            
+            //Add Status Photos
+            $statusphoto = $request->file('status_photos');
+            if(isset($statusphoto))
+            {
+                foreach ($statusphoto as $file) {
+                    $path = $file->store('images');
+                    Note::create([
+                        'outfit_id' => $id,
+                        'file' => $path,
+                        'type' => 0,
+                        'image_type' => 1
                     ]);
                 }
             }
@@ -84,6 +100,16 @@ class OrderController extends Controller
     public function view()
     {
         $orders = Order::active()->production()->latest()->get();
+        foreach ($orders as $order) {
+            $remainingHour = 0;
+            foreach ($order->outfits as $outfit) {
+                if($outfit->statuses->where('status','Embr In')->isEmpty())
+                {
+                    $remainingHour+=$outfit->hours;
+                }
+                $order['remaining'] = $remainingHour;
+            }
+        }
         return view('order.view',compact('orders'));
     }
 

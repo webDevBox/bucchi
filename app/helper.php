@@ -2,7 +2,7 @@
 
 function percentage($value,$total)
 {
-    if($value > 0)
+    if($total > 0)
     {
         $percentage = ($value/$total)*100;
         $formattedPercentage = number_format($percentage, 2) . "%";

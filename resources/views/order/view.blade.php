@@ -24,7 +24,7 @@
                                                     <th class="text-center">Client Name</th>
                                                     <th class="text-center">Delivery Date</th>
                                                     <th class="text-center"> Payment </th>
-                                                    <th class="text-center">Remaining Days</th>
+                                                    <th class="text-center">Remaining Hours</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -39,7 +39,7 @@
                                                     <td class="text-center"> {{
                                                         percentage($order->transactions->pluck('payment')->sum(),$order->outfits->pluck('price')->sum())
                                                         }}</td>
-                                                    <td class="text-center">{{ remainingDays($order->completion_date) }}
+                                                    <td class="text-center">{{ $order->remaining }}
                                                     </td>
                                                 </tr>
                                                 @endforeach

@@ -9,6 +9,6 @@ class Note extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'outfit_id', 'file', 'type'
+        'outfit_id', 'file', 'type', 'image_type'
     ];
 }

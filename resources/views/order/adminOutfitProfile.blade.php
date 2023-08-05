@@ -161,11 +161,11 @@
 
                 <ul id="audioList" style="list-style: none;"></ul>
                 <h3>Images</h3>
-                @if($outfit->notes->where('type',0)->count() > 0)
+                @if($outfit->notes->where('type',0)->where('image_type',0)->count() > 0)
                 <h4>Old Images</h4>
                 <div class="row">
-                  @foreach ($outfit->notes->where('type',0) as $image)
-                  <div class="col-md-2 col-sm-4 col-xs-4 mt-1" onclick="showModal({{ $image->id }},'{{ asset("files/".$image->file) }}')">
+                  @foreach ($outfit->notes->where('type',0)->where('image_type',0) as $image)
+                  <div class="col-md-2 col-sm-4 col-xs-4 mt-1" onclick="showModal('{{ $image->id }}', '{{ asset("files/".$image->file) }}')">
                     <div class="image-container" style="background-image: url('{{ asset("files/".$image->file) }}');
                       height: 100px; width: 100px;">
                     </div>
@@ -194,31 +194,53 @@
             <section id="step-2" class="form-step d-none">
               <h2 class="font-normal text-center">Status Details</h2>
               <label class="h3" for="article">Article#</label>
-              <input type="text" value="{{ $outfit->article }}" placeholder="Enter Article Number.." name="article_number" class="col-4 form-control" id="article">
+              <input type="text" value="{{ $outfit->article }}" placeholder="Enter Article Number.."
+                name="article_number" class="col-4 form-control" id="article">
               <!-- Step 3 input fields -->
               <h3 class="mt-3">Select Status</h3>
               @foreach ($statuses as $status)
-                <div class="row border p-1">
-                  <input type="radio" onchange="confirmation('{{ $status->status }}')" value="{{ $status->status }}" id="{{ $status->status }}" name="outfitStatus" class=""
-                  @if($outfit->statuses->where('current',0)->isNotEmpty() && $outfit->statuses->where('current',0)->first()->status == $status->status) checked @endif
-                  @if($outfit->statuses->where('current',1)->where('status',$status->status)->count() == 1) disabled @endif  >
-                  <label class="h5" style="margin-top: 5px; margin-left:5px;" for="{{ $status->status }}">{{ $status->status }}</label>
-                  @if($outfit->statuses->where('status',$status->status)->isNotEmpty())
-                    <span class="ml-5 badge badge-primary">{{ formateDateAndTime($outfit->statuses->where('status',$status->status)->first()->date_time) }}</span>
-                  @endif
-                </div>
-                @if($status->status == 'Photo')
-                  <div id="photo-block" class="d-none">
-                    <h3>Select Photos</h3>
-                    <div id="photos-picker" class="bg-light d-flex mx-auto mt-2"
-                      style="cursor: pointer; min-height: 100px; width: 800px;">
-                      <h1 class="mx-auto" style="padding-top:30px;">Select Multiple Images</h1>
-
-                      <div class="status-gallery"></div>
-                    </div>
-                    <input type="file" class="d-none" multiple id="status-photo-add">
-                  </div>
+              <div class="row border p-1">
+                <input type="radio" onchange="confirmation('{{ $status->status }}')" value="{{ $status->status }}"
+                  id="{{ $status->status }}" name="outfitStatus" class=""
+                  @if($outfit->statuses->where('current',0)->isNotEmpty() &&
+                $outfit->statuses->where('current',0)->first()->status == $status->status) checked @endif
+                @if($outfit->statuses->where('current',1)->where('status',$status->status)->count() == 1) disabled
+                @endif >
+                <label class="h5" style="margin-top: 5px; margin-left:5px;" for="{{ $status->status }}">{{
+                  $status->status }}</label>
+                @if($outfit->statuses->where('status',$status->status)->isNotEmpty())
+                <span class="ml-auto badge badge-primary">{{
+                  formateDateAndTime($outfit->statuses->where('status',$status->status)->first()->date_time) }}</span>
                 @endif
+              </div>
+              @if($status->status == 'Photo')
+              @if($outfit->notes->where('type',0)->where('image_type',1)->count() > 0)
+                <h4>Images</h4>
+                <div class="row">
+                  @foreach ($outfit->notes->where('type',0)->where('image_type',1) as $image)
+                  <div class="col-md-2 col-sm-4 col-xs-4 mt-1" onclick="showModal('{{ $image->id }}', '{{ asset("files/".$image->file) }}')">
+                    <div class="image-container" style="background-image: url('{{ asset("files/".$image->file) }}');
+                      height: 100px; width: 100px;">
+                    </div>
+                  </div>
+                  @endforeach
+                  <div id="add_more" class="col-md-2 col-sm-4 col-xs-4 mt-1">
+                    <div class="image-container" style="background-image: url('{{ asset("app-assets/images/add_image.jpg") }}');
+                      height: 100px; width: 100px;">
+                    </div>
+                  </div>
+                </div>
+                @endif
+              <div id="photo-block" class="d-none">
+                <h3>Select Photos</h3>
+                <div id="photos-picker" class="col-md-6 offset-md-3 bg-light d-flex mx-auto mt-2"
+                  style="cursor: pointer; min-height: 100px; width: 100%;">
+                  <h1 class="mx-auto" style="padding-top:30px;">Select Images</h1>
+                </div>
+                <div class="status-gallery"></div>
+                <input type="file" class="d-none" name="status_photos[]" multiple id="status-photo-add">
+              </div>
+              @endif
               @endforeach
               <div class="mt-3">
                 <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
@@ -231,25 +253,24 @@
 
       <div class="modal fade" id="imageModal" tabindex="-1" role="dialog">
         <div class="modal-lg modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Image Preview</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <img src="" alt="Image" class="img-fluid" id="modalImage">
-                </div>
-                <div class="modal-footer">
-                  <a id="modalDeleter" href=""
-                    onclick="return confirm('Are You Sure You want to Delete Image')" class="btn btn-danger"><i
-                      class="fa fa-trash"></i></a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Image Preview</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <div class="modal-body">
+              <img src="" alt="Image" class="img-fluid" id="modalImage">
+            </div>
+            <div class="modal-footer">
+              <a id="modalDeleter" href="" onclick="return confirm('Are You Sure You want to Delete Image')"
+                class="btn btn-danger"><i class="fa fa-trash"></i></a>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
     </div>
   </div>
