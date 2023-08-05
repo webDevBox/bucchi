@@ -21,6 +21,7 @@
                             <div class="card-body p-0">
                                 <div class="table-responsive">
                                     <div class="block full p-2">
+                                        <button onclick="reporter()" class="d-block ml-auto btn btn-primary">Download Petty Cash Report</button>
                                         <table id="clients_directory"
                                             class="table table-bordered table-striped table-vcenter">
                                             <thead>
@@ -74,67 +75,6 @@
 
                 </div>
             </section>
-
-            <div class="modal fade" id="myModal8" tabindex="-1" role="dialog">
-                <div class="modal-lg modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add New Transaction</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('createPetty') }}">
-                                @csrf
-                                <div class="form-group">
-                                    <Label for="client_name">Entry Type</Label>
-                                    <select onchange="checkEntry()" id="entry_block" name="entry_type" class="form-control">
-                                        <option selected disabled>Select Entry Type</option>
-                                        <option value="Payment">Payment</option>
-                                        <option value="Received">Received</option>
-                                    </select>
-                                </div>
-                                <div id="expense_block" class="form-group d-none">
-                                    <Label>Expense Type</Label>
-                                    <select name="expense_type" class="form-control">
-                                        <option selected disabled>Select Expense Type</option>
-                                        <option value="Dabka - BD">Dabka - BD</option>
-                                        <option value="Dabka - Collar">Dabka - Collar</option>
-                                        <option value="Dabka - Sherwani">Dabka - Sherwani</option>
-                                        <option value="Dabka - White">Dabka - White</option>
-                                        <option value="Resham - Anchor">Resham - Anchor</option>
-                                        <option value="Betki">Betki</option>
-                                        <option value="Gota">Gota</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <Label for="client_file">Particular</Label>
-                                    <input type="text" name="particular" id="client_file" class="form-control"
-                                        placeholder="Enter Particular...">
-                                </div>
-                                <div class="form-group">
-                                    <Label>Weight(Kg)</Label>
-                                    <input type="number" name="weight" class="form-control"
-                                        placeholder="Enter Weight...">
-                                </div>
-                                <div class="form-group">
-                                    <Label>Amount</Label>
-                                    <input type="number" name="amount" class="form-control"
-                                        placeholder="Enter Amount..." required>
-                                </div>
-                                
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" title="Add Officer" class="btn btn-primary">Send</button>
-                            </form>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -154,6 +94,55 @@
             $('#expense_block').addClass('d-none')
         }
     }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+  
+<script>
+function reporter() {
+    const sheetName = "Petty Cash";
+    const table = document.getElementById('clients_directory');
+    const workbook = XLSX.utils.book_new();
+
+    // Clone the table and remove the last column
+    const tableClone = table.cloneNode(true);
+    const rows = tableClone.getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const lastCellIndex = cells.length - 1;
+        rows[i].deleteCell(lastCellIndex);
+    }
+
+    // Set the column width based on content
+    setColumnWidth(tableClone);
+
+    const worksheet = XLSX.utils.table_to_sheet(tableClone);
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+    XLSX.writeFile(workbook, `${'Petty Cash'}.xlsx`);
+}
+
+function setColumnWidth(table) {
+    const rows = table.getElementsByTagName('tr');
+    const headerRow = rows[0];
+    const columns = headerRow.getElementsByTagName('th');
+
+    // Initialize an array to store the maximum width of each column
+    const maxColumnWidths = new Array(columns.length).fill(0);
+
+    // Loop through each cell to find the maximum width for each column
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        for (let j = 0; j < cells.length; j++) {
+            const cellText = cells[j].innerText;
+            maxColumnWidths[j] = Math.max(maxColumnWidths[j], cellText.length);
+        }
+    }
+
+    // Set column width based on the maximum width for each column
+    for (let i = 0; i < columns.length; i++) {
+        columns[i].style.width = maxColumnWidths[i] * 8 + 'px';
+    }
+}
 </script>
 <script>
     var baseUrl = "{{ url('/') }}"
