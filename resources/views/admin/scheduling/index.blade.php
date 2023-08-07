@@ -71,7 +71,6 @@
     .extra-anchor:hover {
         color: #ffffff
     }
-
 </style>
 @endsection
 @section('content')
@@ -82,18 +81,56 @@
         <div class="content-header row">
         </div>
         <div class="content-body">
-
             <div style="background-color: white;">
                 <h1> <strong> Time </strong> Sheet</h1>
-                <section class="form-step">
-                    <h2 class="font-normal">Scheduling</h2>
-                    <!-- Step 1 input fields -->
-                    
-                    
-                </section>
+                <div class="col-12">
+                    <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-vcenter">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Entry Type</th>
+                                <th class="text-center">Expense Type</th>
+                                <th class="text-center">Particular</th>
+                                <th class="text-center">Weight</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Created By</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                            {{-- <tr>
+                                <td class="text-center">{{ $cash->entry_type }}</td>
+                                <td class="text-center">{{ $cash->expense_type }}</td>
+                                <td class="text-center">{{ $cash->particular }}</td>
+                                <td class="text-center">{{ $cash->weight }}</td>
+                                <td class="text-center">
+                                    @if($cash->entry_type == 'Received')
+                                    <span class="text-success"> +{{ $cash->amount }} </span>
+                                    @else
+                                    <span class="text-danger"> -{{ $cash->amount }} </span>
+                                    @endif
+                                </td>
+                                <td class="text-center">{{ formateDateTime($cash->created_at) }}</td>
+                                <td class="text-center">{{ $cash->user->name }}</td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-xs">
+
+                                        <a href="{{ route('pettyDelete',['id' => $cash->id]) }}"
+                                            onclick="return confirm('Are you sure you want to Delete Transaction')"
+                                            class="btn btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr> --}}
+                            @endforeach
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     </div>
 </div>

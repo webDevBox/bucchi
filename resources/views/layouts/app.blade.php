@@ -275,8 +275,8 @@
                 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('pettyListAdmin') }}"><i class="fa fa-money" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Petty Cash</span></a>
                 </li>
                 
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('scheduling') }}"><i class="fa fa-ravelry" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Scheduling</span></a>
-                </li>
+                {{-- <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('scheduling') }}"><i class="fa fa-ravelry" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Scheduling</span></a>
+                </li> --}}
 
             </ul>
         </div>

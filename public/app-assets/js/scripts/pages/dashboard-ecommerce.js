@@ -335,7 +335,7 @@ $(window).on('load', function () {
     series: [
       {
         name: 'Earning',
-        data: [ 250, 177, 350, 256,]
+        data: [ outfitProduction, outfitEmbroidery, outfitTailoring, outfitCompleted,]
       },
       
     ],
@@ -355,7 +355,7 @@ $(window).on('load', function () {
       }
     },
     xaxis: {
-      categories: ['order', 'product', 'visit', 'customers'],
+      categories: ['production', 'Embroidery', 'Tailoring', 'Completed'],
       labels: {
         style: {
           colors: $textMutedColor,
@@ -690,7 +690,7 @@ $(window).on('load', function () {
         stops: [0, 100]
       }
     },
-    series: [83],
+    series: [overview],
     stroke: {
       lineCap: 'round'
     },

@@ -35,3 +35,23 @@ function remainingDays($time)
     
     return $remainingDays;
 }
+
+function formatNumberWithK($number) {
+    // Define the suffixes for thousands, millions, billions, etc.
+    $suffixes = array('', 'k', 'M', 'B', 'T');
+
+    // Determine the appropriate suffix based on the number of digits
+    $suffixIndex = 0;
+    while ($number >= 1000 && $suffixIndex < count($suffixes) - 1) {
+        $number /= 1000;
+        $suffixIndex++;
+    }
+
+    // Format the number to have one decimal place
+    $formattedNumber = number_format($number, 1);
+
+    // Append the appropriate suffix
+    $formattedNumber .= $suffixes[$suffixIndex];
+
+    return $formattedNumber;
+}
