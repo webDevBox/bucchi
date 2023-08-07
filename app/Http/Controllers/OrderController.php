@@ -150,6 +150,7 @@ class OrderController extends Controller
     {
         try
         {    
+            $invoice = self::getOrderInvoice();
             if($request->select == '..other..')
             {
                 $client = Client::create([
@@ -164,8 +165,10 @@ class OrderController extends Controller
             {
                 $client = Client::find($request->selectedOptionId);
             }
+            
             $order = Order::create([
-                'client_id' => $client->id
+                'client_id' => $client->id,
+                'invoice' => $invoice
             ]);
 
             return response()->json([
@@ -179,6 +182,31 @@ class OrderController extends Controller
                 'Error' => $th->getMessage()
             ]);
         }
+    }
+
+    public function getOrderInvoice()
+    {
+        $checker = false;
+        $lastOrder = Order::latest()->first();
+        if(isset($lastOrder))
+        {
+            $lastOrder = $lastOrder->invoice;
+        }
+        else{
+            $lastOrder = 999;
+        }
+        $invoice = (int)$lastOrder + 1;
+        while($checker != true)
+        {
+            if(Order::where('invoice',$invoice)->count() == 0)
+            {
+                $checker = true;
+            }
+            else{
+                $invoice++;
+            }
+        }
+        return $invoice;
     }
 
     public function storeOrder(Request $request)

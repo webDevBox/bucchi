@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PettyController;
+use App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ Route::middleware(['auth.login'])->group(function () {
 
         Route::prefix('client')->group(function () {
             Route::get('/', [ClientController::class, 'index'])->name('clientPage');
+        });
+        
+        Route::prefix('scheduling')->group(function () {
+            Route::get('/', [ScheduleController::class, 'index'])->name('scheduling');
         });
 
         Route::prefix('office')->group(function (){

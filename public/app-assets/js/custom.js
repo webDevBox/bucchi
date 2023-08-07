@@ -225,6 +225,7 @@ async function createClient(step) {
                     file: $('#client_file').val(),
                 },
                 success: function (response) {
+                    console.log(response)
                     if (response.success) {
                         orderId = response.data.id
                         navigateToFormStep(step)
