@@ -409,6 +409,7 @@ class OrderController extends Controller
                 'name' => $outfit->name,
                 'hours' => $outfit->hours,
                 'status' => $outfit->production,
+                'status_list' => $outfit->statuses,
                 'detailsRoute' => route('OutFitDetails', ['id' => $outfit->id]),
             ];
         }

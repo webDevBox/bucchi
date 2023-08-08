@@ -16,7 +16,7 @@
     <div class="card card-company-table">
     <div class="card-body p-0">
     <div class="table-responsive">
-        <div class="block full">
+        <div class="block full p-2">
             <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
@@ -29,21 +29,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                        <tr>
-                            <td class="text-center"> 7894 </td>
-                            <td class="text-center"> John </td>
-                            <td class="text-center">
-                                <a href="{{ route('outfitProfile') }}"> Fit Me </a>
-                            </td>
-                            <td class="text-center"> Active </td>
-                            <td class="text-center">3 june 2023</td>
-                            <td class="text-center">
-                                <a href="#" onclick="outfitModalOpener('Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis, quae assumenda placeat reiciendis, omnis consectetur aliquid, dolore magni eum est quisquam nihil temporibus quis repellendus nisi delectus ab excepturi voluptatibus.')" data-toggle="modal" data-target="#myModal8">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        
+                    @foreach ($outfits as $outfit)
+                        @if($outfit->order->production == 0)
+                            <tr>
+                                <td class="text-center"> {{ $outfit->article }} </td>
+                                <td class="text-center"> {{ $outfit->order->client->name }} </td>
+                                <td class="text-center">
+                                    <a href="{{ route('outfitProfile',['id' => $outfit->id ]) }}"> {{ $outfit->name }} </a>
+                                </td>
+                                <td class="text-center"> {{ $outfit->statuses->where('current',0)->first() ? $outfit->statuses->where('current',0)->first()->status :'' }} </td>
+                                <td class="text-center">{{ $outfit->order->completion_date }}</td>
+                                <td class="text-center">
+                                    <a href="#" onclick="outfitModalOpener('{{ $outfit->description }}')" data-toggle="modal" data-target="#myModal8">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                 </tbody>
                 </table>
 
@@ -88,6 +91,24 @@
     {
         $('#modalDetails').text(detail)
     }
+    $(document).ready(function() {
+    $('#ecom-orders').DataTable({
+        // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
+        "order": [[1, "asc"]],
+        "columnDefs": [
+            {
+                // Disable ordering for the last column (Action column)
+                "targets": [3],
+                "orderable": false
+            },
+            {
+                // Disable ordering for the last column (Action column)
+                "targets": [5],
+                "orderable": false
+            }
+        ]
+    });
+});
 </script>
     
 @endsection

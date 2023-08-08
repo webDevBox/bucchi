@@ -81,7 +81,7 @@ Route::middleware(['auth.login'])->group(function () {
         });
         Route::get('dashboard',[OfficeController::class, 'index'])->name('officeDashboard');
         Route::get('outfits',[OfficeController::class, 'outfits'])->name('outfits');
-        Route::get('outfits/profile',[OfficeController::class, 'outfitProfile'])->name('outfitProfile');
+        Route::get('outfits/profile/{id}',[OfficeController::class, 'outfitProfile'])->name('outfitProfile');
         Route::get('order/search',[OfficeController::class, 'orderSearch'])->name('orderSearch');
     });
     Route::middleware('auth.common')->group(function() {

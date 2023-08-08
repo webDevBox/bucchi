@@ -30,6 +30,22 @@
                 <p>Currency: <strong> PKR </strong></p>
             </div> --}}
             <div class="rounded box-shadow offset-md-2 col-md-8 col-sm-12">
+                <h2 class="text-center">Outfit Status</h2>
+                <div class="row">
+                    @foreach ($outfit->statuses as $status)
+                        <div class="col-md-9 col-sm-12 mt-1">
+                            {{ $status->status }}
+                        </div>
+                        <div class="col-md-3 col-sm-12 mt-1">
+                            <span class="badge badge-primary">
+                                {{ $status->date_time }}
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+                
+            </div>
+            <div class="rounded box-shadow offset-md-2 col-md-8 col-sm-12">
                 {{-- <h2 class="text-center">Outfit Details</h2> --}}
                 <p>Outfit Name: <strong> {{ $outfit->name }} </strong></p>
                 <p>Client Name: <strong> {{ $outfit->order->client->name }} </strong></p>

@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use App\Models\Currency;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use App\Models\OutfitStatusType;
 
 class OfficeController extends Controller
 {
@@ -20,7 +21,8 @@ class OfficeController extends Controller
 
     public function outfits()
     {
-        return view('office.outfit');
+        $outfits = Outfit::production()->with('order')->get();
+        return view('office.outfit',compact('outfits'));
     }
     
     public function list()
@@ -87,9 +89,11 @@ class OfficeController extends Controller
         }
     }
 
-    public function outfitProfile()
+    public function outfitProfile($id)
     {
-        return view('office.outfitProfile');
+        $outfit = Outfit::with('order')->find($id);
+        $statuses = OutfitStatusType::get();
+        return view('office.outfitProfile',compact('outfit','statuses'));
     }
 
     public function orderSearch()

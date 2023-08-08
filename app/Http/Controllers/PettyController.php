@@ -39,6 +39,19 @@ class PettyController extends Controller
     public function createPetty(Request $request)
     {
         try {
+            $user = User::find(auth()->user()->id);
+            if($request->entry_type == 'Received')
+            {
+                $user->update([
+                    'balance' => $user->balance + $request->amount
+                ]);
+            }
+            else
+            {
+                $user->update([
+                    'balance' => $user->balance - $request->amount
+                ]);
+            }
             PettyCash::create([
                 'user_id' => auth()->user()->id,
                 'entry_type' => $request->entry_type,

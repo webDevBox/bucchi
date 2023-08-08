@@ -33,6 +33,7 @@
                                                     <th class="text-center">Amount</th>
                                                     <th class="text-center">Date</th>
                                                     <th class="text-center">Created By</th>
+                                                    <th class="text-center">Balance</th>
                                                     <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
@@ -52,6 +53,7 @@
                                                     </td>
                                                     <td class="text-center">{{ formateDateTime($cash->created_at) }}</td>
                                                     <td class="text-center">{{ $cash->user->name }}</td>
+                                                    <td class="text-center">{{ $cash->user->balance }}</td>
                                                     <td class="text-center">
                                                         <div class="btn-group btn-group-xs">
                                                             

@@ -17,11 +17,18 @@ $(document).ready(function() {
             success: function(response) {
                 // Populate the table body with the fetched outfits
                 $.each(response.outfits, function(index, outfit) {
+                    var newStatus
+                    outfit.status_list.map((status) => {
+                        if(status.current === 0)
+                        {
+                            newStatus = status.status
+                        }
+                    })
                     var row = $('<tr>');
                     row.append($('<td>').addClass('text-center').text(outfit.article));
                     row.append($('<td>').addClass('text-center').html('<a target="_blank" href="' + outfit.detailsRoute + '">' + outfit.name + '</a>'));
                     row.append($('<td>').addClass('text-center').text(outfit.hours));
-                    row.append($('<td>').addClass('text-center').text(outfit.status ? 'Completed' : 'InComplete'));
+                    row.append($('<td>').addClass('text-center').text(newStatus));
                     tableBody.append(row);
                 });
             },

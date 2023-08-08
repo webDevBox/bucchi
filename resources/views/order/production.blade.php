@@ -30,20 +30,22 @@
                 </thead>
                 <tbody>
                     @foreach ($outfits as $outfit)
-                        <tr>
-                            <td class="text-center"> {{ $outfit->article }} </td>
-                            <td class="text-center"> {{ $outfit->order->client->name }} </td>
-                            <td class="text-center">
-                                <a href="{{ route('adminOutfitProfile',['id' => $outfit->id ]) }}"> {{ $outfit->name }} </a>
-                            </td>
-                            <td class="text-center"> Active </td>
-                            <td class="text-center">{{ $outfit->order->completion_date }}</td>
-                            <td class="text-center">
-                                <a href="#" onclick="outfitModalOpener('{{ $outfit->description }}')" data-toggle="modal" data-target="#myModal8">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        @if($outfit->order->production == 0)
+                            <tr>
+                                <td class="text-center"> {{ $outfit->article }} </td>
+                                <td class="text-center"> {{ $outfit->order->client->name }} </td>
+                                <td class="text-center">
+                                    <a href="{{ route('adminOutfitProfile',['id' => $outfit->id ]) }}"> {{ $outfit->name }} </a>
+                                </td>
+                                <td class="text-center"> {{ $outfit->statuses->where('current',0)->first() ? $outfit->statuses->where('current',0)->first()->status :'' }} </td>
+                                <td class="text-center">{{ $outfit->order->completion_date }}</td>
+                                <td class="text-center">
+                                    <a href="#" onclick="outfitModalOpener('{{ $outfit->description }}')" data-toggle="modal" data-target="#myModal8">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
                 </table>

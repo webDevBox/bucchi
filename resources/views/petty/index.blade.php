@@ -60,9 +60,12 @@
                                 <div class="table-responsive">
                                     <div class="block full p-2">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12">
+                                            <div class="col-md-10 col-sm-12">
                                                 <button data-toggle="modal" data-target="#myModal8"
                                                     class="btn btn-primary">Add New Petty Cash</button>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12">
+                                                <span class="badge badge-primary" >Your Balance: {{ auth()->user()->balance }}</span>
                                             </div>
                                         </div>
                                         <table id="clients_directory"
