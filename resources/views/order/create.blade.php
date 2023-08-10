@@ -53,7 +53,7 @@
 
     /* Style each list item */
     #outfits-list li {
-        background-color: #f9eaea;
+        background-color: #faf9f9;
         padding: 10px;
         margin: 5px;
         border-radius: 5px;
@@ -64,7 +64,7 @@
 
     /* Add a hover effect to highlight the list items */
     #outfits-list li:hover {
-        background-color: #fff0f0;
+        background-color: #fefefe;
         cursor: pointer;
     }
 
@@ -163,6 +163,18 @@
                                     </div>
                                 </div>
                                 <br>
+                                <div class="form-group">
+                                    <label class="col-md-12 h5 control-label" for="order_client_name">Enter
+                                        Client Name</label>
+
+                                    <div class="col-md-9">
+
+                                        <input type="text" id="order_client_name"
+                                            class="form-control" placeholder="Enter Client Name for Invoice..." required>
+                                        <small id="client_invoice_error" style="color: red" class="d-none">Please Enter Client Name for Invoice</small>
+                                    </div>
+                                </div>
+                                <br>
                                 <div class="form-group d-none" id="client_new">
 
                                     <label class="col-md-12 h5 control-label" for="client_name">Client Name</label>
@@ -249,8 +261,7 @@
                                 <br>
                                 <div class="form-group">
 
-                                    <label class="col-md-12 h5 control-label" for="order_date">Completion Date
-                                        (Internal)</label>
+                                    <label class="col-md-12 h5 control-label" for="order_date">Completion Date (Internal)</label>
 
                                     <div class="col-md-9">
 
@@ -292,9 +303,20 @@
                                     <div class="col-md-9">
 
                                         <input type="text" id="order_currency" name="order_currency"
-                                            class="form-control" placeholder="Enter Currency Name" required>
+                                            class="form-control" placeholder="Enter Currency Name..." required>
                                     </div>
 
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter
+                                        Shipping Cost</label>
+
+                                    <div class="col-md-9">
+
+                                        <input type="number" id="order_shipping_cost"
+                                            class="form-control" placeholder="Enter Client Name for Invoice..." required>
+                                        <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mt-3">

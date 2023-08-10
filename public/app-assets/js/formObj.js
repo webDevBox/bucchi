@@ -45,6 +45,7 @@ document.getElementById("submit-button").addEventListener("click", function() {
   
     // Iterate over each block
     total = 0
+    total += Number($('#order_shipping_cost').val())
     checker = 0
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i];

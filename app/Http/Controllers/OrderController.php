@@ -168,7 +168,8 @@ class OrderController extends Controller
             
             $order = Order::create([
                 'client_id' => $client->id,
-                'invoice' => $invoice
+                'invoice' => $invoice,
+                'client_name' => $request->invoice_name
             ]);
 
             return response()->json([
@@ -221,7 +222,8 @@ class OrderController extends Controller
             $order->update([
                 'delivery' => $request->delivery,
                 'completion_date' => $request->completionDate,
-                'currency' => $request->currency
+                'currency' => $request->currency,
+                'shipping_cost' => $request->shipping_cost
             ]);
 
             return response()->json([

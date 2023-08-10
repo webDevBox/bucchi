@@ -52,7 +52,7 @@
 
 /* Style each list item */
 #outfits-list li {
-  background-color: #f9eaea;
+  background-color: #faf9f9;
   padding: 10px;
   margin: 5px;
   border-radius: 5px;
@@ -63,7 +63,7 @@
 
 /* Add a hover effect to highlight the list items */
 #outfits-list li:hover {
-  background-color: #fff0f0;
+  background-color: #fefefe;
   cursor: pointer;
 }
 </style>
@@ -144,6 +144,15 @@
                                 <input type="text" id="client_name" class="form-control" value="{{ $order->client->name }}" disabled>
                                 </div>
                             
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-md-12 h5 control-label" for="order_client_name">Client Name for Invoice</label>
+
+                                    <div class="col-md-9">
+
+                                        <input id="order_client_name" type="text" class="form-control" value="{{ $order->client_name }}" disabled>
+                                    </div>
                                 </div>
                 
                                     <br>
@@ -256,6 +265,17 @@
                                 
                                 </div>
                             
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter
+                                    Shipping Cost</label>
+
+                                <div class="col-md-9">
+
+                                    <input type="number" id="order_shipping_cost"
+                                        class="form-control" placeholder="Enter Client Name for Invoice..." value="{{ $order->shipping_cost }}" required>
+                                    <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
+                                </div>
                             </div>
                         </div>
                         <div class="mt-3">

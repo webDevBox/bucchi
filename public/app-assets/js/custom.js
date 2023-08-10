@@ -44,7 +44,7 @@ function makeInvoicer(data) {
     for (let i = 0; i < blockObjects.length; i++) {
         const item = blockObjects[i];
         const listItem = document.createElement("li");
-        listItem.textContent = `Name: ${item.name} - Price: $${item.price}
+        listItem.textContent = `Name: ${item.name} - Price: ${item.price}
          - Hours: ${item.hours} - fabric: ${item.fabric}`;
         outfitsList.appendChild(listItem);
     }
@@ -113,6 +113,12 @@ function makeOverview(step) {
         else {
             targetDiv.innerHTML = `
                 <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <label for="price">Shipping Cost</label>
+                        <input type="text" value="${$('#order_shipping_cost').val()}" class="prev_transactions form-control" disabled>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <label for="price">Payment Amount</label>
                         <input type="text" value="${$('#initial_deposit').val()}" class="prev_transactions form-control" disabled>
@@ -129,8 +135,17 @@ function makeOverview(step) {
         const sourceDiv = document.getElementById('transactions_list');
         const targetDiv = document.getElementById('show_payments');
 
+        targetDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <label for="price">Shipping Cost</label>
+                        <input type="text" value="${$('#order_shipping_cost').val()}" class="prev_transactions form-control" disabled>
+                    </div>
+                </div>
+            `;
+
         const copiedContent = sourceDiv.innerHTML;
-        targetDiv.innerHTML = copiedContent;
+        targetDiv.innerHTML += copiedContent;
     }
 
     const outfitsList = document.getElementById("outfits-list")
@@ -142,7 +157,7 @@ function makeOverview(step) {
         listItem.innerHTML = `
         <div class="row">
             <div class="col-12">Item# <strong>${item.itemNumber}</strong></div>
-            <div class="col-md-6 col-sm-12">Name <strong>${item.outfitName}</strong></div>
+            <div class="col-md-6 col-sm-12"><strong>${item.outfitName}</strong></div>
             <div class="col-md-6 col-sm-12">Price <strong>$${item.price}</strong></div>
             <div class="col-md-6 col-sm-12"><strong> Description: </strong> ${item.outfitDescription} </div>
 
@@ -205,6 +220,15 @@ async function createClient(step) {
         }
     }
 
+    if($('#order_client_name').val() == '')
+    {
+        $('#client_invoice_error').removeClass('d-none')
+        return
+    }
+    else{
+        $('#client_invoice_error').addClass('d-none')
+    }
+
     if ($('#client_name').val() === '') {
         $('#client_select_error').removeClass('d-none')
     }
@@ -223,6 +247,7 @@ async function createClient(step) {
                     email: $('#client_email').val(),
                     country: $('#client_country').val(),
                     file: $('#client_file').val(),
+                    invoice_name: $('#order_client_name').val()
                 },
                 success: function (response) {
                     console.log(response)
@@ -310,16 +335,26 @@ function addOrderDetails(step) {
         $('#currency_error').removeClass('d-none')
         $('#delivery_error').addClass('d-none')
         $('#completion_date_error').addClass('d-none')
+        $('#shipping_cost_error').addClass('d-none')
     }
     else if ($('#order_delivery').val() === '') {
         $('#delivery_error').removeClass('d-none')
         $('#currency_error').addClass('d-none')
         $('#completion_date_error').addClass('d-none')
+        $('#shipping_cost_error').addClass('d-none')
     }
     else if ($('#order_date').val() === '') {
         $('#delivery_error').addClass('d-none')
         $('#currency_error').addClass('d-none')
+        $('#shipping_cost_error').addClass('d-none')
         $('#completion_date_error').removeClass('d-none')
+    }
+    else if($('#order_shipping_cost').val() == '')
+    {
+        $('#delivery_error').addClass('d-none')
+        $('#currency_error').addClass('d-none')
+        $('#completion_date_error').addClass('d-none')
+        $('#shipping_cost_error').removeClass('d-none')
     }
     else {
         $('#delivery_error').addClass('d-none')
@@ -335,7 +370,8 @@ function addOrderDetails(step) {
                 delivery: $('#order_delivery').val(),
                 completionDate: $('#order_date').val(),
                 currency: $('#order_currency').val(),
-                selected: $('#currency_select').val()
+                selected: $('#currency_select').val(),
+                shipping_cost: $('#order_shipping_cost').val()
             },
             success: function (response) {
                 if (response.success) {

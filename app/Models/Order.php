@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'invoice', 'client_id', 'status', 'delivery', 'completion_date', 'currency',
-        'notes'
+        'notes', 'client_name', 'shipping_cost'
     ];
 
     protected $with =['client','outfits','transactions'];

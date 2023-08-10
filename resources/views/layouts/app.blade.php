@@ -222,7 +222,7 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('adminDashboard') }}"><i
-                            data-feather="home" style="color:  #6610F2;"></i><span class="menu-title text-truncate"
+                            class="fa fa-home" style="color:  #6610F2;"></i><span class="menu-title text-truncate"
                             data-i18n="Dashboards">Dashboard</span></a></li>
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i
                         data-feather="more-horizontal"></i>
@@ -293,7 +293,7 @@
         <p class="clearfix mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020
                 Bucchi's<span class="d-none d-sm-inline-block">, All rights Reserved</span></span></p>
     </footer>
-    <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="fa fa-arrow-up"></i></button>
     <!-- END: Footer-->
 
 
