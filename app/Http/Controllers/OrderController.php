@@ -143,7 +143,8 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $currencies = Currency::get();
         $counter = 1;
-        return view('order.update',compact('currencies','clients','order','counter'));
+        $transactions = Transaction::where('order_id',$id)->get();
+        return view('order.update',compact('transactions', 'currencies','clients','order','counter'));
     }
 
     public function storeClient(Request $request)
@@ -222,8 +223,7 @@ class OrderController extends Controller
             $order->update([
                 'delivery' => $request->delivery,
                 'completion_date' => $request->completionDate,
-                'currency' => $request->currency,
-                'shipping_cost' => $request->shipping_cost
+                'currency' => $request->currency
             ]);
 
             return response()->json([
@@ -300,6 +300,10 @@ class OrderController extends Controller
                 ]);
             }
 
+            Order::where('id',$request->order)->update([
+                'shipping_cost' => $request->shipping_cost
+            ]);
+
             return response()->json([
                 'success' => true
             ]);
@@ -346,6 +350,10 @@ class OrderController extends Controller
             }
             $existingOutfits = Outfit::whereIn('id', $ids)->pluck('id')->toArray();
             Outfit::where('order_id',$request->order)->whereNotIn('id', $existingOutfits)->delete();
+
+            Order::where('id',$request->order)->update([
+                'shipping_cost' => $request->shipping_cost
+            ]);
             return response()->json([
                 'success' => true,
             ]);

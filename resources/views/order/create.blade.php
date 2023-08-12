@@ -72,6 +72,9 @@
         color: #ffffff
     }
 
+    #create_invoice:hover{
+        color: #fff
+    }
 </style>
 @endsection
 @section('content')
@@ -130,7 +133,7 @@
                                 <span class="form-stepper-circle text-muted">
                                     <span>5</span>
                                 </span>
-                                <div class="label text-muted">Overview</div>
+                                <div class="label text-muted">Order Received</div>
                             </a>
                         </li>
                     </ul>
@@ -143,14 +146,9 @@
                             <!-- Step 1 input fields -->
                             <div class="mt-3 offset-3">
                                 <div class="form-group">
-
-                                    <label class="col-md-12  h5  control-label" for="product_description">Select
-                                        Client</label>
-
+                                    <label class="col-md-12  h5  control-label" for="product_description">Select Client</label>
                                     <div class="col-md-9">
-
                                         <select class="form-control" id="client_select" name="client_select" required>
-
                                             <option selected disabled>Select Any Client</option>
                                             <option id="" value="..other..">Add New Client</option>
                                             @foreach ($clients as $client)
@@ -164,8 +162,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12 h5 control-label" for="order_client_name">Enter
-                                        Client Name</label>
+                                    <label class="col-md-12 h5 control-label" for="order_client_name">Enter Client Name for Invoice</label>
 
                                     <div class="col-md-9">
 
@@ -307,17 +304,6 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter
-                                        Shipping Cost</label>
-
-                                    <div class="col-md-9">
-
-                                        <input type="number" id="order_shipping_cost"
-                                            class="form-control" placeholder="Enter Client Name for Invoice..." required>
-                                        <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
-                                    </div>
-                                </div>
                             </div>
                             <div class="mt-3">
                                 <button class="button btn-navigate-form-step" type="button"
@@ -373,6 +359,14 @@
                                 </div>
                                 <button class="button" id="add-block">Add Outfit</button>
                             </div>
+                            <div class="form-group mt-2">
+                                <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter Shipping Cost</label>
+                                <div class="col-md-6">
+                                    <input type="number" id="order_shipping_cost"
+                                        class="form-control" placeholder="Enter Client Name for Invoice..." required>
+                                    <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
+                                </div>
+                            </div>
                             <div class="mt-3">
                                 <button class="button btn-navigate-form-step" type="button"
                                     step_number="2">Prev</button>
@@ -412,12 +406,12 @@
                             <div class="mt-3">
                                 <button class="button btn-navigate-form-step" type="button"
                                     step_number="3">Prev</button>
-                                <button class="button" id="submit-btn" type="button" step_number="5">Next</button>
+                                <button class="button" id="submit-btn" type="button" step_number="5">Complete Order</button>
                             </div>
                         </section>
                         <!-- step 5-->
                         <section id="step-5" class="form-step d-none">
-                            <h2 class="font-normal">Overview</h2>
+                            <h2 class="font-normal">Order Received</h2>
                             <div class="mt-3">
                                 <div id="invoice_order">
                                     <div class="row">
@@ -450,15 +444,8 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                {{-- <button class="final_order_button button btn-navigate-form-step" type="button"
-                                    step_number="4">Prev</button>
-                                <button class="final_order_button button submit-btn" type="#">Download Invoice</button> --}}
-                                {{-- <button class="order_re_create d-none button submit-btn"
-                                    onclick="window.location.href = '{{ route('createOrder') }}'">Create New
-                                    Order</button> --}}
-                                <a class="order_re_create d-none button submit-btn extra-anchor" 
-                                href="{{ route('createOrder') }}">Create New
-                                    Order</a>
+                                <a class="order_re_create button" href="#" id="create_invoice" onclick="pdfCreator()">Download Order Invoice</a>
+                                <a class="order_re_create d-none button submit-btn extra-anchor" href="{{ route('createOrder') }}">Create New Order</a>
                             </div>
                         </section>
                     </form>

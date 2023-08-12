@@ -15,7 +15,8 @@ class PettyCash extends Model
         'expense_type',
         'particular',
         'weight',
-        'amount'
+        'amount',
+        'remaining'
     ];
 
     protected $with = ['user'];

@@ -2,6 +2,13 @@ var blockObjects = [];
 // Submit button click event
 document.getElementById("submit-button").addEventListener("click", function() {
 
+  $('#shipping_cost_error').addClass('d-none')
+  if($('#order_shipping_cost').val() == '')
+  {
+    $('#shipping_cost_error').removeClass('d-none')
+    return
+  }
+
   const blockContainer = document.getElementById("block-container");
   const blocks = blockContainer.getElementsByClassName("block");
   const previousBlocks = blockContainer.getElementsByClassName("block");

@@ -203,7 +203,7 @@
                                         </div>
                         </div>
                         <div class="mt-3">
-                            <button class="button " type="button" onclick="navigateToFormStep(2)" step_number="2">Next</button>
+                            <button id="button1" class="button" type="button" onclick="navigateToFormStep(2)" step_number="2">Next</button>
                         </div>
                     </section>
                     <!-- Step 2 Content, default hidden on page load. -->
@@ -266,21 +266,10 @@
                                 </div>
                             
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter
-                                    Shipping Cost</label>
-
-                                <div class="col-md-9">
-
-                                    <input type="number" id="order_shipping_cost"
-                                        class="form-control" placeholder="Enter Client Name for Invoice..." value="{{ $order->shipping_cost }}" required>
-                                    <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
-                                </div>
-                            </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
-                            <button class="button " onclick="addOrderDetails(3)" type="button" step_number="3">Next</button>
+                            <button id="button2" class="button" onclick="addOrderDetails(3)" type="button" step_number="3">Next</button>
                         </div>
                     </section>
                     <!-- Step 3 Content, default hidden on page load. -->
@@ -289,6 +278,48 @@
                         <!-- Step 3 input fields -->
                         <div class="mt-3">
                             <div id="block-container">
+                                @if($order->outfits->count() == 0)
+                                    <div id="block-container">
+                                        <div class="block">
+                                            <div class="row">
+                                                <h3 class="mt-2 ml-2">1</h3>
+                                                <div class="col-md-11 col-sm-12">
+                                                    <label for="outName">Outfit Name</label>
+                                                    <input type="text" id="outName" class="input-field"
+                                                        placeholder="Enter Outfit name..">
+                                                </div>
+                                            </div>
+                                            <label for="outDetail">Outfit Description</label>
+                                            <textarea name="" id="outDetail" class="input-field" rows="3" id=""
+                                                placeholder="Enter Outfit Description.." cols="30" rows="10"></textarea>
+                                            <div class="row">
+                                                <div class="col-md-3 col-sm-12">
+                                                    <label for="price">Price</label>
+                                                    <input type="number" id="price" class="input-field"
+                                                        placeholder="Enter Price..">
+                                                </div>
+
+                                                <div class="col-md-3 offset-md-1 col-sm-12">
+                                                    <label for="hours">Hours</label>
+                                                    <input type="number" id="hours" class="input-field"
+                                                        placeholder="Enter Hours..">
+                                                </div>
+
+                                                <div class="col-md-3 offset-md-1 col-sm-12">
+                                                    <label for="fabric">Fabric</label>
+                                                    <input type="number" id="fabric" class="input-field"
+                                                        placeholder="Enter Fabric..">
+                                                </div>
+                                            </div>
+
+                                            <div class="button-block">
+                                                <button class="move-up">Up</button>
+                                                <button class="move-down">Down</button>
+                                                <button class="delete">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                                 @foreach ($order->outfits as $outfit)
                                     <div class="block">
                                         <div class="row">
@@ -326,6 +357,17 @@
                                 @endforeach
                               </div>
                               <button class="button" id="add-block">Add Outfit</button>
+                              <div class="form-group mt-2">
+                                <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter
+                                    Shipping Cost</label>
+
+                                <div class="col-md-6">
+
+                                    <input type="number" id="order_shipping_cost"
+                                        class="form-control" placeholder="Enter Client Name for Invoice..." value="{{ $order->shipping_cost }}" required>
+                                    <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
+                                </div>
+                            </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
@@ -374,7 +416,7 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="3">Prev</button>
-                            <button class="button" onclick="updateNotes(5)" type="button" step_number="5">Next</button>
+                            <button id="button4" class="button" onclick="updateNotes(5)" type="button" step_number="5">Next</button>
                         </div>
                     </section>
                     <!-- step 5-->
@@ -382,33 +424,84 @@
                         <h2 class="font-normal">Overview</h2>
                         <div class="mt-3">
                             <div id="invoice_order">
+                                <h1 class="text-center">Invoice</h1>
                                 <div class="row">
-                                    <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                    <div class="col-md-5 col-sm-12 border border-dark rounded my-2">
                                         <h2 class="text-center">Client Details</h2>
                                         <p>Name: <strong id="client_name_over"></strong></p>
                                         <p>Phone: <strong id="client_phone_over"></strong></p>
                                         <p>Email: <strong id="client_email_over"></strong></p>
                                     </div>
-                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-dark rounded my-2">
                                         <h2 class="text-center">Order Details</h2>
                                         <p>Delivery: <strong id="order_delivery_over"></strong></p>
                                         <p>Completion Date (Internal): <strong id="order_date_over"></strong></p>
                                         <p>Currency: <strong id="order_currency_over"></strong></p>
                                     </div>
-                                    <div class="col-12 border border-success rounded my-2">
+                                    <div class="col-12 border border-dark rounded my-2">
                                         <h2 class="text-center">Outfits</h2>
                                         <div id="outfits-list"></div>
                                     </div>
-                                    <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                                    <div class="col-md-5 col-sm-12 border border-dark rounded my-2">
                                         <h2 class="text-center">Notes</h2>
                                         <p id="notes_over"></p>
                                     </div>
-                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                                    <div class="col-md-5 offset-md-2 col-sm-12 border border-dark rounded my-2">
                                         <h2 class="text-center">Payments</h2>
                                         <div id="show_payments"></div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div id="invoice_data" class="mt-3">
+                            {{-- <img src="{{ asset('app-assets/images/logo/logo.png') }}" width="200" height="150"> --}}
+                                <h1>Order Details</h1>
+                                <table class="table">
+                                    <thead>
+                                        <tr style="height: 20px">
+                                            <th>Invoice#</th>
+                                            <th>Client</th>
+                                            <th>Delivery</th>
+                                            <th>Currency</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="invoice_number"></td>
+                                            <td id="invoice_client_name"></td>
+                                            <td id="invoice_delivery"></td>
+                                            <td id="invoice_currency"></td>
+                                            <td id="invoice_notes"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h1>Outfits</h1>
+                                <table class="table" id="invoice_outfits">
+                                    <thead>
+                                        <tr style="height: 20px">
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <h1>Payments</h1>
+                                <table class="table" id="invoice_payments">
+                                    <thead>
+                                        <tr style="height: 20px">
+                                            <th>Payment</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                
+                                <p>Outfits Total: <span id="invoice_outfit_total"></span></p>
+                                <p>Order Total: <span id="invoice_order_total"></span></p>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
@@ -433,7 +526,18 @@
     var remaining = 0
     var checker = 0
     var newOrder = false
+    var invoice = {{ $order->invoice }}
+    var transactions = @json($transactions)
+
+    $(document).ready(function() {
+    $('#button1').trigger('click')
+    $('#button2').trigger('click')
+    $('#submit-button').trigger('click')
+    $('#button4').trigger('click')
+});
 </script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> --}}
+
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/form.js')}}"></script>

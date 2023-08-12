@@ -16,13 +16,13 @@ class PettyController extends Controller
 {
     public function index()
     {
-        $petty = PettyCash::whereUserId(auth()->user()->id)->latest()->get();
+        $petty = PettyCash::whereUserId(auth()->user()->id)->get();
         return view('petty.index',compact('petty'));
     }
     
     public function pettyListAdmin()
     {
-        $petty = PettyCash::latest()->get();
+        $petty = PettyCash::get();
         return view('admin.Petty.index',compact('petty'));
     }
 
@@ -42,14 +42,16 @@ class PettyController extends Controller
             $user = User::find(auth()->user()->id);
             if($request->entry_type == 'Received')
             {
+                $balance = $user->balance + $request->amount;
                 $user->update([
-                    'balance' => $user->balance + $request->amount
+                    'balance' => $balance
                 ]);
             }
             else
             {
+                $balance = $user->balance - $request->amount;
                 $user->update([
-                    'balance' => $user->balance - $request->amount
+                    'balance' => $balance
                 ]);
             }
             PettyCash::create([
@@ -58,10 +60,12 @@ class PettyController extends Controller
                 'expense_type' => $request->expense_type,
                 'particular' => $request->particular,
                 'weight' => $request->weight,
-                'amount' => $request->amount
+                'amount' => $request->amount,
+                'remaining' => $balance
             ]);
             return redirect()->back()->withSuccess('Transaction Created');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return redirect()->back()->withError('Transaction Not Created');
         }
     }

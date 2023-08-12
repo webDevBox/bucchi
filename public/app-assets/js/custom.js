@@ -4,8 +4,15 @@ document.getElementById("submit-btn").addEventListener("click", (event) => {
         completeOrder();
         makeOverview(5)
     }
-    createPDF()
+    else {
+        createPDF()
+    }
 });
+
+function pdfCreator() {
+    $('#create_invoice').addClass('d-none')
+    createPDF()
+}
 
 function getInvoice(order) {
     var url = baseUrl + "/admin/order/byId";
@@ -50,20 +57,71 @@ function makeInvoicer(data) {
     }
 }
 
+function createInvoice(client) {
+    $('#invoice_client_name').text(client)
+    $('#invoice_number').text(invoice)
+    $('#invoice_delivery').text($('#order_delivery').val())
+    $('#invoice_currency').text($('#order_currency').val())
+    $('#invoice_notes').text($('#notes').val())
+
+    const table = document.getElementById('invoice_outfits');
+    var pricer = 0
+    blockObjects.map((outfit) => {
+        const row = table.insertRow();
+
+        const nameCell = row.insertCell(0);
+        const descriptionCell = row.insertCell(1);
+        const priceCell = row.insertCell(2);
+
+
+        nameCell.textContent = outfit.outfitName;
+        descriptionCell.textContent = outfit.outfitDescription;
+        priceCell.textContent = outfit.price;
+        pricer += Number(outfit.price)
+
+    })
+
+    const targetDiv = document.getElementById('invoice_payments')
+
+    transactions.forEach((transaction) => {
+        const payment = targetDiv.insertRow();
+
+        const paymentCell = payment.insertCell(0);
+        const dateCell = payment.insertCell(1);
+
+        paymentCell.textContent = transaction.payment;
+        dateCell.textContent = transaction.date;
+    });
+
+    var total = pricer + Number($('#order_shipping_cost').val())
+    $('#invoice_outfit_total').text(pricer)
+    $('#invoice_order_total').text(total)
+}
+
 function createPDF() {
+
+    const clientName = $('#order_client_name').val()
+    const currentDate = new Date()
+    const year = currentDate.getFullYear()
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0')
+    const formattedDate = `${year}_${month}`
+    const dateFormat = formattedDate + '_' + clientName
+    createInvoice(clientName)
+
     var doc = new jsPDF();
-    var elementHtml = $("#invoice_order").html();
+    doc.addImage('../app-assets/images/logo/logo.png', 'PNG', 10, 10, 200, 150);
+    var elementHtml = $("#invoice_data").html();
 
     doc.fromHTML(elementHtml, 15, 15, {
         'width': 170
     });
-
-    doc.save("order.pdf");
+    doc.save(`${dateFormat}.pdf`);
 }
 
 $('#client_select').change(function () {
     $('#client_select_error').addClass('d-none')
     var client = $('#client_select').val()
+    $('#order_client_name').val(client)
     if (client === '..other..') {
         $('#client_name').val('');
         $('#client_new').removeClass('d-none')
@@ -212,20 +270,18 @@ function checkValidation() {
 }
 
 async function createClient(step) {
-    if($('#client_select').val() === '..other..')
-    {
+    if ($('#client_select').val() === '..other..') {
         const result = await checkValidation();
         if (result) {
             return
         }
     }
 
-    if($('#order_client_name').val() == '')
-    {
+    if ($('#order_client_name').val() == '') {
         $('#client_invoice_error').removeClass('d-none')
         return
     }
-    else{
+    else {
         $('#client_invoice_error').addClass('d-none')
     }
 
@@ -335,26 +391,16 @@ function addOrderDetails(step) {
         $('#currency_error').removeClass('d-none')
         $('#delivery_error').addClass('d-none')
         $('#completion_date_error').addClass('d-none')
-        $('#shipping_cost_error').addClass('d-none')
     }
     else if ($('#order_delivery').val() === '') {
         $('#delivery_error').removeClass('d-none')
         $('#currency_error').addClass('d-none')
         $('#completion_date_error').addClass('d-none')
-        $('#shipping_cost_error').addClass('d-none')
     }
     else if ($('#order_date').val() === '') {
         $('#delivery_error').addClass('d-none')
         $('#currency_error').addClass('d-none')
-        $('#shipping_cost_error').addClass('d-none')
         $('#completion_date_error').removeClass('d-none')
-    }
-    else if($('#order_shipping_cost').val() == '')
-    {
-        $('#delivery_error').addClass('d-none')
-        $('#currency_error').addClass('d-none')
-        $('#completion_date_error').addClass('d-none')
-        $('#shipping_cost_error').removeClass('d-none')
     }
     else {
         $('#delivery_error').addClass('d-none')
@@ -371,7 +417,6 @@ function addOrderDetails(step) {
                 completionDate: $('#order_date').val(),
                 currency: $('#order_currency').val(),
                 selected: $('#currency_select').val(),
-                shipping_cost: $('#order_shipping_cost').val()
             },
             success: function (response) {
                 if (response.success) {
@@ -389,13 +434,15 @@ function addOrderDetails(step) {
 function createOutfits(step) {
     $('#depositError').addClass('d-none')
     $('#total-price').text($('#order_currency').val() + ' ' + total)
+
     var url = baseUrl + "/admin/order/storeOutfits";
     $.ajax({
         url: url,
         type: "GET",
         data: {
             order: orderId,
-            outfitsObj: blockObjects
+            outfitsObj: blockObjects,
+            shipping_cost: $('#order_shipping_cost').val()
         },
         success: function (response) {
             if (response.success) {
@@ -417,7 +464,8 @@ function updateOutfits(step) {
         type: "GET",
         data: {
             order: orderId,
-            outfitsObj: blockObjects
+            outfitsObj: blockObjects,
+            shipping_cost: $('#order_shipping_cost').val()
         },
         success: function (response) {
             if (response.success) {
