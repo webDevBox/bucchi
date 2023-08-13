@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Models\Note;
 use App\Models\OutfitStatus;
 use App\Models\OutfitStatusType;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -24,17 +25,36 @@ class AdminController extends Controller
         $lastMonth = Order::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)
         ->whereYear('created_at', '=', Carbon::now()->subYear()->year)->count();
 
-        $totalOrders = Order::completed()->count();
+        $totalOrders = Order::count();
         $inCompleteOrders = Order::production()->count();
         $clients = Client::count();
         $products = Outfit::distinct('name')->count('name');
         $revenue = Outfit::sum('price');
-
+        
         $orderTotal = Order::count();
+        
+        
+        $totalOutfits = OutfitStatus::distinct('outfit_id')
+        ->count('outfit_id');
 
-        if($orderTotal > 0)
+        $inProgressOutfits = OutfitStatus::whereNotIn('outfit_id', function($query) {
+            $query->select('outfit_id')
+                ->from('outfit_statuses')
+                ->where('status', '=', 'Completed');
+        })
+        ->distinct('outfit_id')
+        ->count();
+
+        $completedOutfits = OutfitStatus::where('status', 'Completed')
+        ->groupBy('outfit_id')
+        ->selectRaw('count(*) as count')
+        ->get()
+        ->sum('count');
+
+        
+        if($totalOutfits > 0)
         {
-            $order_over = round(($inCompleteOrders/$orderTotal)*100 , 0);
+            $order_over = round(($inProgressOutfits/$totalOutfits)*100 , 0);
         }
         else{
             $order_over = 0;
@@ -53,9 +73,9 @@ class AdminController extends Controller
         $endDate = $currentDate->copy()->addDays(30);
 
         $order30Days = Order::whereBetween('completion_date', [$currentDate, $endDate])
-                                    ->get();
+                                    ->paginate(4);
         
-        return view('dashboard',compact('outfitProduction', 'outfitEmbroidery','order30Days',
+        return view('dashboard',compact('totalOutfits', 'completedOutfits', 'inProgressOutfits', 'outfitProduction', 'outfitEmbroidery','order30Days',
         'outfitCompleted', 'outfitTailoring', 'thisMonth', 'lastMonth', 'order_over',
         'clients', 'products', 'revenue', 'totalOrders','inCompleteOrders'));
     }
@@ -64,6 +84,43 @@ class AdminController extends Controller
     {
         $outfits = Outfit::production()->with('order')->get();
         return view('order.production',compact('outfits'));
+    }
+
+    public function profile()
+    {
+        $user = User::find(auth()->user()->id);
+        return view('admin.profile.index',compact('user'));
+    }
+
+    public function updateAdmin(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => ['required','unique:users,email,'.auth()->user()->id],
+            'old_password' => 'required_with:password',
+            'password' => 'required_with:old_password',
+        ]);
+
+        if(isset($request->old_password))
+        {
+            if (Hash::check($request->old_password, auth()->user()->password))
+            {
+                User::where('id',auth()->user()->id)->update([
+                    'password' => bcrypt($request->password)
+                ]);
+            }
+            else
+            {
+                return redirect()->back()->withError('Wrong Old Password');
+            }
+        }
+
+        User::where('id',auth()->user()->id)->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+
+        return redirect()->back()->withSuccess('Your Profile Updated');
     }
 
     public function outfitProfile($id)

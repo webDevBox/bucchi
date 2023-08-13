@@ -57,21 +57,34 @@ async function addBulkClients(clients) {
 }
 
 function deleteClient(id, button) {
-    let text = `Are you sure you want to delete client`;
-    if (confirm(text) == true) {
+    let password = prompt("Please enter your password", "");
+    if (password != null && password != "") {
         var url = baseUrl + "/deleteClient";
         $.ajax({
             url: url,
             type: "GET",
             data: {
-                id: id
+                id: id,
+                password:password
             },
             success: async function (response) {
                 if (response.success) {
                     window.location.reload();
                 }
                 else {
-                    setTimeout(function () {
+                    if(response.error == 'password')
+                    {
+                        toastr['error'](
+                            'Please try again',
+                            'Wrong Password Given',
+                            {
+                                closeButton: true,
+                                tapToDismiss: false
+                            }
+                        );
+                    }
+                    else
+                    {
                         toastr['error'](
                             'Please try again',
                             'Some thing wrong!',
@@ -80,7 +93,7 @@ function deleteClient(id, button) {
                                 tapToDismiss: false
                             }
                         );
-                    }, 2000);
+                    }
                 }
             },
             error: function (xhr, status, error) {

@@ -786,9 +786,11 @@
                            <div class="v-card v-card--flat v-theme--light v-card--density-default v-card--variant-elevated mt-12 mt-sm-0 pa-4" style="max-width: 500px;">
                               <div class="v-card-text">
                                  <div class="mb-6" style="line-height: 0; color: rgb(var(--v-global-theme-primary));">
-                                    <img height="100" width="100" src="app-assets/images/logo/logo.png" alt="">
+                                    
                                  </div>
-                                 <h5 class="text-h5 mb-1"> Welcome to <span class="text-capitalize" style="color: #7367F0">BUCCHI'S</span></h5>
+                                 <h5 class="text-h5 mb-1"> Welcome to <span>
+                                    <img height="100" width="100" src="app-assets/images/logo/logo.png" style="margin-top: 5px; margin-left: -10px">
+                                 </span></h5>
                                  @if (Session::has('error'))
                                        <p class="alert alert-danger">{{ Session::get('error') }}
                                        </p>

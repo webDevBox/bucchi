@@ -51,37 +51,32 @@
             <section id="dashboard-ecommerce">
                 <div class="row bg-white p-2 match-height">
                     <div class="col-md-6 offset-md-3 col-sm-12">
-                        <form method="POST" action="{{ route('updateOffice',['id' => $office->id]) }}">
+                        <form method="POST" action="{{ route('updateAdmin') }}">
                             @csrf
                             <div class="form-group">
                                 <Label for="client_name">Name</Label>
-                                <input type="text" value="{{ $office->name }}" name="name" id="client_name"
-                                    class="form-control" placeholder="Enter Officer Name..." required>
+                                <input type="text" value="{{ $user->name }}" name="name" id="client_name"
+                                    class="form-control" placeholder="Enter Officer Name..." >
+                                    @if ($errors->has('name'))<p style="color:red;">{{ $errors->first('name') }}</p>@endif
                             </div>
                             <div class="form-group">
                                 <Label for="client_email">Email</Label>
-                                <input type="email" name="email" value="{{ $office->email }}" id="client_email"
-                                    class="form-control" placeholder="Enter Officer Email..." required>
+                                <input type="email" name="email" value="{{ $user->email }}" id="client_email"
+                                    class="form-control" placeholder="Enter Officer Email..." >
+                                    @if ($errors->has('email'))<p style="color:red;">{{ $errors->first('email') }}</p>@endif
                             </div>
                             <div class="form-group">
-                                <Label for="client_password">Password</Label>
-                                <input type="password" name="password" id="client_password"
-                                    class="form-control" placeholder="Enter New Password...">
+                                <Label for="old_password">Old Password</Label>
+                                <input type="password" name="old_password" id="old_password" value="" autocomplete="off"
+                                    class="form-control" placeholder="Enter Your Old Password...">
+                                    @if ($errors->has('old_password'))<p style="color:red;">{{ $errors->first('old_password') }}</p>@endif
                             </div>
-                            <hr>
-                            <h3 class="text-center">Permissions</h3>
-                            <input type="checkbox" id="client_permission" name="client_permission" value="1" @if($office->permission->client == 1) checked @endif>
-                            <label for="client_permission">Client</label><br>
-
-                            <input type="checkbox" id="production_permission" name="production_permission" value="1"
-                            @if($office->permission->production == 1) checked @endif>
-                            <label for="production_permission">Production</label><br>
-
-                            <input type="checkbox" id="search_permission" name="search_permission" value="1" @if($office->permission->search == 1) checked @endif>
-                            <label for="search_permission">Search</label><br>
-
-                            <input type="checkbox" id="petty_permission" name="cash_permission" value="1" @if($office->permission->petty == 1) checked @endif>
-                            <label for="petty_permission">Petty Cash</label>
+                            <div class="form-group">
+                                <Label for="client_password">New Password</Label>
+                                <input type="password" name="password" id="client_password" autocomplete="off"
+                                    class="form-control" placeholder="Enter New Password...">
+                                    @if ($errors->has('password'))<p style="color:red;">{{ $errors->first('password') }}</p>@endif
+                            </div>
                             <button class="btn btn-primary d-block mx-auto">Update</button>
                         </form>
                     </div>

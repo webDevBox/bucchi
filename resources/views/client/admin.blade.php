@@ -189,8 +189,13 @@
     $(document).ready(function() {
     $('#clients_directory').DataTable({
         // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
-        "order": [[1, "asc"]],
+        "order": [[0, "asc"]],
         "columnDefs": [
+            {
+                // Disable ordering for the 2nd column (PDF column)
+                "targets": [1],
+                "orderable": false
+            },
             {
                 // Disable ordering for the 2nd column (PDF column)
                 "targets": [2],

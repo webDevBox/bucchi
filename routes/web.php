@@ -36,6 +36,11 @@ Route::middleware(['auth.login'])->group(function () {
         Route::prefix('scheduling')->group(function () {
             Route::get('/', [ScheduleController::class, 'index'])->name('scheduling');
         });
+        
+        Route::prefix('profile')->group(function () {
+            Route::get('/', [AdminController::class, 'profile'])->name('adminProfile');
+            Route::post('/updateAdmin', [AdminController::class, 'updateAdmin'])->name('updateAdmin');
+        });
 
         Route::prefix('office')->group(function (){
             Route::get('/',[OfficeController::class, 'list'])->name('officeList');

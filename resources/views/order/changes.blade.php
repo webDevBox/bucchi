@@ -114,8 +114,13 @@
     $(document).ready(function() {
     $('#ecom-orders').DataTable({
         // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
-        "order": [[1, "asc"]],
+        "order": [[0, "asc"]],
         "columnDefs": [
+            {
+                // Disable ordering for the 2nd column (PDF column)
+                "targets": [1],
+                "orderable": false
+            },
             {
                 // Disable ordering for the 2nd column (PDF column)
                 "targets": [2],
@@ -143,14 +148,15 @@
 
     function deleteOrder(id)
     {
-        let text = "Are you sure you want to Delete the Order?";
-        if (confirm(text) == true) {
+        let password = prompt("Please enter your password", "");
+        if (password != null && password != "") {
             var url = baseUrl + "/admin/order/delete/"+id;
             $.ajax({
             url: url,
             type: "GET",
             data: {
-                id: id
+                id: id,
+                password:password
             },
             success: async function(response) {
                 if(response.success)
@@ -167,6 +173,31 @@
                     $(`#mark_${id}`).attr('class','btn btn-dark')
                     $(`#deleter_${id}`).attr('class','btn btn-dark')
                     $(`#editor_${id}`).attr('class','btn btn-dark')
+                }
+                else
+                {
+                    if(response.error == 'password')
+                    {
+                        toastr['error'](
+                            'Please try again',
+                            'Wrong Password Given',
+                            {
+                                closeButton: true,
+                                tapToDismiss: false
+                            }
+                        );
+                    }
+                    else
+                    {
+                        toastr['error'](
+                            'Please try again',
+                            'Some thing wrong!',
+                            {
+                                closeButton: true,
+                                tapToDismiss: false
+                            }
+                        );
+                    }
                 }
             },
             error: function(xhr, status, error) {

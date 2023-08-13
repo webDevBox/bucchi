@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Client;
 use App\Models\Outfit;
-use App\Models\Transaction;
 use App\Models\Currency;
 use App\Models\Permission;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\OutfitStatusType;
 
@@ -16,7 +17,11 @@ class OfficeController extends Controller
 {
     public function index()
     {
-        return view('office.dashboard');
+        $currentDate = Carbon::now();
+        $endDate = $currentDate->copy()->addDays(30);
+        $order30Days = Order::whereBetween('completion_date', [$currentDate, $endDate])
+        ->paginate(4);
+        return view('office.dashboard',compact('order30Days'));
     }
 
     public function outfits()
@@ -67,6 +72,12 @@ class OfficeController extends Controller
                 'name' => $request->name,
                 'email'=> $request->email
             ]);
+            if(isset($request->password))
+            {
+                User::whereId($id)->update([
+                    'password' => bcrypt($request->password)
+                ]);
+            }
             Permission::whereUserId($id)->update([
                 'client'=> ($request->client_permission == 1) ? true : false, 
                 'production' => ($request->production_permission == 1) ? true : false, 

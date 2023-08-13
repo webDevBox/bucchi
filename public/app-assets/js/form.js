@@ -139,10 +139,10 @@ function addBlock() {
 
   const fabricLabel = document.createElement("label");
   fabricLabel.setAttribute("for", "fabric");
-  fabricLabel.textContent = "Fabric";
+  fabricLabel.textContent = "CoP";
   col5.appendChild(fabricLabel);
 
-  const fabricInput = createInputField("number", "Enter Fabric..");
+  const fabricInput = createInputField("number", "Enter CoP..");
   fabricInput.id = "fabric";
   col5.appendChild(fabricInput);
 

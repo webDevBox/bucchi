@@ -1,5 +1,16 @@
 <?php
 
+function remainingPercentage($value,$total)
+{
+    if($total > 0)
+    {
+        $percentage = ($value/$total)*100;
+        $formattedPercentage = number_format($percentage, 2) . "%";
+        return $formattedPercentage;
+    }
+    return 0 . "%";
+}
+
 function percentage($value,$total)
 {
     if($total > 0)

@@ -11,8 +11,39 @@
             <!-- Dashboard Ecommerce Starts -->
             <section id="dashboard-ecommerce">
                 <div class="row match-height">
+                    <div class="col-12">
+                        <div class="card card-company-table">
+                            <div class="card-body p-2">
+                                <h4 class="text-center">Orders Completion in 30 Days</h4>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Client Name</th>
+                                                <th>Order Invoice</th>
+                                                <th>Remaining Days</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($order30Days as $order)
+                                                <tr>
+                                                    <td>{{ $order->client->name }}</td>
+                                                    <td>{{ $order->invoice }}</td>
+                                                    <td>{{ remainingDays($order->completion_date) }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="offset-md-10 offset-sm-0 mt-2">
+                                    {{ $order30Days->links('vendor.pagination.simple-bootstrap-4') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4 col-sm-12">
                         <div class="row match-height">
+                            
                             <!-- Earnings Card -->
                             <div class="col-12">
                                 <div class="card earnings-card">
@@ -75,7 +106,7 @@
                                             <div class="media-body my-auto">
                                                 <h4 class="font-weight-bolder mb-0">{{ formatNumberWithK($products) }}
                                                 </h4>
-                                                <p class="card-text font-small-3 mb-0">Products</p>
+                                                <p class="card-text font-small-3 mb-0">Outfits</p>
                                             </div>
                                         </div>
                                     </div>
@@ -102,51 +133,40 @@
 
                 <div class="row match-height">
                     <!-- Revenue Report Card -->
-                    <div class="col-12">
+                    <div class="col-md-6 col-sm-12">
                         <div class="card card-revenue-budget">
                             <div class="row mx-0">
                                 <div class="col-md-12 col-12 revenue-report-wrapper">
                                     <div class="d-sm-flex justify-content-between align-items-center mb-3">
                                         <h4 class="card-title mb-50 mb-sm-0">Outfit Report</h4>
                                     </div>
-                                    <div id="revenue-report-chart"></div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <strong class="text-center d-block"> Production </strong>
+                                            <p class="text-center d-block">{{ $outfitProduction }}</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <strong class="text-center d-block"> Embroidery </strong>
+                                            <p class="text-center d-block">{{ $outfitEmbroidery }}</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <strong class="text-center d-block"> Tailoring </strong>
+                                            <p class="text-center d-block">{{ $outfitTailoring }}</p>
+                                        </div>
+                                        <div class="col-3">
+                                            <strong class="text-center d-block"> Completed </strong>
+                                            <p class="text-center d-block">{{ $outfitCompleted }}</p>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                     <!--/ Revenue Report Card -->
-                </div>
-                <div class="row match-height">
-                    <!-- Company Table Card -->
-                    <div class="col-lg-8 col-12">
-                        <div class="card card-company-table">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Client Name</th>
-                                                <th>Order Invoice</th>
-                                                <th>Remaining Days</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($order30Days as $order)
-                                                <tr>
-                                                    <td>{{ $order->client->name }}</td>
-                                                    <td>{{ $order->invoice }}</td>
-                                                    <td>{{ remainingDays($order->completion_date) }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     {{-- OverView Card --}}
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div class="col-md-6 col-sm-12">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4 class="card-title">Orders Overview</h4>
@@ -156,11 +176,11 @@
                                 <div class="row border-top text-center mx-0">
                                     <div class="col-6 border-right py-1">
                                         <p class="card-text text-muted mb-0">Completed</p>
-                                        <h3 class="font-weight-bolder mb-0">{{ $totalOrders }}</h3>
+                                        <h3 class="font-weight-bolder mb-0">{{ $completedOutfits }}</h3>
                                     </div>
                                     <div class="col-6 py-1">
                                         <p class="card-text text-muted mb-0">In Progress</p>
-                                        <h3 class="font-weight-bolder mb-0">{{ $inCompleteOrders }}</h3>
+                                        <h3 class="font-weight-bolder mb-0">{{ $inProgressOutfits }}</h3>
                                     </div>
                                 </div>
                             </div>

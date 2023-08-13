@@ -11,6 +11,7 @@ use App\Models\Currency;
 use App\Models\Note;
 use App\Models\OutfitStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
@@ -103,7 +104,7 @@ class OrderController extends Controller
         foreach ($orders as $order) {
             $remainingHour = 0;
             foreach ($order->outfits as $outfit) {
-                if($outfit->statuses->where('status','Embr In')->isEmpty())
+                if($outfit->statuses->where('status','Embr Out')->isEmpty())
                 {
                     $remainingHour+=$outfit->hours;
                 }
@@ -444,8 +445,15 @@ class OrderController extends Controller
         return response()->json(['ok' => true]);
     }
 
-    public function delete($id)
+    public function delete(Request $request,$id)
     {
+        if (!Hash::check($request->password, auth()->user()->password))
+        {
+            return response()->json([
+                'success' => false,
+                'error' => 'password'
+            ]);
+        }
         if(Order::whereId($id)->count() > 0)
         {
             Order::whereId($id)->delete();

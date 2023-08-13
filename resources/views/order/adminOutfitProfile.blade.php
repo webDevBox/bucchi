@@ -189,6 +189,7 @@
 
               <div class="mt-3">
                 <button onclick="navigateToFormStep(2)" class="button" type="button">Next</button>
+                <button class="button submit-btn" type="submit">Update</button>
               </div>
             </section>
             <section id="step-2" class="form-step d-none">

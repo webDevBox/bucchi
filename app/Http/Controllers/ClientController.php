@@ -9,6 +9,7 @@ use App\Models\Outfit;
 use App\Models\Transaction;
 use App\Models\Currency;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class ClientController extends Controller
@@ -49,6 +50,13 @@ class ClientController extends Controller
     
     public function deleteClient(Request $request)
     {
+        if (!Hash::check($request->password, auth()->user()->password))
+        {
+            return response()->json([
+                'success' => false,
+                'error' => 'password'
+            ]);
+        }
         try {
             Client::whereId($request->id)->delete();
             return response()->json([

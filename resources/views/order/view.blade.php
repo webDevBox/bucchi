@@ -37,7 +37,7 @@
                                                     </td>
                                                     <td class="text-center">{{ $order->completion_date }}</td>
                                                     <td class="text-center"> {{
-                                                        percentage($order->transactions->pluck('payment')->sum(),$order->outfits->pluck('price')->sum())
+                                                        remainingPercentage($order->transactions->pluck('payment')->sum(),($order->outfits->pluck('price')->sum()+$order->shipping_cost))
                                                         }}</td>
                                                     <td class="text-center">{{ $order->remaining }}
                                                     </td>

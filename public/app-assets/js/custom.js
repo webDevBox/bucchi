@@ -52,7 +52,7 @@ function makeInvoicer(data) {
         const item = blockObjects[i];
         const listItem = document.createElement("li");
         listItem.textContent = `Name: ${item.name} - Price: ${item.price}
-         - Hours: ${item.hours} - fabric: ${item.fabric}`;
+         - Hours: ${item.hours} - CoP: ${item.fabric}`;
         outfitsList.appendChild(listItem);
     }
 }
@@ -249,7 +249,7 @@ function makeOverview(step) {
             <div class="col-md-6 col-sm-12"><strong> Description: </strong> ${item.outfitDescription} </div>
 
             <div class="col-md-6 col-sm-12">
-                Hours <strong>${item.hours}</strong> ; Fabric <strong>${item.fabric}</strong>
+                Hours <strong>${item.hours}</strong> ; CoP <strong>${item.fabric}</strong>
             </div>
         </div>
         `

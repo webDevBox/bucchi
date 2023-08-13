@@ -344,9 +344,9 @@
                                             </div>
 
                                             <div class="col-md-3 offset-md-1 col-sm-12">
-                                                <label for="fabric">Fabric</label>
+                                                <label for="fabric">CoP</label>
                                                 <input type="number" id="fabric" class="input-field"
-                                                    placeholder="Enter Fabric..">
+                                                    placeholder="Enter CoP..">
                                             </div>
                                         </div>
 
@@ -363,7 +363,7 @@
                                 <label class="col-md-12 h5 control-label" for="order_shipping_cost">Enter Shipping Cost</label>
                                 <div class="col-md-6">
                                     <input type="number" id="order_shipping_cost"
-                                        class="form-control" placeholder="Enter Client Name for Invoice..." required>
+                                        class="form-control" placeholder="Enter Shipping Cost..." required>
                                     <small id="shipping_cost_error" style="color: red" class="d-none">Please Enter Shipping Cost...</small>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@
                         </section>
                         <!-- step 5-->
                         <section id="step-5" class="form-step d-none">
-                            <h2 class="font-normal">Order Received</h2>
+                            <h2 class="font-normal text-center font-weight-bold">Order Received</h2>
                             <div class="mt-3">
                                 <div id="invoice_order">
                                     <div class="row">
