@@ -2,6 +2,11 @@
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
 <style>
+    .order_detail_hr{
+        border: 1px solid rgb(150, 149, 149);
+        border-radius: 5px;
+    }
+
    .block {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -453,29 +458,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="invoice_data" class="mt-3">
-                            {{-- <img src="{{ asset('app-assets/images/logo/logo.png') }}" width="200" height="150"> --}}
+                        <div id="invoice_data" class="mt-3 d-none">
+                            <img class="d-block mx-auto" src="{{ asset('app-assets/images/logo/logo.png') }}" width="200" height="150">
                                 <h1>Order Details</h1>
-                                <table class="table">
-                                    <thead>
-                                        <tr style="height: 20px">
-                                            <th>Invoice#</th>
-                                            <th>Client</th>
-                                            <th>Delivery</th>
-                                            <th>Currency</th>
-                                            <th>Notes</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td id="invoice_number"></td>
-                                            <td id="invoice_client_name"></td>
-                                            <td id="invoice_delivery"></td>
-                                            <td id="invoice_currency"></td>
-                                            <td id="invoice_notes"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <strong class="text-center d-block"> Invoice# </strong>
+                                        <p class="text-center d-block" id="invoice_number"></p>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong class="text-center d-block"> Client </strong>
+                                        <p class="text-center d-block" id="invoice_client_name"></p>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong class="text-center d-block"> Delivery </strong>
+                                        <p class="text-center d-block" id="invoice_delivery"></p>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong class="text-center d-block"> Currency </strong>
+                                        <p class="text-center d-block" id="invoice_currency"></p>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong class="text-center d-block"> Notes </strong>
+                                        <p class="text-center d-block" id="invoice_notes"></p>
+                                    </div>
+                                </div>
                                 <h1>Outfits</h1>
                                 <table class="table" id="invoice_outfits">
                                     <thead>
@@ -489,26 +496,28 @@
                                     </tbody>
                                 </table>
                                 <h1>Payments</h1>
-                                <table class="table" id="invoice_payments">
-                                    <thead>
-                                        <tr style="height: 20px">
-                                            <th>Payment</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                                
-                                <p>Outfits Total: <span id="invoice_outfit_total"></span></p>
-                                <p>Order Total: <span id="invoice_order_total"></span></p>
+                                <div id="invoice_show_payments"></div>
+                                <hr class="order_detail_hr">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <strong class="text-center d-block"> Outfits Total </strong>
+                                        <p class="text-center d-block" id="invoice_outfit_total"></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="text-center d-block"> Shipping Cost </strong>
+                                        <p class="text-center d-block" id="invoice_shipping"></p>
+                                    </div>
+                                    <div class="col-4">
+                                        <strong class="text-center d-block"> Order Total </strong>
+                                        <p class="text-center d-block" id="invoice_order_total"></p>
+                                    </div>
+                                </div>
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
                             <button class="button submit-btn" id="submit-btn" type="#">Download Invoice</button>
                         </div>
                     </section>
-                {{-- </form> --}}
             </div>
         </div>
 
@@ -529,15 +538,13 @@
     var invoice = {{ $order->invoice }}
     var transactions = @json($transactions)
 
-    $(document).ready(function() {
-    $('#button1').trigger('click')
-    $('#button2').trigger('click')
-    $('#submit-button').trigger('click')
-    $('#button4').trigger('click')
-});
+//     $(document).ready(function() {
+//     $('#button1').trigger('click')
+//     $('#button2').trigger('click')
+//     $('#submit-button').trigger('click')
+//     $('#button4').trigger('click')
+// });
 </script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> --}}
-
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/form.js')}}"></script>

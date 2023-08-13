@@ -443,6 +443,61 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="invoice_data" class="mt-3 d-none">
+                                <img class="d-block mx-auto" src="{{ asset('app-assets/images/logo/logo.png') }}" width="200" height="150">
+                                    <h1>Order Details</h1>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <strong class="text-center d-block"> Invoice# </strong>
+                                            <p class="text-center d-block" id="invoice_number"></p>
+                                        </div>
+                                        <div class="col-2">
+                                            <strong class="text-center d-block"> Client </strong>
+                                            <p class="text-center d-block" id="invoice_client_name"></p>
+                                        </div>
+                                        <div class="col-2">
+                                            <strong class="text-center d-block"> Delivery </strong>
+                                            <p class="text-center d-block" id="invoice_delivery"></p>
+                                        </div>
+                                        <div class="col-2">
+                                            <strong class="text-center d-block"> Currency </strong>
+                                            <p class="text-center d-block" id="invoice_currency"></p>
+                                        </div>
+                                        <div class="col-2">
+                                            <strong class="text-center d-block"> Notes </strong>
+                                            <p class="text-center d-block" id="invoice_notes"></p>
+                                        </div>
+                                    </div>
+                                    <h1>Outfits</h1>
+                                    <table class="table" id="invoice_outfits">
+                                        <thead>
+                                            <tr style="height: 20px">
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <h1>Payments</h1>
+                                    <div id="invoice_show_payments"></div>
+                                    <hr class="order_detail_hr">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <strong class="text-center d-block"> Outfits Total </strong>
+                                            <p class="text-center d-block" id="invoice_outfit_total"></p>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong class="text-center d-block"> Shipping Cost </strong>
+                                            <p class="text-center d-block" id="invoice_shipping"></p>
+                                        </div>
+                                        <div class="col-4">
+                                            <strong class="text-center d-block"> Order Total </strong>
+                                            <p class="text-center d-block" id="invoice_order_total"></p>
+                                        </div>
+                                    </div>
+                            </div>
                             <div class="mt-3">
                                 <a class="order_re_create button" href="#" id="create_invoice" onclick="pdfCreator()">Download Order Invoice</a>
                                 <a class="order_re_create d-none button submit-btn extra-anchor" href="{{ route('createOrder') }}">Create New Order</a>
@@ -465,6 +520,7 @@
     var total = 0
     var checker = 0
     var newOrder = true
+    var invoice = 0
 </script>
 <script>
 
@@ -473,8 +529,7 @@
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
 <script src="{{ asset('app-assets/js/form.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js">
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script src="{{ asset('app-assets/js/custom.js')}}"></script>
 
 @endsection

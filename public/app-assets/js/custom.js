@@ -1,7 +1,7 @@
 document.getElementById("submit-btn").addEventListener("click", (event) => {
     event.preventDefault();
     if (newOrder) {
-        completeOrder();
+        completeOrder()
         makeOverview(5)
     }
     else {
@@ -63,6 +63,7 @@ function createInvoice(client) {
     $('#invoice_delivery').text($('#order_delivery').val())
     $('#invoice_currency').text($('#order_currency').val())
     $('#invoice_notes').text($('#notes').val())
+    $('#invoice_shipping').text($('#order_shipping_cost').val())
 
     const table = document.getElementById('invoice_outfits');
     var pricer = 0
@@ -81,25 +82,44 @@ function createInvoice(client) {
 
     })
 
-    const targetDiv = document.getElementById('invoice_payments')
+    if (newOrder) {
+        const targetDiv = document.getElementById('invoice_show_payments');
+        if ($('#initial_deposit').val() === '') {
+            targetDiv.innerHTML = `
+                <h3 class='text-center my-2'>No Initial Deposit</h3>
+            `;
+        }
+        else {
+            targetDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label for="price">Payment Amount</label>
+                        <input type="text" value="${$('#initial_deposit').val()}" class="prev_transactions form-control" disabled>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label for="price">Payment Date</label>
+                        <input type="text" value="${$('#date_deposit').val()}" disabled class="form-control">
+                    </div>
+                </div>
+            `;
+        }
+    }else
+    {
+        const sourceDiv = document.getElementById('transactions_list');
+        const targetDiv = document.getElementById('invoice_show_payments');
 
-    transactions.forEach((transaction) => {
-        const payment = targetDiv.insertRow();
-
-        const paymentCell = payment.insertCell(0);
-        const dateCell = payment.insertCell(1);
-
-        paymentCell.textContent = transaction.payment;
-        dateCell.textContent = transaction.date;
-    });
+        const copiedContent = sourceDiv.innerHTML;
+        targetDiv.innerHTML += copiedContent;
+    }
 
     var total = pricer + Number($('#order_shipping_cost').val())
     $('#invoice_outfit_total').text(pricer)
     $('#invoice_order_total').text(total)
 }
 
-function createPDF() {
 
+function createPDF() {
+    $('#invoice_data').removeClass('d-none')
     const clientName = $('#order_client_name').val()
     const currentDate = new Date()
     const year = currentDate.getFullYear()
@@ -108,14 +128,23 @@ function createPDF() {
     const dateFormat = formattedDate + '_' + clientName
     createInvoice(clientName)
 
-    var doc = new jsPDF();
-    doc.addImage('../app-assets/images/logo/logo.png', 'PNG', 10, 10, 200, 150);
-    var elementHtml = $("#invoice_data").html();
+    html2canvas(document.getElementById('invoice_data'), {
+        onrendered: function (canvas) {
+            var data = canvas.toDataURL();
 
-    doc.fromHTML(elementHtml, 15, 15, {
-        'width': 170
+            var docDefinition = {
+                content: [{
+                    image: data,
+                    width: 500
+                }]
+            };
+            pdfMake.createPdf(docDefinition).download(dateFormat + ".pdf");
+        }
     });
-    doc.save(`${dateFormat}.pdf`);
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
+    
 }
 
 $('#client_select').change(function () {
@@ -309,6 +338,7 @@ async function createClient(step) {
                     console.log(response)
                     if (response.success) {
                         orderId = response.data.id
+                        invoice = response.data.invoice
                         navigateToFormStep(step)
                     }
                 },
