@@ -1,75 +1,60 @@
 @extends('layouts.app')
 @section('style')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/multi-form.css')}}">
 <style>
-    .block {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
+        .scrollable-table-wrapper {
+        overflow-x: auto;
     }
 
-    .button-block {
-        margin-top: 10px;
-        text-align: right;
+    .table {
+        width: max-content;
+        min-width: 100%;
+        border-collapse: collapse;
     }
 
-    .move-up,
-    .move-down,
-    .delete {
-        margin-left: 5px;
+    .table th,
+    .table td {
+        padding: 8px;
+        border: 1px solid #ddd;
     }
 
-    .input-field {
-        display: block;
-        margin-bottom: 5px;
-        padding: 5px;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+    .fixed-columns {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background-color: #f9f9f9;
     }
 
-    #add-block {
-        margin-top: 10px;
+    .fixed-columns th,
+    .fixed-columns td {
+        background-color: inherit;
+        border-right: none;
     }
 
-    .input-field.error {
-        border-color: red;
+    .fixed-columns th:last-child,
+    .fixed-columns td:last-child {
+        position: sticky;
+        right: 0;
+        z-index: 3;
     }
 
-    .input-field.error::placeholder {
-        color: red;
+    .scrollable-body {
+        position: relative;
     }
 
-    .payment_deleter {
-        margin-top: 24px;
+    .scrollable-body th:first-child,
+    .scrollable-body td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+        background-color: #f9f9f9;
     }
 
-    #outfits-list {
-        list-style: none;
-        padding: 0;
-    }
-
-    /* Style each list item */
-    #outfits-list li {
-        background-color: #f9eaea;
-        padding: 10px;
-        margin: 5px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-
-    /* Add a hover effect to highlight the list items */
-    #outfits-list li:hover {
-        background-color: #fff0f0;
-        cursor: pointer;
-    }
-
-    .extra-anchor:hover {
-        color: #ffffff
+    .scrollable-body th:last-child,
+    .scrollable-body td:last-child {
+        position: sticky;
+        right: 0;
+        z-index: 3;
+        background-color: #f9f9f9;
     }
 </style>
 @endsection
@@ -84,49 +69,50 @@
             <div style="background-color: white;">
                 <h1> <strong> Time </strong> Sheet</h1>
                 <div class="col-12">
-                    <div class="table-responsive">
+                    <div class="scrollable-table-wrapper">
                         <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">Orders</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">Handle</th>
-                              </tr>
+                            <thead class="scrollable-body">
+                                <tr>
+                                    <th>Orders</th>
+                                    @for($i = 0; $i < 12; $i++) 
+                                        <th>
+                                            {{ $weeks[$i]['start'] }} - {{ $weeks[$i]['end'] }}
+                                        </th>
+                                    @endfor
+                                    <th>Total & Action</th>
+                                </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="scrollable-body">
                                 @foreach ($orders as $order)
-                                    <tr>
-                                        <th scope="row">{{ $order->client->name }}</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
+                                <tr @if($order->passed) class="bg-danger" @endif>
+                                    <td scope="row">{{ $order->client_name }}</td>
+
+                                    <td @if($order->week == 1) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 2) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 3) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 4) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 5) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 6) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 7) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 8) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 9) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 10) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 11) class="bg-danger text-white" @endif>Mark</td>
+                                    <td @if($order->week == 12) class="bg-danger text-white" @endif>Mark</td>
+                                    
+
+                                    <td class="p-2">
+                                        <div class="row">
+                                            <span>8/10</span>
+                                            <a href="#" class="ml-auto">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
-                          </table>
+                        </table>
                     </div>
                 </div>
             </div>
