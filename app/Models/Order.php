@@ -16,6 +16,11 @@ class Order extends Model
 
     protected $with =['client','outfits','transactions'];
 
+    public function scheduling()
+    {
+        return $this->hasMany(Scheduling::class);
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class);

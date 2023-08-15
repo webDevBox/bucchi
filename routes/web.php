@@ -35,6 +35,8 @@ Route::middleware(['auth.login'])->group(function () {
         
         Route::prefix('scheduling')->group(function () {
             Route::get('/', [ScheduleController::class, 'index'])->name('scheduling');
+            Route::get('/create', [ScheduleController::class, 'create'])->name('create');
+            Route::get('/availability', [ScheduleController::class, 'availability'])->name('availability');
         });
         
         Route::prefix('profile')->group(function () {
