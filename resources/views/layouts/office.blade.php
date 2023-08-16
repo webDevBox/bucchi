@@ -185,7 +185,7 @@
 </li>
 @endif
 @if(auth()->user()->permission->production == 1)
-<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfits') }}"><i class="fa fa-shopping-bag" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Production Line</span></a>
+<li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('outfits') }}"><i class="fa fa-industry" style="color:  #6610F2" aria-hidden="true"></i><span class="menu-title text-truncate" data-i18n="Email">Production Line</span></a>
 </li>
 @endif
 @if(auth()->user()->permission->petty == 1)

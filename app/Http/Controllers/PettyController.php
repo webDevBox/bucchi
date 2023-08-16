@@ -22,7 +22,7 @@ class PettyController extends Controller
     
     public function pettyListAdmin()
     {
-        $petty = PettyCash::get();
+        $petty = PettyCash::latest()->get();
         return view('admin.Petty.index',compact('petty'));
     }
 

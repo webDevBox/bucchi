@@ -75,7 +75,7 @@
                             aria-expanded="false">
 
                             <span class="avatar"><img class="round"
-                                    src="{{ asset('app-assets/images/portrait/small/avatar-s-4.jpg')}}" alt="avatar"
+                                    src="{{ asset('app-assets/images/portrait/small/avatar-s-.jpg')}}" alt="avatar"
                                     height="40" width="40"><span class="avatar-status-online"></span></span>
                             <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder ml-1">{{ auth()->user()->name }}</span><span class="user-status">Admin</span></div>
                         </a>
@@ -225,7 +225,7 @@
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i
                         data-feather="more-horizontal"></i>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fa-shopping-bag"
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i class="fa fa-cart-plus"
                             style="color:  #6610F2;"></i><span class="menu-title text-truncate"
                             data-i18n="eCommerce">Orders</span></a>
                     <ul class="menu-content">

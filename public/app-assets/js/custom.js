@@ -112,9 +112,33 @@ function createInvoice(client) {
         targetDiv.innerHTML += copiedContent;
     }
 
-    var total = pricer + Number($('#order_shipping_cost').val())
+    if(newOrder)
+    {
+        if($('#initial_deposit').val() != '')
+        {
+            var previousPayments = $('#initial_deposit').val()
+        }
+        else
+        {
+            var previousPayments = 0
+        }
+    }
+    else
+    {
+        var previousPayments = 0
+        var transactionsListDiv = document.getElementById('transactions_list');
+        var prevTransactionsInputs = transactionsListDiv.querySelectorAll('.prev_transactions');
+        for (var i = 0; i < prevTransactionsInputs.length; i++) {
+            var input = prevTransactionsInputs[i];
+            previousPayments += Number(input.value)
+        }   
+    }
+    
+    var orderTotal = pricer + Number($('#order_shipping_cost').val())
+    var remainingBalance = orderTotal - previousPayments
     $('#invoice_outfit_total').text(pricer)
-    $('#invoice_order_total').text(total)
+    $('#invoice_order_total').text(orderTotal)
+    $('#invoice_balance_total').text(remainingBalance)
 }
 
 
@@ -141,10 +165,10 @@ function createPDF() {
             pdfMake.createPdf(docDefinition).download(dateFormat + ".pdf");
         }
     });
+        $('#submit-btn').addClass('d-none')
         setTimeout(() => {
-            location.reload();
-        }, 1000);
-    
+            $('#invoice_data').addClass('d-none')
+        }, 2000);
 }
 
 $('#client_select').change(function () {

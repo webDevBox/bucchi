@@ -67,10 +67,11 @@
         </div>
         <div class="content-body">
             <div class="p-2" style="background-color: white;">
-                <h1 class="text-center"> <strong> Time </strong> Sheet</h1>
+                    <h1 class="text-center"> <strong> Time </strong> Sheet</h1>
+                    {{-- <button id="printer" class="btn btn-primary ml-2 mb-2">Print</button> --}}
                 <div class="col-12">
                     <div class="scrollable-table-wrapper">
-                        <table class="table">
+                        <table id="scheduling_table" class="table">
                             <thead class="scrollable-body">
                                 <tr>
                                     <th>Orders</th>
@@ -84,7 +85,7 @@
                             </thead>
                             <tbody class="scrollable-body">
                                 @foreach ($orders as $order)
-                                <tr @if($order->passed) class="bg-danger" @endif>
+                                <tr @if($order->passed) class="bg-secondary" @endif>
                                     <td scope="row">{{ $order->client->name }}</td>
 
                                     <td @if($order->week == 1) class="bg-danger text-white" @endif> <input type="number" value="{{ $order->scheduling->where('week',1)->isNotEmpty() ? $order->scheduling->where('week',1)->first()->hours : '' }}" id="week_1_{{ $order->id }}" placeholder="Hours..." class="form-control order_week_1" onchange="checkAvailability(1,{{ $order->id }})" onkeyup="checkAvailability(1,{{ $order->id }})" style="width: 100px"> </td>
@@ -104,7 +105,7 @@
                                         <div class="row">
                                             <span id="assign_{{ $order->id }}">{{ $order->scheduling->where('order_id',$order->id)->isNotEmpty() ? $order->scheduling->where('order_id',$order->id)->sum('hours') : 0 }}</span> / <span id="remaining_hour_{{ $order->id }}">{{ $order->remaining }}</span>
                                             <a href="#" onclick="createSchedule(event,{{ $order->id }},{{ $order->remaining }})" class="ml-auto">
-                                                <i class="fa fa-plus"></i>
+                                                <i class="fa fa-check"></i>
                                             </a>
                                         </div>
                                     </td>
@@ -113,24 +114,24 @@
                                 <tr>
                                     <td scope="row">Total</td>
 
-                                    <td><input type="number" value="{{ $availableHour->where('week',1)->isNotEmpty() ? $availableHour->where('week',1)->first()->hours : 0 }}" id="available_week_1" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',2)->isNotEmpty() ? $availableHour->where('week',2)->first()->hours : 0 }}" id="available_week_2" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',3)->isNotEmpty() ? $availableHour->where('week',3)->first()->hours : 0 }}" id="available_week_3" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',4)->isNotEmpty() ? $availableHour->where('week',4)->first()->hours : 0 }}" id="available_week_4" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',5)->isNotEmpty() ? $availableHour->where('week',5)->first()->hours : 0 }}" id="available_week_5" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',6)->isNotEmpty() ? $availableHour->where('week',6)->first()->hours : 0 }}" id="available_week_6" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',7)->isNotEmpty() ? $availableHour->where('week',7)->first()->hours : 0 }}" id="available_week_7" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',8)->isNotEmpty() ? $availableHour->where('week',8)->first()->hours : 0 }}" id="available_week_8" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',9)->isNotEmpty() ? $availableHour->where('week',9)->first()->hours : 0 }}" id="available_week_9" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',10)->isNotEmpty() ? $availableHour->where('week',10)->first()->hours : 0 }}" id="available_week_10" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',11)->isNotEmpty() ? $availableHour->where('week',11)->first()->hours : 0 }}" id="available_week_11" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
-                                    <td><input type="number" value="{{ $availableHour->where('week',12)->isNotEmpty() ? $availableHour->where('week',12)->first()->hours : 0 }}" id="available_week_12" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_1"></span>/<input type="number" value="{{ $availableHour->where('week',1)->isNotEmpty() ? $availableHour->where('week',1)->first()->hours : 0 }}" id="available_week_1" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_2"></span>/<input type="number" value="{{ $availableHour->where('week',2)->isNotEmpty() ? $availableHour->where('week',2)->first()->hours : 0 }}" id="available_week_2" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_3"></span>/<input type="number" value="{{ $availableHour->where('week',3)->isNotEmpty() ? $availableHour->where('week',3)->first()->hours : 0 }}" id="available_week_3" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_4"></span>/<input type="number" value="{{ $availableHour->where('week',4)->isNotEmpty() ? $availableHour->where('week',4)->first()->hours : 0 }}" id="available_week_4" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_5"></span>/<input type="number" value="{{ $availableHour->where('week',5)->isNotEmpty() ? $availableHour->where('week',5)->first()->hours : 0 }}" id="available_week_5" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_6"></span>/<input type="number" value="{{ $availableHour->where('week',6)->isNotEmpty() ? $availableHour->where('week',6)->first()->hours : 0 }}" id="available_week_6" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_7"></span>/<input type="number" value="{{ $availableHour->where('week',7)->isNotEmpty() ? $availableHour->where('week',7)->first()->hours : 0 }}" id="available_week_7" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_8"></span>/<input type="number" value="{{ $availableHour->where('week',8)->isNotEmpty() ? $availableHour->where('week',8)->first()->hours : 0 }}" id="available_week_8" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_9"></span>/<input type="number" value="{{ $availableHour->where('week',9)->isNotEmpty() ? $availableHour->where('week',9)->first()->hours : 0 }}" id="available_week_9" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_10"></span>/<input type="number" value="{{ $availableHour->where('week',10)->isNotEmpty() ? $availableHour->where('week',10)->first()->hours : 0 }}" id="available_week_10" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_11"></span>/<input type="number" value="{{ $availableHour->where('week',11)->isNotEmpty() ? $availableHour->where('week',11)->first()->hours : 0 }}" id="available_week_11" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
+                                    <td><span id="assign_week_12"></span>/<input type="number" value="{{ $availableHour->where('week',12)->isNotEmpty() ? $availableHour->where('week',12)->first()->hours : 0 }}" id="available_week_12" placeholder="Available Hours..." class="form-control" style="width: 100px"></td>
 
                                     <td class="p-2">
                                         <div class="row">
                                             <span id="availability_total">{{ $availableHour->isNotEmpty() ? $availableHour->sum('hours') : 0 }}</span>
                                             <a href="#" onclick="createAvailableHour(event)" class="ml-auto">
-                                                <i class="fa fa-plus"></i>
+                                                <i class="fa fa-check"></i>
                                             </a>
                                         </div>
                                     </td>

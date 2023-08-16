@@ -71,6 +71,7 @@
   background-color: #fefefe;
   cursor: pointer;
 }
+
 </style>
 @endsection
 @section('content')
@@ -495,21 +496,22 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                                <div class="row">
+                                    <div class="offset-9 col-3 mt-2">
+                                        <strong> Outfits Total: <span class="ml-1" id="invoice_outfit_total"></span> </strong>
+                                    </div>
+                                    <div class="offset-9 col-3">
+                                        <h6> Shipping Cost: <span class="ml-1" id="invoice_shipping"></span> </h6>
+                                    </div>
+                                    <div class="offset-9 col-3 mt-2">
+                                        <strong> Order Total: <span class="ml-1" id="invoice_order_total"></span> </strong>
+                                    </div>
+                                </div>
                                 <h1>Payments</h1>
                                 <div id="invoice_show_payments"></div>
-                                <hr class="order_detail_hr">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <strong class="text-center d-block"> Outfits Total </strong>
-                                        <p class="text-center d-block" id="invoice_outfit_total"></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <strong class="text-center d-block"> Shipping Cost </strong>
-                                        <p class="text-center d-block" id="invoice_shipping"></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <strong class="text-center d-block"> Order Total </strong>
-                                        <p class="text-center d-block" id="invoice_order_total"></p>
+                                <div class="row mt-2">
+                                    <div class="offset-9 col-3 mt-2">
+                                        <strong>Remaining Balance: <span class="ml-1" id="invoice_balance_total"></span></strong>
                                     </div>
                                 </div>
                         </div>

@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", showAssignColumn);
+function showAssignColumn()
+{
+        for (let index = 1; index <= 12; index++) {
+            var columnValues = 0
+            $(`.order_week_${index}`).each(function(){
+                columnValues += Number($(this).val())
+            })
+            $(`#assign_week_${index}`).text(columnValues)
+        }
+}
 function createSchedule(event,id,remaining)
 {
     event.preventDefault()
@@ -180,3 +191,9 @@ function checkAvailability(column,order)
         $(`#week_${column}_${order}`).val(newValue)
     }
 }
+
+$('#printer').click(function(){
+    var doc = new jsPDF();
+        doc.fromHTML(document.getElementById('scheduling_table').innerHTML, 10, 10);
+        doc.save('scheduling_table.pdf');
+})
