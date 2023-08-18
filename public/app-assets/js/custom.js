@@ -1,4 +1,15 @@
-document.getElementById("submit-btn").addEventListener("click", (event) => {
+// document.getElementById("submit-btn").addEventListener("click", (event) => {
+//     event.preventDefault();
+//     if (newOrder) {
+//         completeOrder()
+//         makeOverview(5)
+//     }
+//     else {
+//         createPDF()
+//     }
+// });
+
+$('#submit-btn').click(function(){
     event.preventDefault();
     if (newOrder) {
         completeOrder()
@@ -7,7 +18,7 @@ document.getElementById("submit-btn").addEventListener("click", (event) => {
     else {
         createPDF()
     }
-});
+})
 
 function pdfCreator() {
     $('#create_invoice').addClass('d-none')
