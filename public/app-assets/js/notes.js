@@ -3,21 +3,21 @@ let mediaRecorder;
 let stream;
 const recordButton = document.getElementById('recordButton');
 const stopButton = document.getElementById('stopButton');
-const audioPlayer = document.getElementById('audioPlayer');
 const audioList = document.getElementById('audioList');
 
 recordButton.addEventListener('click', (event) => {
   event.preventDefault();
   startRecording();
 });
+
 stopButton.addEventListener('click', (event) => {
   event.preventDefault();
   stopRecording();
 });
 
 function startRecording() {
-  $('#stopButton').removeClass('d-none');
-  $('#recordButton').addClass('d-none');
+  stopButton.classList.remove('d-none');
+  recordButton.classList.add('d-none');
 
   navigator.mediaDevices.getUserMedia({ audio: true })
     .then((newStream) => {
@@ -32,8 +32,12 @@ function startRecording() {
       });
 
       mediaRecorder.addEventListener('stop', () => {
-        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+        const blob = new Blob(chunks, { type: 'audio/mpeg' });
         const audioURL = URL.createObjectURL(blob);
+        const audioInfo = {
+          url: audioURL,
+          type: blob.type
+        };
         recordedAudios.push(audioURL);
         displayRecordedAudios();
       });
@@ -46,9 +50,8 @@ function startRecording() {
 }
 
 function stopRecording() {
-  $('#stopButton').addClass('d-none');
-  $('#recordButton').removeClass('d-none');
-  $('#audioPlayer').removeClass('d-none');
+  stopButton.classList.add('d-none');
+  recordButton.classList.remove('d-none');
 
   recordButton.disabled = false;
   stopButton.disabled = true;
@@ -80,20 +83,17 @@ function displayRecordedAudios() {
 
     const listItem = document.createElement('li');
 
-    // Add a counter element to the list item
     const counterElement = document.createElement('span');
     counterElement.classList.add('counter');
     counterElement.textContent = index + 1 + '. '; // Count starts from 1
     listItem.appendChild(counterElement);
 
-    // Add the audio container to the list item
+
     listItem.appendChild(audioContainer);
 
     audioList.appendChild(listItem);
   });
 }
-
-
 
 function deleteAudio(index) {
   recordedAudios.splice(index, 1);

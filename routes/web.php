@@ -92,6 +92,7 @@ Route::middleware(['auth.login'])->group(function () {
         Route::get('order/search',[OfficeController::class, 'orderSearch'])->name('orderSearch');
     });
     Route::middleware('auth.common')->group(function() {
+        Route::get('/generatePDF/{id}', [OrderController::class, 'generatePDF'])->name('generatePDF');
         Route::get('delete/{id}',[PettyController::class, 'pettyDelete'])->name('pettyDelete');
         Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
         Route::get('/checkFileNum', [ClientController::class, 'checkFileNum']);

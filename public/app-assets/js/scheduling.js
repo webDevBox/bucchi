@@ -193,7 +193,7 @@ function checkAvailability(column,order)
 }
 
 $('#printer').click(function(){
-    var doc = new jsPDF();
-        doc.fromHTML(document.getElementById('scheduling_table').innerHTML, 10, 10);
-        doc.save('scheduling_table.pdf');
+    $('#printer').addClass('d-none')
+    window.print();
+    $('#printer').removeClass('d-none')
 })

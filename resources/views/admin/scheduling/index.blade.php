@@ -68,7 +68,7 @@
         <div class="content-body">
             <div class="p-2" style="background-color: white;">
                     <h1 class="text-center"> <strong> Time </strong> Sheet</h1>
-                    {{-- <button id="printer" class="btn btn-primary ml-2 mb-2">Print</button> --}}
+                    <button id="printer" class="btn btn-primary ml-2 mb-2">Print</button>
                 <div class="col-12">
                     <div class="scrollable-table-wrapper">
                         <table id="scheduling_table" class="table">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Client;
@@ -16,6 +17,25 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+
+    public function generatePDF($id)
+    {
+        $order = Order::find($id);
+
+        $data = [
+            'order' => $order,
+        ];
+        $pdf = PDF::loadView('pdf', $data);
+
+        $currentDate = now();
+        $year = $currentDate->format('Y');
+        $month = $currentDate->format('m');
+        $formattedDate = $year . '_' . $month;
+
+        $file = $formattedDate.'_'.$order->client_name;
+
+        return $pdf->download($file.'.pdf');
+    }
 
     public function updateOutfitProductin(Request $request, $id)
     {

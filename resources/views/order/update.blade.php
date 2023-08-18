@@ -72,6 +72,10 @@
   cursor: pointer;
 }
 
+.submit-btn:hover{
+    color: white
+}
+
 </style>
 @endsection
 @section('content')
@@ -517,7 +521,8 @@
                         </div>
                         <div class="mt-3">
                             <button class="button btn-navigate-form-step" type="button" step_number="4">Prev</button>
-                            <button class="button submit-btn" id="submit-btn" type="#">Download Invoice</button>
+                            <a class="button submit-btn" target="_blank" href="{{ route('generatePDF',['id' => $order->id]) }}">Download Invoice</a>
+                            {{-- <button class="button submit-btn" id="submit-btn" type="#">Download Invoice</button> --}}
                         </div>
                     </section>
             </div>

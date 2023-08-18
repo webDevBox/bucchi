@@ -75,6 +75,9 @@
     #create_invoice:hover{
         color: #fff
     }
+    #pdfDown:hover{
+        color: white
+    }
 </style>
 @endsection
 @section('content')
@@ -500,7 +503,9 @@
                                     </div>
                             </div>
                             <div class="mt-3">
-                                <a class="order_re_create button" href="#" id="create_invoice" onclick="pdfCreator()">Download Order Invoice</a>
+                                {{-- <a class="button submit-btn" target="_blank" href="{{ route('generatePDF',['id' => $order->id]) }}">Download Order Invoice</a> --}}
+                                {{-- <a class="order_re_create button" href="#" id="create_invoice" onclick="pdfCreator()">Download Order Invoice</a> --}}
+                                <a class="order_re_create button" href="{{ route('generatePDF', ['id' => '__orderId__']) }}" id="pdfDown">Download Order Invoice</a>
                                 <a class="order_re_create d-none button submit-btn extra-anchor" href="{{ route('createOrder') }}">Create New Order</a>
                             </div>
                         </section>
@@ -524,7 +529,10 @@
     var invoice = 0
 </script>
 <script>
-
+$('#pdfDown').click(function(){
+    var downloadLink = document.getElementById('pdfDown');
+    downloadLink.href = downloadLink.href.replace('__orderId__', orderId);
+})
 </script>
 <script src="{{ asset('app-assets/js/formObj.js')}}"></script>
 <script src="{{ asset('app-assets/js/multi-form.js')}}"></script>
