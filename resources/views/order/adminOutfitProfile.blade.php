@@ -160,6 +160,7 @@
                 </div>
 
                 <ul id="audioList" style="list-style: none;"></ul>
+
                 <h3>Images</h3>
                 @if($outfit->notes->where('type',0)->where('image_type',0)->count() > 0)
                 <h4>Old Images</h4>

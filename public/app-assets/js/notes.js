@@ -93,6 +93,32 @@ function displayRecordedAudios() {
 
     audioList.appendChild(listItem);
   });
+
+  storeAudios()
+}
+
+function storeAudios() {
+  const audioContainer = document.getElementById('audioList');
+  const audioElements = audioContainer.querySelectorAll('audio');
+  const audioFiles = [];
+
+  audioElements.forEach(function (audioElement) {
+    const audioSource = audioElement.getAttribute('src');
+    audioFiles.push(audioSource);
+  });
+  console.log(audioFiles);
+
+  if (audioFiles.length > 0) {
+    const inputElement = document.createElement('input');
+    inputElement.setAttribute('type', 'file');
+    inputElement.setAttribute('multiple', true);
+    inputElement.setAttribute('accept', 'audio/*');
+    inputElement.setAttribute('name', 'audiosFiles[]');
+    inputElement.style.display = 'none';
+
+    document.body.appendChild(inputElement);
+    // inputElement.click();
+  }
 }
 
 function deleteAudio(index) {

@@ -6,6 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Bucchi's</title>
+    <style>
+        h4{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13
+        }
+        strong{
+            font-size: 8
+        }
+        p{
+            font-size: 6
+        }
+        th{
+            font-size: 8
+        }
+        td{
+            font-size: 8;
+            max-width: 200px
+        }
+        b{
+            font-size: 9
+        }
+        .ship-span{
+            font-weight: lighter;
+            font-size: 7
+        }
+        .right-span{
+            position: absolute;
+            right: 50
+        }
+    </style>
 </head>
 <body>
     <div class="app-content content ">
@@ -20,33 +50,29 @@
                     <div id="invoice_data" class="mt-3">
                         <center><img src="app-assets/images/logo/logo.png" width="200" height="150"></center>
                         <h4 class="text-center">Order Details</h4>
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <table style="width: 100%;">
                             <tr>
-                                <td style="width: 20%; padding: 10px; border: 1px solid #000;">
+                                <td style="width: 20%; padding: 10px; border: 1px solid #9e9e9e;">
                                     <strong style="display: block; text-align: center;">Invoice#</strong>
                                     <p style="display: block; text-align: center; margin: 0;">{{ $order->invoice }}</p>
                                 </td>
-                                <td style="width: 20%; padding: 10px; border: 1px solid #000;">
+                                <td style="width: 20%; padding: 10px; border: 1px solid #9e9e9e;">
                                     <strong style="display: block; text-align: center;">Client</strong>
                                     <p style="display: block; text-align: center; margin: 0;">{{ $order->client_name }}</p>
                                 </td>
-                                <td style="width: 20%; padding: 10px; border: 1px solid #000;">
+                                <td style="width: 20%; padding: 10px; border: 1px solid #9e9e9e;">
                                     <strong style="display: block; text-align: center;">Delivery</strong>
                                     <p style="display: block; text-align: center; margin: 0;">{{ $order->delivery }}</p>
                                 </td>
-                                <td style="width: 20%; padding: 10px; border: 1px solid #000;">
+                                <td style="width: 20%; padding: 10px; border: 1px solid #9e9e9e;">
                                     <strong style="display: block; text-align: center;">Currency</strong>
                                     <p style="display: block; text-align: center; margin: 0;">{{ $order->currency }}</p>
-                                </td>
-                                <td style="width: 20%; padding: 10px; border: 1px solid #000;">
-                                    <strong style="display: block; text-align: center;">Notes</strong>
-                                    <p style="display: block; text-align: center; margin: 0;">{{ $order->notes }}</p>
                                 </td>
                             </tr>
                         </table>                        
                         
-                        <h4 class="text-center">Outfits</h4>
-                        <table class="table" id="invoice_outfits">
+                        <h4 class="text-center mt-2">Outfits</h4>
+                        <table class="table table-strip" id="invoice_outfits">
                             <thead>
                                 <tr style="height: 20px">
                                     <th>Name</th>
@@ -64,17 +90,19 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <hr>
                         <div class="row">
                             <div class="offset-9 col-3 mt-2">
-                                <strong> Outfits Total: <span class="ml-1" id="invoice_outfit_total">{{ $order->outfits->sum('price') }}</span> </strong>
+                                <b class="" > Outfits Total: </b><span class="right-span">{{ $order->outfits->sum('price') }}</span>
                             </div>
                             <div class="offset-9 col-3">
-                                <h6> Shipping Cost: <span class="ml-1" id="invoice_shipping">{{ $order->shipping_cost }}</span> </h6>
+                                <b class="ship-span"> Shipping Cost: </b><span class="right-span">{{ $order->shipping_cost }}</span>
                             </div>
                             <div class="offset-9 col-3 mt-2">
-                                <strong> Order Total: <span class="ml-1" id="invoice_order_total">{{ $order->outfits->sum('price') + $order->shipping_cost }}</span> </strong>
+                                <b class=""> Order Total: </b><span class="right-span">{{ $order->outfits->sum('price') + $order->shipping_cost }}</span>
                             </div>
                         </div>
+                        <hr>
                         <h4 class="text-center">Payments</h4>
                         <table class="table" id="invoice_outfits">
                             <thead>
@@ -100,12 +128,15 @@
                         </table>
                         <div class="row mt-2">
                             <div class="offset-8 col-4 mt-2">
-                                <strong>Remaining Balance: <span id="invoice_balance_total">{{ ($order->outfits->sum('price') + $order->shipping_cost) - $order->transactions->sum('payment') }}</span></strong>
+                                <b style="margin-left: 30px">Remaining Balance: </b><span class="right-span">{{ ($order->outfits->sum('price') + $order->shipping_cost) - $order->transactions->sum('payment') }}</span>
                             </div>
+                        </div>
+                        <h4 class="text-center">Additional Notes</h4>
+                        <div class="border p-2">
+                           <p>{{ $order->notes }}</p> 
                         </div>
                     </div>
                 </div>
-    
     
             </div>
         </div>

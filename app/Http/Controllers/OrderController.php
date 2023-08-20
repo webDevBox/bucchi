@@ -39,6 +39,7 @@ class OrderController extends Controller
 
     public function updateOutfitProductin(Request $request, $id)
     {
+        dd($request->file('audiosFiles'));
         try {
             //Add Material Images
             $notesImages = $request->file('material_images');
