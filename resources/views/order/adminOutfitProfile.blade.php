@@ -120,7 +120,7 @@
             </li>
           </ul>
           <!-- Step Wise Form Content -->
-          <form method="POST" action="{{ route('updateOutfitProductin',['id' => $outfit->id]) }}"
+          <form method="POST" id="productionLineForm" action="{{ route('updateOutfitProductin',['id' => $outfit->id]) }}"
             enctype="multipart/form-data">
             @csrf
             <!-- Step 1 Content -->

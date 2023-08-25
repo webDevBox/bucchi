@@ -1,4 +1,23 @@
 @extends('layouts.app')
+@section('style')
+<style>
+    .image-container {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .image-container .btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+</style>
+    
+@endsection
 @section('content')
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -35,12 +54,28 @@
                     @foreach ($outfit->statuses as $status)
                         <div class="col-md-9 col-sm-12 mt-1">
                             {{ $status->status }}
+                            @if($status->status == 'Photo')
+                                <i class="fa fa-arrow-down" id="image-section-opener" style="color: #6610F2; cursor: pointer"></i>
+                            @endif
                         </div>
                         <div class="col-md-3 col-sm-12 mt-1">
                             <span class="badge badge-primary">
                                 {{ $status->date_time }}
                             </span>
                         </div>
+                        @if($status->status == 'Photo')
+                            <div id="image-section" class="col-12 d-none">
+                                <div class="row">
+                                    @foreach ($outfit->notes->where('type',0)->where('image_type',1) as $image)
+                                        <div class="col-md-2 col-sm-4 col-xs-4 mt-1" onclick="showModal('{{ $image->id }}', '{{ asset("files/".$image->file) }}')">
+                                            <div class="image-container" style="background-image: url('{{ asset("files/".$image->file) }}');
+                                                height: 100px; width: 100px;">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
                     @endforeach
                 </div>
                 
@@ -59,6 +94,25 @@
     </div>
     </div>
     </div>
+
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog">
+        <div class="modal-lg modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Image Preview</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <img src="" alt="Image" class="img-fluid" id="modalImage">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     
     </div>
     </section>
@@ -71,6 +125,32 @@
 @endsection
 
 @section('scripts')
+<script>
+    function showModal(id,imageUrl) {
+      $('#modalImage').attr('src', imageUrl);
+      $('#imageModal').modal('show');
+    }
+    
+    $('#image-section-opener').click(function(){
+        if($('#image-section-opener').hasClass('fa-arrow-down'))
+        {
+            $('#image-section-opener').removeClass('fa-arrow-down')
+            $('#image-section-opener').addClass('fa-arrow-up')
+        }
+        else{
+            $('#image-section-opener').addClass('fa-arrow-down')
+            $('#image-section-opener').removeClass('fa-arrow-up')
+        }
 
+
+        if($('#image-section').hasClass('d-none'))
+        {
+            $('#image-section').removeClass('d-none')
+        }
+        else{
+            $('#image-section').addClass('d-none')
+        }
+    })
+  </script>
     
 @endsection
