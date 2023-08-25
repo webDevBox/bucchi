@@ -7,7 +7,7 @@ $(document).ready(function() {
 
         // Clear the table body
         tableBody.empty();
-        var url = baseUrl + "/admin/order/outfits";
+        var url = baseUrl + "/office/outfits/Modal";
         // Make an AJAX request to fetch the outfits for the selected order
         $.ajax({
             url: url, // Replace with your route for fetching the outfits

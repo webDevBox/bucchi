@@ -38,7 +38,7 @@
                                                     <td class="text-center">{{ $order->completion_date }}</td>
                                                     <td class="text-center">
                                                         <div class="btn-group btn-group-xs">
-                                                            <a href="#" onclick="getInvoice({{ $order->id }})"
+                                                            <a href="{{ route('generatePDF',['id' => $order->id]) }}"
                                                                 data-toggle="tooltip" title="Download PDF"
                                                                 class="btn btn-success"><i
                                                                     class="fa fa-download"></i></a>
@@ -116,11 +116,6 @@
         // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
         "order": [[0, "asc"]],
         "columnDefs": [
-            {
-                // Disable ordering for the 2nd column (PDF column)
-                "targets": [1],
-                "orderable": false
-            },
             {
                 // Disable ordering for the 2nd column (PDF column)
                 "targets": [2],
