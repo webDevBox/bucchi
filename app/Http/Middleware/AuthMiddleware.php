@@ -25,7 +25,7 @@ class AuthMiddleware
             }
             if($user->role == 1)
             {
-                return redirect()->route('showCOA',['id' => 0]);
+                return redirect()->route('officeDashboard');
             }
         }
         return $next($request);
