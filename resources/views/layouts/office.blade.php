@@ -256,34 +256,28 @@ height: 14
 }
 })
 </script>
-@if (Session::has('error'))
+
 <script>
-    var message = {{ Session::get('error') }}
+    @if (Session::has('error'))
+    var message = `{{ Session::get('error') }}`;
     setTimeout(function () {
-        toastr['error'](
-            message,
-        {
+        toastr['error'](message, 'ERROR', {
             closeButton: true,
             tapToDismiss: false
-        }
-        );
-    }, 5000);
-</script>
+        });
+    }, 2000);
 @endif
+
 @if (Session::has('success'))
-<script>
-    var message = {{ Session::get('success') }}
+    var message = `{{ Session::get('success') }}`;
     setTimeout(function () {
-        toastr['success'](
-            message,
-        {
+        toastr['success'](message, 'SUCCESS', {
             closeButton: true,
             tapToDismiss: false
-        }
-        );
-    }, 5000);
-</script>
+        });
+    }, 2000);
 @endif
+</script>
 
 @yield('scripts')
 </body>

@@ -39,6 +39,10 @@ class OrderController extends Controller
 
     public function updateOutfitProductin(Request $request, $id)
     {
+        if($request->article_number == null || $request->article_number == '')
+        {
+            return redirect()->back()->withError('Article number cannot be empty');
+        }
         try {
             //Add Material Images
             $notesImages = $request->file('material_images');
