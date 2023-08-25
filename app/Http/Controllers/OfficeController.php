@@ -109,6 +109,7 @@ class OfficeController extends Controller
 
     public function orderSearch()
     {
-        return view('office.search');
+        $orders = Order::completed()->get();
+        return view('office.search',compact('orders'));
     }
 }

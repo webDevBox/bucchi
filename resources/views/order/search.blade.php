@@ -16,8 +16,8 @@
     <div class="card card-company-table">
     <div class="card-body p-0">
     <div class="table-responsive">
-        <div class="block full">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+        <div class="block full p-2">
+            {{-- <input type="text" class="form-control" id="searchInput" placeholder="Search..."> --}}
             <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
@@ -36,7 +36,7 @@
                             <td class="text-center">{{ $order->completion_date }}</td>
                             <td class="text-center"> {{ $order->outfits->pluck('price')->sum() }} </td>
                             <td class="text-center">
-                                <a href="#" onclick="getInvoice({{ $order->id }})" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
+                                <a href="{{ route('generatePDF',['id' => $order->id]) }}" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -86,6 +86,20 @@
 @section('scripts')
 <script>
     var baseUrl = "{{ url('/') }}";
+    $(document).ready(function() {
+    $('#ecom-orders').DataTable({
+        // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
+        "order": [[1, "asc"]],
+        "columnDefs": [
+            {
+                // Disable ordering for the last column (Action column)
+                "targets": [3],
+                "orderable": false
+            }
+        ],
+        "lengthMenu": [10, 25, 50, 100, 500, 1000],
+    });
+});
 </script>
 <script src="{{ asset('app-assets/js/search.js')}}"></script>
 <script src="{{ asset('app-assets/js/outfitModal.js')}}"></script>

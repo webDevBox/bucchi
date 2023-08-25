@@ -16,45 +16,58 @@
     <div class="card card-company-table">
     <div class="card-body p-0">
     <div class="table-responsive">
-        <div class="block full">
-            <input type="text" class="form-control" id="searchInput" placeholder="Search...">
+        <div class="block full p-2">
+            {{-- <input type="text" class="form-control" id="searchInput" placeholder="Search..."> --}}
             <table id="ecom-orders" class="table table-bordered table-striped table-vcenter">
                 <thead>
                 <tr>
-                <th class="text-center">Invoice#</th>
                 <th class="text-center">Client Name</th>
                 <th class="text-center">Delivery Date</th>
+                <th class="text-center">Cost</th>
+                <th class="text-center">Download PDF</th>
                 </tr>
                 </thead>
                 <tbody>
+                    @foreach ($orders as $order)
                         <tr>
-                            <td class="text-center"> 123 </td>
                             <td class="text-center"> 
-                                <a href="#" data-toggle="modal" data-target="#myModal8" > Mark </a>
+                                <a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="{{ $order->id }}" > {{ $order->client->name }} </a>
                             </td>
-                            <td class="text-center">8 Jan 2023</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center"> 456 </td>
-                            <td class="text-center"> 
-                                <a href="#" data-toggle="modal" data-target="#myModal8" > john </a>
+                            <td class="text-center">{{ $order->completion_date }}</td>
+                            <td class="text-center"> {{ $order->outfits->pluck('price')->sum() }} </td>
+                            <td class="text-center">
+                                <a href="{{ route('generatePDF',['id' => $order->id]) }}" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
                             </td>
-                            <td class="text-center">13 june 2023</td>
                         </tr>
-                        <tr>
-                            <td class="text-center"> 789 </td>
-                            <td class="text-center"> 
-                                <a href="#" data-toggle="modal" data-target="#myModal8" > Daarm </a>
-                            </td>
-                            <td class="text-center">23 april 2023</td>
-                        </tr>
-                        
-                        
-                    
+                    @endforeach
                 </tbody>
                 </table>
 
             </div>
+    </div>
+    <div id="invoice_order" class="d-none">
+        <div class="row">
+            <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Client Details</h2>
+                <p>Name: <strong id="client_name_over"></strong></p>
+                <p>Phone: <strong id="client_phone_over"></strong></p>
+                <p>Email: <strong id="client_email_over"></strong></p>
+            </div>
+            <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Order Details</h2>
+                <p>Delivery: <strong id="order_delivery_over"></strong></p>
+                <p>Completion Date: <strong id="order_date_over"></strong></p>
+                <p>Currency: <strong id="order_currency_over"></strong></p>
+            </div>
+            <div class="col-md-5 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Notes</h2>
+                <p id="notes_over"></p>
+            </div>
+            <div class="col-md-5 offset-md-2 col-sm-12 border border-success rounded my-2">
+                <h2 class="text-center">Outfits</h2>
+                <div id="outfits-list"></div>
+            </div>
+        </div>
     </div>
     </div>
     </div>
@@ -66,12 +79,32 @@
     </div>
     </div>
     </div>
-    @component('components.outfitModal', ['modalId' => 'myModal', 'modalTitle' => 'Outfits'])
-        
-    @endcomponent
+    @component('components.outfitModal', ['modalId' => 'myModal', 'modalTitle' => 'Outfits']) @endcomponent
+    
 @endsection
 
 @section('scripts')
+<script>
+    var baseUrl = "{{ url('/') }}";
+    $(document).ready(function() {
+    $('#ecom-orders').DataTable({
+        // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
+        "order": [[1, "asc"]],
+        "columnDefs": [
+            {
+                // Disable ordering for the last column (Action column)
+                "targets": [3],
+                "orderable": false
+            }
+        ],
+        "lengthMenu": [10, 25, 50, 100, 500, 1000],
+    });
+});
+</script>
 <script src="{{ asset('app-assets/js/search.js')}}"></script>
+<script src="{{ asset('app-assets/js/outfitModal.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="{{ asset('app-assets/js/custom.js')}}"></script>
     
 @endsection
