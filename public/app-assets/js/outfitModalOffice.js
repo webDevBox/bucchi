@@ -14,12 +14,11 @@ $(document).ready(function() {
             type: 'GET',
             data: { orderId: orderId },
             success: function(response) {
-                console.log('agyaaaa',response)
                 // Populate the table body with the fetched outfits
                 $.each(response.outfits, function(index, outfit) {
                     var newStatus
                     outfit.status_list.map((status) => {
-                        if(status.current === '0')
+                        if(status.current == '0')
                         {
                             newStatus = status.status
                         }

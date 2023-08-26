@@ -1,4 +1,11 @@
 @extends('layouts.app')
+@section('style')
+    <style>
+        .table-body tr td {
+            text-align: center;
+        }
+    </style>
+@endsection
 @section('content')
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -25,10 +32,11 @@
                 <th class="text-center">Delivery Date</th>
                 <th class="text-center">Cost</th>
                 <th class="text-center">Download PDF</th>
+                <th class="text-center">Article</th>
                 </tr>
                 </thead>
-                <tbody>
-                    @foreach ($orders as $order)
+                <tbody class="table-body">
+                    {{-- @foreach ($orders as $order)
                         <tr>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="{{ $order->id }}" > {{ $order->client->name }} </a>
@@ -39,13 +47,13 @@
                                 <a href="{{ route('generatePDF',['id' => $order->id]) }}" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
                 </table>
 
             </div>
     </div>
-    <div id="invoice_order" class="d-none">
+    {{-- <div id="invoice_order" class="d-none">
         <div class="row">
             <div class="col-md-5 col-sm-12 border border-success rounded my-2">
                 <h2 class="text-center">Client Details</h2>
@@ -68,7 +76,7 @@
                 <div id="outfits-list"></div>
             </div>
         </div>
-    </div>
+    </div> --}}
     </div>
     </div>
     </div>
@@ -86,22 +94,47 @@
 @section('scripts')
 <script>
     var baseUrl = "{{ url('/') }}";
-    $(document).ready(function() {
-    $('#ecom-orders').DataTable({
-        // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
-        "order": [[1, "asc"]],
-        "columnDefs": [
-            {
-                // Disable ordering for the last column (Action column)
-                "targets": [3],
-                "orderable": false
-            }
-        ],
-        "lengthMenu": [10, 25, 50, 100, 500, 1000],
+//     $(document).ready(function() {
+//     $('#ecom-orders').DataTable({
+//         // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
+//         "order": [[1, "asc"]],
+//         "columnDefs": [
+//             {
+//                 // Disable ordering for the last column (Action column)
+//                 "targets": [3],
+//                 "orderable": false
+//             }
+//         ],
+//         "lengthMenu": [10, 25, 50, 100, 500, 1000],
+//     });
+// });
+
+
+$(function () {
+      
+      var table = $('#ecom-orders').DataTable({
+          processing: true,
+          serverSide: true,
+          columnDefs: [
+                {
+                    targets: -1,
+                    visible: false
+                }
+            ],
+          ajax: "{{ route('searchOrder') }}",
+          columns: [
+              {data: 'name', name: 'name'},
+              {data: 'date', name: 'date'},
+              {data: 'cost', name: 'cost'},
+              {data: 'download', name: 'download', orderable: false, searchable: false},
+              {data: 'article', name: 'article', orderable: false, searchable: false},
+          ]
+      });
+        
     });
-});
+
 </script>
-<script src="{{ asset('app-assets/js/search.js')}}"></script>
+{{-- <script src="{{ asset('app-assets/js/search.js')}}"></script> --}}
 <script src="{{ asset('app-assets/js/outfitModal.js')}}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>

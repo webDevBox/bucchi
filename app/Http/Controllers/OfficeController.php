@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
@@ -107,9 +108,32 @@ class OfficeController extends Controller
         return view('office.outfitProfile',compact('outfit','statuses'));
     }
 
-    public function orderSearch()
+    public function orderSearch(Request $request)
     {
-        $orders = Order::completed()->get();
-        return view('office.search',compact('orders'));
+        if ($request->ajax()) {
+            $orders = Order::completed()->get();
+            return Datatables::of($orders)
+                    ->addColumn('name', function($name){
+                        return '<a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="'. $name->id .'" > '.$name->client->name .' </a>';
+                    })
+                    ->addColumn('date', function($date){
+                            return $date->completion_date;
+                    })
+                    ->addColumn('cost', function($cost){
+                            return $cost->outfits->pluck('price')->sum();
+                    })
+                    ->addColumn('article', function($article){
+                            return $article->outfits->pluck('article');
+                    })
+                    ->rawColumns(['name'])
+                    ->make(true);
+        }
+        return view('office.search');
+    }
+
+    public function officeOutfitutfitDetailPage($id)
+    {
+        $outfit = Outfit::with('order.client')->find($id);
+        return view('office.outfitProfilePage',compact('outfit'));
     }
 }

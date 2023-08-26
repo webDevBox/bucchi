@@ -19,7 +19,7 @@ $(document).ready(function() {
                 $.each(response.outfits, function(index, outfit) {
                     var newStatus
                     outfit.status_list.map((status) => {
-                        if(status.current === '0')
+                        if(status.current == '0')
                         {
                             newStatus = status.status
                         }

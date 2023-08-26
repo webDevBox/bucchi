@@ -88,9 +88,10 @@ Route::middleware(['auth.login'])->group(function () {
         });
         Route::get('dashboard',[OfficeController::class, 'index'])->name('officeDashboard');
         Route::get('outfits',[OfficeController::class, 'outfits'])->name('outfits');
-        Route::get('outfits/Modal',[OrderController::class, 'getOrderOutfits'])->name('getOrderOutfitsModal');
+        Route::get('outfits/Modal',[OrderController::class, 'getOrderOutfitsOffice'])->name('getOrderOutfitsModal');
         Route::get('outfits/profile/{id}',[OfficeController::class, 'outfitProfile'])->name('outfitProfile');
         Route::get('order/search',[OfficeController::class, 'orderSearch'])->name('orderSearch');
+        Route::get('order/outfitsDetail/{id}',[OfficeController::class, 'officeOutfitutfitDetailPage'])->name('officeOutfitutfitDetailPage');
     });
     Route::middleware('auth.common')->group(function() {
         Route::get('/generatePDF/{id}', [OrderController::class, 'generatePDF'])->name('generatePDF');

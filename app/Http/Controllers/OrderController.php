@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use DataTables;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Client;
@@ -39,10 +40,6 @@ class OrderController extends Controller
 
     public function updateOutfitProductin(Request $request, $id)
     {
-        if($request->article_number == null || $request->article_number == '')
-        {
-            return redirect()->back()->withError('Article number cannot be empty');
-        }
         try {
             //Add Material Images
             $notesImages = $request->file('material_images');
@@ -86,6 +83,10 @@ class OrderController extends Controller
 
             if(!isset($outfitStatus))
             {
+                if($request->article_number == null || $request->article_number == '')
+                {
+                    return redirect()->back()->withError('Please Enter Article Number To Change Status');
+                }
                 OutfitStatus::where('outfit_id',$id)->update(['current' => 1]);
                 OutfitStatus::create([
                     'outfit_id' => $id,
@@ -143,7 +144,7 @@ class OrderController extends Controller
         $outfit = Outfit::with('order.client')->find($id);
         return view('order.outfit',compact('outfit'));
     }
-    
+        
     public function changes()
     {
         $orders = Order::active()->production()->latest()->get();
@@ -156,10 +157,33 @@ class OrderController extends Controller
         return view('order.draft',compact('orders'));
     }
     
-    public function search()
+    public function search(Request $request)
     {
-        $orders = Order::completed()->get();
-        return view('order.search',compact('orders'));
+        if ($request->ajax()) {
+            $orders = Order::completed()->get();
+            return Datatables::of($orders)
+                    ->addColumn('name', function($name){
+                            return '<a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="'.$name->id .'" > '.$name->client->name .'</a>';
+                    })
+                    ->addColumn('date', function($date){
+                            return $date->completion_date;
+                    })
+                    ->addColumn('date', function($date){
+                            return $date->completion_date;
+                    })
+                    ->addColumn('cost', function($cost){
+                            return $cost->outfits->pluck('price')->sum();
+                    })
+                    ->addColumn('download', function($download){
+                            return '<a href="'.route('generatePDF',['id' => $download->id]) .'" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>';
+                    })
+                    ->addColumn('article', function($article){
+                        return $article->outfits->pluck('article');
+                    })
+                    ->rawColumns(['name','download'])
+                    ->make(true);
+        }
+        return view('order.search');
     }
     
     public function update($id)
@@ -446,6 +470,31 @@ class OrderController extends Controller
                 'status' => $outfit->production,
                 'status_list' => $outfit->statuses,
                 'detailsRoute' => route('OutFitDetails', ['id' => $outfit->id]),
+            ];
+        }
+    
+        // Return the outfits as a JSON response
+        return response()->json(['outfits' => $data]);
+    }
+    
+    public function getOrderOutfitsOffice(Request $request)
+    {
+        $orderId = $request->orderId;
+
+        // Fetch the outfits based on the order ID
+        $outfits = Outfit::where('order_id', $orderId)->get();
+    
+        // Process the fetched outfits and create an array with the necessary data
+        $data = [];
+        foreach ($outfits as $outfit) {
+            $data[] = [
+                'id' => $outfit->id,
+                'article' => $outfit->article,
+                'name' => $outfit->name,
+                'hours' => $outfit->hours,
+                'status' => $outfit->production,
+                'status_list' => $outfit->statuses,
+                'detailsRoute' => route('officeOutfitutfitDetailPage', ['id' => $outfit->id]),
             ];
         }
     

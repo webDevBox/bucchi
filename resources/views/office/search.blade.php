@@ -1,4 +1,11 @@
 @extends('layouts.office')
+@section('style')
+    <style>
+        .table-body tr td {
+            text-align: center;
+        }
+    </style>
+@endsection
 @section('content')
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -24,22 +31,23 @@
                 <th class="text-center">Client Name</th>
                 <th class="text-center">Delivery Date</th>
                 <th class="text-center">Cost</th>
-                <th class="text-center">Download PDF</th>
+                <th class="text-center">Article</th>
+                {{-- <th class="text-center">Download PDF</th> --}}
                 </tr>
                 </thead>
-                <tbody>
-                    @foreach ($orders as $order)
+                <tbody class="table-body">
+                    {{-- @foreach ($orders as $order)
                         <tr>
                             <td class="text-center"> 
                                 <a href="#" data-toggle="modal" data-target="#myModal8" data-order-id="{{ $order->id }}" > {{ $order->client->name }} </a>
                             </td>
                             <td class="text-center">{{ $order->completion_date }}</td>
-                            <td class="text-center"> {{ $order->outfits->pluck('price')->sum() }} </td>
-                            <td class="text-center">
+                            <td class="text-center"> {{ $order->outfits->pluck('price')->sum() }} </td> --}}
+                            {{-- <td class="text-center">
                                 <a href="{{ route('generatePDF',['id' => $order->id]) }}" data-toggle="tooltip" title="Download PDF" class="btn btn-success"><i class="fa fa-download"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
+                            </td> --}}
+                        {{-- </tr>
+                    @endforeach --}}
                 </tbody>
                 </table>
 
@@ -86,20 +94,42 @@
 @section('scripts')
 <script>
     var baseUrl = "{{ url('/') }}";
-    $(document).ready(function() {
-    $('#ecom-orders').DataTable({
-        // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
-        "order": [[1, "asc"]],
-        "columnDefs": [
-            {
-                // Disable ordering for the last column (Action column)
-                "targets": [3],
-                "orderable": false
-            }
-        ],
-        "lengthMenu": [10, 25, 50, 100, 500, 1000],
+//     $(document).ready(function() {
+//     $('#ecom-orders').DataTable({
+//         // Replace "1" with the index of the column you want to make orderable (in this case, it's the second column, so index 1)
+//         "order": [[1, "asc"]],
+//         "columnDefs": [
+//             {
+//                 // Disable ordering for the last column (Action column)
+//                 "targets": [3],
+//                 "orderable": false
+//             }
+//         ],
+//         "lengthMenu": [10, 25, 50, 100, 500, 1000],
+//     });
+// });
+
+$(function () {
+      
+      var table = $('#ecom-orders').DataTable({
+          processing: true,
+          serverSide: true,
+          columnDefs: [
+                {
+                    targets: -1,
+                    visible: false
+                }
+            ],
+          ajax: "{{ route('orderSearch') }}",
+          columns: [
+              {data: 'name', name: 'name'},
+              {data: 'date', name: 'date'},
+              {data: 'cost', name: 'cost'},
+              {data: 'article', name: 'article'},
+          ]
+      });
+        
     });
-});
 </script>
 <script src="{{ asset('app-assets/js/search.js')}}"></script>
 <script src="{{ asset('app-assets/js/outfitModalOffice.js')}}"></script>
