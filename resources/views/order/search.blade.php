@@ -127,7 +127,7 @@ $(function () {
               {data: 'date', name: 'date'},
               {data: 'cost', name: 'cost'},
               {data: 'download', name: 'download', orderable: false, searchable: false},
-              {data: 'article', name: 'article', orderable: false, searchable: false},
+              {data: 'article', name: 'article'},
           ]
       });
         
